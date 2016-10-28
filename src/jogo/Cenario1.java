@@ -23,6 +23,7 @@ public class Cenario1 {
         this.janela = janela;
         cena = new Scene();
         cena.loadFromFile(URL.scenario("Cenario1.scn"));
+        
         jogador = new Jogador(640,350);
         run();
     }

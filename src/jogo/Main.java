@@ -24,6 +24,7 @@ public class Main {
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
                 new Cenario1(janela);
             }
+            
         }
     }
 
