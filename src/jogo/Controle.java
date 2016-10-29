@@ -22,12 +22,19 @@ public class Controle {
 
     public boolean colisao(GameObject obj, TileInfo tile) {
 
-        if ((tile.id >= 7) && obj.collided(tile)) {
+        if ((tile.id >= tileId) && obj.collided(tile)) {
             return true;
         }
 
         return false;
+    }
 
+    public int getTileId() {
+        return tileId;
+    }
+
+    public void setTileId(int tileId) {
+        this.tileId = tileId;
     }
 
 }
