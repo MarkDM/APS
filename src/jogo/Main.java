@@ -16,7 +16,7 @@ public class Main {
         Window janela = new Window(800, 600);
         GameImage plano = new GameImage(URL.sprite("menu.png"));
         Keyboard teclado = janela.getKeyboard();
-        
+        Som.play("Nothing_Else_Matters.mid");
         while(true) {
             plano.draw();
             janela.update();

@@ -1,5 +1,5 @@
 10
-src/recursos/tiles/tiles/grass.png
+src/recursos/tiles/tilesets/asfalto.png
 08
 03
 04
@@ -9,7 +9,7 @@ src/recursos/tiles/tiles/grass.png
 src/recursos/tiles/tiles/stone.png
 src/recursos/tiles/tilesets/asfalto.png
 10
-01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 09 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
 01 01 01 01 01 01 01 01 01 01 01 01 01 08 01 01 01 01 01 01 01 01 01 01 01 01
 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01
