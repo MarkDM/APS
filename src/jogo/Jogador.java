@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jogo;
 
 import com.sun.glass.events.KeyEvent;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 import java.util.Vector;
 import jplay.GameObject;
@@ -17,13 +14,15 @@ import jplay.URL;
 import jplay.Window;
 
 /**
- *
+ *Classe
  * @author Marcos
  */
 public class Jogador extends Personagem {
 
-    private static double energia = 100;
+    public static double energia = 1000;
     ControleTiros tiros = new ControleTiros();
+    private Font f = new Font("arial", Font.BOLD, 20);
+    public int ataque = 150;
 
     /**
      * Cria um novo jogador a partir de um sprite definindo sua posição no cenário
@@ -38,11 +37,11 @@ public class Jogador extends Personagem {
         this.setTotalDuration(2000);
     }
 
-    public void atirar(Window janela, Scene cena, Keyboard teclado) {
+    public void atirar(Window janela, Scene cena, Keyboard teclado, Personagem inimigo) {
         if (teclado.keyDown(KeyEvent.VK_A)) {
             tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
         }
-        tiros.run();
+        tiros.run(inimigo,this);
     }
 
     /**
@@ -104,6 +103,10 @@ public class Jogador extends Personagem {
             movendo = false;
         }
 
+    }
+
+    public void mostrarEnergia(Window janela) {
+        janela.drawText("Health: " + Jogador.energia, 30, 30, Color.GREEN, f);
     }
 
 }

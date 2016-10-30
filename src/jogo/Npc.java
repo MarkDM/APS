@@ -14,6 +14,8 @@ import jplay.URL;
  */
 public class Npc extends Personagem {
 
+    private double ataque = 1;
+
     public Npc(int x, int y) {
         super(URL.sprite("zumbi.png"), 16);
         this.x = x;
@@ -22,13 +24,13 @@ public class Npc extends Personagem {
         this.setTotalDuration(2000);
     }
 
-    public void perseguir(double x, double y) {
+    public void perseguir(Jogador jogador) {
 
-        if (!alcancouJogador(x, y, this.x, this.y)) {
+        if (!alcancouJogador(this,jogador)) {
 
-            if (estaPertodoJogador(x, y, this.x, this.y)) {
+            if (estaPertodoJogador(jogador.x, jogador.y, this.x, this.y)) {
 
-                if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
+                if (this.x > jogador.x && this.y <= jogador.y + 50 && this.y >= jogador.y - 50) {
                     //moveTo(x, y, velocidade);
 
                     if (direcao != 1) {
@@ -37,21 +39,21 @@ public class Npc extends Personagem {
                     }
 
                     movendo = true;
-                } else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
+                } else if (this.x < jogador.x && this.y <= jogador.y + 50 && this.y >= -50) {
                     //moveTo(x, y, velocidade);
                     if (direcao != 2) {
                         setSequence(9, 12);
                         direcao = 2;
                     }
                     movendo = true;
-                } else if (this.y > y) {
+                } else if (this.y > jogador.y) {
                     //moveTo(x, y, velocidade);
                     if (direcao != 4) {
                         setSequence(13, 16);
                         direcao = 4;
                     }
                     movendo = true;
-                } else if (this.y < y) {
+                } else if (this.y < jogador.y) {
                     //moveTo(x, y, velocidade);
 
                     if (direcao != 5) {
@@ -63,7 +65,7 @@ public class Npc extends Personagem {
 
                 if (movendo) {
 
-                    moveTo(x, y, velocidade);
+                    moveTo(jogador.x, jogador.y, velocidade);
                     update();
 
                     movendo = false;
@@ -75,25 +77,37 @@ public class Npc extends Personagem {
 
     }
 
-    private boolean alcancouJogador(double x1, double y1, double x2, double y2) {
+    private boolean alcancouJogador(Npc npc, Jogador jogador) {
 
-        double distancia = Math.abs((x1 * y1) - (x2 * y2));
+        return npc.collided(jogador);
 
-        if (distancia < 1000) {
-            return true;
-        }
-
-        return false;
     }
 
     private boolean estaPertodoJogador(double x1, double y1, double x2, double y2) {
 
         double distancia = Math.abs((x1 * y1) - (x2 * y2));
 
-        if (distancia < 134000) {
-            return true;
+        return distancia < 134000;
+    }
+
+    public void morrer() {
+        if (this.energia <= 0) {
+            this.velocidade = 0;
+            //this.ataque = 0;
+            this.direcao = 0;
+            this.movendo = false;
+            this.x = 1_000_000;
+        }
+    }
+
+    public void atacar(Jogador jogador) {
+        if (this.collided(jogador)) {
+            Jogador.energia -= this.ataque;
         }
 
-        return false;
+        if (Jogador.energia <= 0) {
+            System.out.println("Morreu!");
+        }
     }
+
 }

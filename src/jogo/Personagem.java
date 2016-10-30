@@ -16,23 +16,21 @@ import jplay.URL;
 import jplay.Window;
 
 /**
- *
+ *Classe que representa qualquer personagem do jogo
  * @author Marcos
  */
-public class Personagem extends Sprite  {
+public class Personagem extends Sprite {
 
-    
     protected int direcao = 3;
     public boolean movendo = false;
     private Controle controle = new Controle();
     public double velocidade = 1;
+    public double energia = 1000;
 
     public Personagem(String fileName, int numFrames) {
         super(fileName, numFrames);
     }
 
-
-    
     /**
      * Controle de caminho percorrível pelo personagem
      *

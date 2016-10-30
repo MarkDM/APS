@@ -11,7 +11,7 @@ import jplay.URL;
 import jplay.Window;
 
 /**
- * Classe que representa o cenário
+ * Classe que representa o cenário1 do jogo
  *
  * @author Marcos
  */
@@ -47,7 +47,7 @@ public class Cenario1 extends Cenario {
             jogador.controle(janela, teclado);
             jogador.caminho(cena);
             zumbi.caminho(cena);
-            zumbi.perseguir(jogador.x, jogador.y);
+            zumbi.perseguir(jogador);
             //Move o cenário centralizabdo o objeto passado como parâmetro
             cena.moveScene(jogador);
 
@@ -55,14 +55,18 @@ public class Cenario1 extends Cenario {
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
             
-            jogador.atirar(janela, cena, teclado);
-
             zumbi.x += cena.getXOffset();
             zumbi.y += cena.getYOffset();
 
             //Atualiza o jogador a cada refresh da tela
             janela.delay(4);
             jogador.draw();
+            
+            jogador.atirar(janela, cena, teclado, zumbi);
+            zumbi.morrer();
+            zumbi.atacar(jogador);
+            jogador.mostrarEnergia(janela);
+            
             zumbi.draw();
             janela.update();
             
