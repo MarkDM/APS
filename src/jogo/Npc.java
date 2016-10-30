@@ -19,6 +19,7 @@ public class Npc extends Personagem {
         this.x = x;
         this.y = y;
         this.velocidade = 0.3;
+        this.setTotalDuration(2000);
     }
 
     public void perseguir(double x, double y) {
