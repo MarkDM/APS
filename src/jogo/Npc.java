@@ -23,54 +23,77 @@ public class Npc extends Personagem {
     }
 
     public void perseguir(double x, double y) {
-        if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
-            //moveTo(x, y, velocidade);
 
-            if (direcao != 1) {
-                setSequence(5, 8);
-                direcao = 1;
+        if (!alcancouJogador(x, y, this.x, this.y)) {
+
+            if (estaPertodoJogador(x, y, this.x, this.y)) {
+
+                if (this.x > x && this.y <= y + 50 && this.y >= y - 50) {
+                    //moveTo(x, y, velocidade);
+
+                    if (direcao != 1) {
+                        setSequence(5, 8);
+                        direcao = 1;
+                    }
+
+                    movendo = true;
+                } else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
+                    //moveTo(x, y, velocidade);
+                    if (direcao != 2) {
+                        setSequence(9, 12);
+                        direcao = 2;
+                    }
+                    movendo = true;
+                } else if (this.y > y) {
+                    //moveTo(x, y, velocidade);
+                    if (direcao != 4) {
+                        setSequence(13, 16);
+                        direcao = 4;
+                    }
+                    movendo = true;
+                } else if (this.y < y) {
+                    //moveTo(x, y, velocidade);
+
+                    if (direcao != 5) {
+                        setSequence(1, 4);
+                        direcao = 5;
+                    }
+                    movendo = true;
+                }
+
+                if (movendo) {
+
+                    moveTo(x, y, velocidade);
+                    update();
+
+                    movendo = false;
+                }
+
             }
 
-            movendo = true;
-        } else if (this.x < x && this.y <= y + 50 && this.y >= -50) {
-            //moveTo(x, y, velocidade);
-            if (direcao != 2) {
-                setSequence(9, 12);
-                direcao = 2;
-            }
-            movendo = true;
-        } else if (this.y > y) {
-            //moveTo(x, y, velocidade);
-            if (direcao != 4) {
-                setSequence(13, 16);
-                direcao = 4;
-            }
-            movendo = true;
-        } else if (this.y < y) {
-            //moveTo(x, y, velocidade);
-
-            if (direcao != 5) {
-                setSequence(1, 4);
-                direcao = 5;
-            }
-            movendo = true;
         }
 
-        if (movendo) {
-            if (!alcancouJogador(x, y, this.x, this.y)) {
-                moveTo(x, y, velocidade);
-            }
-            update();
-            movendo = false;
-        }
     }
 
     private boolean alcancouJogador(double x1, double y1, double x2, double y2) {
-        
-        if (Math.abs(x1 - x2) == 10 && Math.abs(y1 - y2) == 10) {
-            System.out.println("Alcançou jogador");
+
+        double distancia = Math.abs((x1 * y1) - (x2 * y2));
+
+        if (distancia < 1000) {
             return true;
         }
+
+        return false;
+    }
+
+    private boolean estaPertodoJogador(double x1, double y1, double x2, double y2) {
+
+        double distancia = Math.abs((x1 * y1) - (x2 * y2));
+
+        if (distancia < 134000) {
+            return true;
+        }
+
         return false;
     }
 }

@@ -5,6 +5,7 @@
  */
 package jogo;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Point;
 import java.util.Vector;
 import jplay.GameObject;
@@ -22,7 +23,7 @@ import jplay.Window;
 public class Jogador extends Personagem {
 
     private static double energia = 100;
-    
+    ControleTiros tiros = new ControleTiros();
 
     /**
      * Cria um novo jogador a partir de um sprite definindo sua posição no cenário
@@ -35,6 +36,13 @@ public class Jogador extends Personagem {
         this.x = x;
         this.y = y;
         this.setTotalDuration(2000);
+    }
+
+    public void atirar(Window janela, Scene cena, Keyboard teclado) {
+        if (teclado.keyDown(KeyEvent.VK_A)) {
+            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
+        }
+        tiros.run();
     }
 
     /**

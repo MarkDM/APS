@@ -35,7 +35,8 @@ public class Cenario1 {
         jogador = new Jogador(640, 350);
         zumbi = new Npc(300, 300);
 
-        Som.play("Mars.wav");
+        //Som.play("Mars.wav");
+        Som.play("Enter_Sandman.mid");
         run();
     }
 
@@ -53,6 +54,8 @@ public class Cenario1 {
             //Move o jogador conforme o movimento do cenário
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
+            
+            jogador.atirar(janela, cena, teclado);
 
             zumbi.x += cena.getXOffset();
             zumbi.y += cena.getYOffset();
