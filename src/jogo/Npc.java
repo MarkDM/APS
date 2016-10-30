@@ -106,7 +106,7 @@ public class Npc extends Personagem {
         }
 
         if (Jogador.energia <= 0) {
-            System.out.println("Morreu!");
+           // System.out.println("Morreu!");
         }
     }
 

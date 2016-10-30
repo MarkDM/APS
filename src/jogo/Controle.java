@@ -9,7 +9,7 @@ import jplay.GameObject;
 import jplay.TileInfo;
 
 /**
- * Verifica colisão entre um objeto e um tile
+ * Verifica colisão com os tiles não percorríveis
  *
  * @author marcos
  */

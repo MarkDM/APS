@@ -22,7 +22,7 @@ public class Jogador extends Personagem {
     public static double energia = 1000;
     ControleTiros tiros = new ControleTiros();
     private Font f = new Font("arial", Font.BOLD, 20);
-    public int ataque = 150;
+    public int ataque = 500;
 
     /**
      * Cria um novo jogador a partir de um sprite definindo sua posição no cenário

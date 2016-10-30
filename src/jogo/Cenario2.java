@@ -5,6 +5,8 @@
  */
 package jogo;
 
+import java.util.ArrayList;
+import java.util.Random;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
@@ -21,7 +23,7 @@ public class Cenario2 extends Cenario {
     private Scene cena;
     private Jogador jogador;
     private Keyboard teclado;
-    private Npc zumbi;
+    private ArrayList<Npc> zumbis = new ArrayList<>();
 
     public Cenario2(Window janela) {
         this.janela = janela;
@@ -33,7 +35,12 @@ public class Cenario2 extends Cenario {
         cena.loadFromFile(URL.scenario("Cenario2.scn"));
         teclado = janela.getKeyboard();
         jogador = new Jogador(640, 350);
-        zumbi = new Npc(300, 300);
+        Random r = new Random();
+        for (int i = 0; i < 15; i++) {
+            Npc zumbi = new Npc(r.nextInt(janela.getWidth()), r.nextInt(janela.getHeight()));
+            zumbis.add(zumbi);
+
+        }
 
         //Som.play("Mars.wav");
         //Som.play("Enter_Sandman.mid");
@@ -46,8 +53,7 @@ public class Cenario2 extends Cenario {
             //cena.draw();
             jogador.controle(janela, teclado);
             jogador.caminho(cena);
-            zumbi.caminho(cena);
-            zumbi.perseguir(jogador);
+
             //Move o cenário centralizabdo o objeto passado como parâmetro
             cena.moveScene(jogador);
 
@@ -55,19 +61,22 @@ public class Cenario2 extends Cenario {
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
 
-            zumbi.x += cena.getXOffset();
-            zumbi.y += cena.getYOffset();
-
             //Atualiza o jogador a cada refresh da tela
-            janela.delay(4);
             jogador.draw();
 
-            jogador.atirar(janela, cena, teclado, zumbi);
-            zumbi.morrer();
-            zumbi.atacar(jogador);
-            jogador.mostrarEnergia(janela);
+            for (Npc zumbi : zumbis) {
+                zumbi.caminho(cena);
+                zumbi.perseguir(jogador);
+                zumbi.x += cena.getXOffset();
+                zumbi.y += cena.getYOffset();
+                jogador.atirar(janela, cena, teclado, zumbi);
+                zumbi.morrer();
+                zumbi.atacar(jogador);
+                zumbi.draw();
+            }
 
-            zumbi.draw();
+            jogador.mostrarEnergia(janela);
+            janela.delay(4);
             janela.update();
 
             mudarCenario();
