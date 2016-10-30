@@ -15,7 +15,7 @@ import jplay.Window;
  *
  * @author Marcos
  */
-public class Cenario1 extends Cenario {
+public class Cenario2 extends Cenario {
 
     private Window janela;
     private Scene cena;
@@ -23,14 +23,14 @@ public class Cenario1 extends Cenario {
     private Keyboard teclado;
     private Npc zumbi;
 
-    public Cenario1(Window janela) {
+    public Cenario2(Window janela) {
         this.janela = janela;
         cena = new Scene();
 
         /**
          * Carrega o cenário a partir do arquivo .scn
          */
-        cena.loadFromFile(URL.scenario("Cenario1.scn"));
+        cena.loadFromFile(URL.scenario("Cenario2.scn"));
         teclado = janela.getKeyboard();
         jogador = new Jogador(640, 350);
         zumbi = new Npc(300, 300);
@@ -54,7 +54,7 @@ public class Cenario1 extends Cenario {
             //Move o jogador conforme o movimento do cenário
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
-            
+
             jogador.atirar(janela, cena, teclado);
 
             zumbi.x += cena.getXOffset();
@@ -66,14 +66,15 @@ public class Cenario1 extends Cenario {
             zumbi.draw();
             janela.update();
             
-            mudarCenario();
+             mudarCenario();
+
         }
     }
-    
-    private void mudarCenario(){
-        
+
+    private void mudarCenario() {
+
         if (tileCollision(3, jogador, cena)) {
-            new Cenario2(janela);
+            new Cenario1(janela);
         }
     }
 
