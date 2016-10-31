@@ -6,7 +6,8 @@ import jplay.Sound;
 import jplay.URL;
 
 /**
- *Classe para fazer o controle de tiros do personagem, colisão com o inimigo etc
+ * Classe para fazer o controle de tiros do personagem, colisão com o inimigo etc
+ *
  * @author Marcos
  */
 public class ControleTiros {
@@ -20,6 +21,11 @@ public class ControleTiros {
         somDisparo();
     }
 
+    /**
+     * Tiros em um inimigo
+     * @param inimigo
+     * @param jogador 
+     */
     public void run(Personagem inimigo, Jogador jogador) {
         for (int i = 0; i < tiros.size(); i++) {
             Tiro tiro = tiros.removeFirst();
@@ -31,6 +37,20 @@ public class ControleTiros {
                 tiro.x = 100_000;
                 inimigo.energia -= jogador.ataque;
             }
+        }
+
+    }
+
+    /**
+     * Tiros independentes
+     * @param jogador 
+     */
+    public void run(Jogador jogador) {
+        for (int i = 0; i < tiros.size(); i++) {
+            Tiro tiro = tiros.removeFirst();
+            tiro.mover();
+            tiros.addLast(tiro);
+
         }
 
     }

@@ -5,8 +5,9 @@
  */
 package jogo;
 
-import javafx.scene.input.DataFormat;
+
 import jplay.URL;
+
 
 /**
  *
@@ -26,7 +27,7 @@ public class Npc extends Personagem {
 
     public void perseguir(Jogador jogador) {
 
-        if (!alcancouJogador(this,jogador)) {
+        if (!alcancouJogador(this, jogador)) {
 
             if (estaPertodoJogador(jogador.x, jogador.y, this.x, this.y)) {
 
@@ -73,6 +74,8 @@ public class Npc extends Personagem {
 
             }
 
+        } else {
+            atacar(jogador);
         }
 
     }
@@ -93,21 +96,18 @@ public class Npc extends Personagem {
     public void morrer() {
         if (this.energia <= 0) {
             this.velocidade = 0;
-            //this.ataque = 0;
+            this.ataque = 0;
             this.direcao = 0;
             this.movendo = false;
             this.x = 1_000_000;
         }
+
     }
 
     public void atacar(Jogador jogador) {
-        if (this.collided(jogador)) {
-            Jogador.energia -= this.ataque;
-        }
 
-        if (Jogador.energia <= 0) {
-           // System.out.println("Morreu!");
-        }
+        jogador.energia -= this.ataque;
+
     }
 
 }

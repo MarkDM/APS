@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.util.Vector;
+import jplay.GameImage;
 import jplay.GameObject;
 import jplay.Keyboard;
 import jplay.Scene;
@@ -14,15 +15,16 @@ import jplay.URL;
 import jplay.Window;
 
 /**
- *Classe
+ * Classe
+ *
  * @author Marcos
  */
 public class Jogador extends Personagem {
 
-    public static double energia = 1000;
+    public double energia = 1000;
     ControleTiros tiros = new ControleTiros();
     private Font f = new Font("arial", Font.BOLD, 20);
-    public int ataque = 500;
+    public int ataque = 180;
 
     /**
      * Cria um novo jogador a partir de um sprite definindo sua posição no cenário
@@ -41,7 +43,21 @@ public class Jogador extends Personagem {
         if (teclado.keyDown(KeyEvent.VK_A)) {
             tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
         }
-        tiros.run(inimigo,this);
+        tiros.run(inimigo, this);
+    }
+
+    /**
+     * Tiro independentes de inimigo
+     *
+     * @param janela
+     * @param cena
+     * @param teclado
+     */
+    public void atirar(Window janela, Scene cena, Keyboard teclado) {
+        if (teclado.keyDown(KeyEvent.VK_A)) {
+            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
+        }
+        tiros.run(this);
     }
 
     /**
@@ -105,8 +121,27 @@ public class Jogador extends Personagem {
 
     }
 
+    public void morrer(Window janela) {
+        if (this.energia <= 0) {
+            GameImage plano = new GameImage(URL.sprite("game_over.jpg"));
+            Keyboard teclado = janela.getKeyboard();
+
+            while (true) {
+                plano.draw();
+                janela.delay(20);
+                janela.update();
+                if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+                    Som.play("Mars.wav");
+                    new Cenario1(janela);
+
+                }
+
+            }
+        }
+    }
+
     public void mostrarEnergia(Window janela) {
-        janela.drawText("Health: " + Jogador.energia, 30, 30, Color.GREEN, f);
+        janela.drawText("Health: " + this.energia, 30, 30, Color.GREEN, f);
     }
 
 }
