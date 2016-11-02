@@ -16,7 +16,7 @@ public class Tiro extends Sprite {
 
     public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
 
-    protected static final int VELOCIDADE_TIRO = 5;
+    protected static final int VELOCIDADE_TIRO = 1;
     protected int caminho = STOP;
     protected boolean movendo = false;
     protected int direcao = 3;
@@ -34,29 +34,31 @@ public class Tiro extends Sprite {
             this.x -= VELOCIDADE_TIRO;
             if (direcao != 1) {
                 setSequence(0, 0);
+                movendo = true;
             }
         }
         if (caminho == RIGHT) {
             this.x += VELOCIDADE_TIRO;
             if (direcao != 2) {
-               setSequence(0, 0);
+                setSequence(0, 0);
+                movendo = true;
             }
         }
         if (caminho == UP) {
             this.y -= VELOCIDADE_TIRO;
             if (direcao != 4) {
                 setSequence(1, 2);
+                movendo = true;
             }
         }
         if (caminho == DOWN) {
             this.y += VELOCIDADE_TIRO;
             if (direcao != 5) {
                 setSequence(1, 2);
+                movendo = true;
             }
         }
 
-        movendo = true;
-        
         if (movendo) {
             update();
             movendo = false;

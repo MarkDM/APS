@@ -23,6 +23,8 @@ public class Main {
             janela.update();
             //Evita processamento desnecessário
             janela.delay(20);
+            
+            
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
                 Som.play("Mars.wav");
                 new Cenario1(janela);

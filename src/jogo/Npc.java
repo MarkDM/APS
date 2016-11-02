@@ -105,6 +105,8 @@ public class Npc extends Personagem {
     }
 
     public void atacar(Jogador jogador) {
+        
+        //Mudar frames aki
 
         jogador.energia -= this.ataque;
 

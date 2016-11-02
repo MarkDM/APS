@@ -39,7 +39,7 @@ public class Cenario1 extends Cenario {
         jogador = new Jogador(640, 350);
 
         Random r = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             Npc zumbi = new Npc(r.nextInt(janela.getWidth()), r.nextInt(janela.getHeight()));
             zumbis.add(zumbi);
 
@@ -65,7 +65,9 @@ public class Cenario1 extends Cenario {
             jogador.y += cena.getYOffset();
 
             for (Npc zumbi : zumbis) {
+
                 if (zumbi.energia > 0) {
+
                     jogador.atirar(janela, cena, teclado, zumbi);
                     zumbi.caminho(cena);
                     zumbi.perseguir(jogador);
@@ -87,6 +89,7 @@ public class Cenario1 extends Cenario {
             jogador.mostrarEnergia(janela);
             jogador.morrer(janela);
             janela.delay(4);
+
             janela.update();
 
             mudarCenario();
