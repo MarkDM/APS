@@ -25,7 +25,7 @@ public class Npc extends Personagem {
         this.setTotalDuration(2000);
     }
 
-    public void perseguir(Jogador jogador) {
+    public void perseguir(Jogador_ jogador) {
 
         if (!alcancouJogador(this, jogador)) {
 
@@ -80,7 +80,7 @@ public class Npc extends Personagem {
 
     }
 
-    private boolean alcancouJogador(Npc npc, Jogador jogador) {
+    private boolean alcancouJogador(Npc npc, Jogador_ jogador) {
 
         return npc.collided(jogador);
 
@@ -104,7 +104,7 @@ public class Npc extends Personagem {
 
     }
 
-    public void atacar(Jogador jogador) {
+    public void atacar(Jogador_ jogador) {
         
         //Mudar frames aki
 

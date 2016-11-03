@@ -26,7 +26,7 @@ public class Main {
             
             
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-                Som.play("Mars.wav");
+               // Som.play("Mars.wav");
                 new Cenario1(janela);
             }
 

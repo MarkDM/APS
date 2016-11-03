@@ -39,11 +39,11 @@ public class Cenario1 extends Cenario {
         jogador = new Jogador(640, 350);
 
         Random r = new Random();
-        for (int i = 0; i < 15; i++) {
-            Npc zumbi = new Npc(r.nextInt(janela.getWidth()), r.nextInt(janela.getHeight()));
-            zumbis.add(zumbi);
-
-        }
+//        for (int i = 0; i < 15; i++) {
+//            Npc zumbi = new Npc(r.nextInt(janela.getWidth()), r.nextInt(janela.getHeight()));
+//            zumbis.add(zumbi);
+//
+//        }
 
         //Som.play("Mars.wav");
         //Som.play("Enter_Sandman.mid");
@@ -63,26 +63,27 @@ public class Cenario1 extends Cenario {
             //Move o jogador conforme o movimento do cenário
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
-
-            for (Npc zumbi : zumbis) {
-
-                if (zumbi.energia > 0) {
-
-                    jogador.atirar(janela, cena, teclado, zumbi);
-                    zumbi.caminho(cena);
-                    zumbi.perseguir(jogador);
-                    zumbi.x += cena.getXOffset();
-                    zumbi.y += cena.getYOffset();
-                    zumbi.morrer();
-                    zumbi.draw();
-
-                } else {
-                    zumbi = null;
-                    zumbis.remove(zumbi);
-                    jogador.atirar(janela, cena, teclado);
-                }
-
-            }
+            jogador.atirar(janela, cena, teclado);
+            
+//            for (Npc zumbi : zumbis) {
+//
+//                if (zumbi.energia > 0) {
+//
+//                    jogador.atirar(janela, cena, teclado, zumbi);
+//                    zumbi.caminho(cena);
+//                    zumbi.perseguir(jogador);
+//                    zumbi.x += cena.getXOffset();
+//                    zumbi.y += cena.getYOffset();
+//                    zumbi.morrer();
+//                    zumbi.draw();
+//
+//                } else {
+//                    zumbi = null;
+//                    zumbis.remove(zumbi);
+//                    jogador.atirar(janela, cena, teclado);
+//                }
+//
+//            }
 
             //Atualiza o jogador a cada refresh da tela
             jogador.draw();

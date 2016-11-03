@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jogo;
 
 import com.sun.glass.events.KeyEvent;
@@ -20,22 +15,50 @@ import jplay.URL;
 import jplay.Window;
 
 /**
+ * Classe
  *
  * @author Marcos
  */
-public class Jogador extends Personagem {
+public class Jogador_ extends Personagem {
 
     public double energia = 1000;
+    //ControleTiros tiros = new ControleTiros();
     private Font f = new Font("arial", Font.BOLD, 20);
     public int ataque = 500;
-    ControleTiros tiros = new ControleTiros();
 
-    public Jogador(int x, int y) {
-        super(URL.sprite("panda.png"), 20);
+    /**
+     * Cria um novo jogador a partir de um sprite definindo sua posição no cenário
+     *
+     * @param x
+     * @param y
+     */
+    public Jogador_(int x, int y) {
+        super(URL.sprite("jogador.png"), 20);
         this.x = x;
         this.y = y;
         this.setTotalDuration(2000);
     }
+
+//    public void atirar(Window janela, Scene cena, Keyboard teclado, Personagem inimigo) {
+//        if (teclado.keyDown(KeyEvent.VK_A)) {
+//            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
+//        }
+//        tiros.run(inimigo, this);
+//    }
+
+    /**
+     * Tiro independentes de inimigo
+     *
+     * @param janela
+     * @param cena
+     * @param teclado
+     */
+//    public void atirar(Window janela, Scene cena, Keyboard teclado) {
+//        if (teclado.keyDown(KeyEvent.VK_A)) {
+//            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
+//        }
+//        tiros.run(this);
+//    }
 
     /**
      * Controle do movimento do personagem
@@ -50,7 +73,6 @@ public class Jogador extends Personagem {
             if (this.x > 0) {
                 this.x -= this.velocidade;
             }
-
             if (direcao != 1) {
                 setSequence(4, 8);
                 direcao = 1;
@@ -63,7 +85,7 @@ public class Jogador extends Personagem {
                 this.x += velocidade;
             }
             if (direcao != 2) {
-                setSequence(12, 16);
+                setSequence(8, 12);
                 direcao = 2;
             }
             movendo = true;
@@ -74,7 +96,7 @@ public class Jogador extends Personagem {
                 this.y -= velocidade;
             }
             if (direcao != 4) {
-                setSequence(8, 12);
+                setSequence(12, 16);
                 direcao = 4;
             }
             movendo = true;
@@ -97,24 +119,6 @@ public class Jogador extends Personagem {
             movendo = false;
         }
 
-    }
-
-    public void atacar(Keyboard teclado, Scene cena) {
-        if (teclado.keyDown(KeyEvent.VK_A)) {
-
-            Sprite ataque = new Sprite(URL.sprite("ataque.png"), 1);
-            ataque.x = this.x;
-            ataque.y = this.y;
-            cena.addOverlay(ataque);
-
-        }
-    }
-
-    public void atirar(Window janela, Scene cena, Keyboard teclado) {
-        if (teclado.keyDown(KeyEvent.VK_A)) {
-            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
-        }
-        tiros.run(this);
     }
 
     public void morrer(Window janela) {
