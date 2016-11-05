@@ -13,7 +13,8 @@ import jplay.Window;
 public class Main {
 
     public static void main(String[] args) {
-        Som.play("Nothing_Else_Matters.mid");
+        //Som.play("Enter_Sandman.mid");
+       
         Window janela = new Window(800, 600);
         GameImage plano = new GameImage(URL.sprite("menu.png"));
         Keyboard teclado = janela.getKeyboard();

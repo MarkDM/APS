@@ -56,7 +56,7 @@ public class ControleTiros {
     }
 
     private void somDisparo() {
-        new Sound(URL.audio("pistol.wav")).play();
+        //new Sound(URL.audio("pistol.wav")).play();
     }
 
 }

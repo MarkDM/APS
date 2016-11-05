@@ -93,7 +93,7 @@ public class Cenario1 extends Cenario {
 
             janela.update();
 
-            mudarCenario();
+            //mudarCenario();
         }
     }
 

@@ -99,20 +99,9 @@ public class Jogador extends Personagem {
 
     }
 
-    public void atacar(Keyboard teclado, Scene cena) {
-        if (teclado.keyDown(KeyEvent.VK_A)) {
-
-            Sprite ataque = new Sprite(URL.sprite("ataque.png"), 1);
-            ataque.x = this.x;
-            ataque.y = this.y;
-            cena.addOverlay(ataque);
-
-        }
-    }
-
     public void atirar(Window janela, Scene cena, Keyboard teclado) {
         if (teclado.keyDown(KeyEvent.VK_A)) {
-            tiros.adicionaTiro(x + 19, y + 21, direcao, cena);
+            tiros.adicionaTiro(x, y - 15, direcao, cena);
         }
         tiros.run(this);
     }

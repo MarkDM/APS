@@ -22,7 +22,7 @@ public class Tiro extends Sprite {
     protected int direcao = 3;
 
     public Tiro(double x, double y, int caminho) {
-        super(URL.sprite("tiro-pequeno.png"), 2);
+        super(URL.sprite("ataque.png"), 4);
         this.caminho = caminho;
         this.x = x;
         this.y = y;
@@ -33,28 +33,28 @@ public class Tiro extends Sprite {
         if (caminho == LEFT) {
             this.x -= VELOCIDADE_TIRO;
             if (direcao != 1) {
-                setSequence(0, 0);
+                setSequence(0, 1);
                 movendo = true;
             }
         }
         if (caminho == RIGHT) {
             this.x += VELOCIDADE_TIRO;
             if (direcao != 2) {
-                setSequence(0, 0);
+                setSequence(1, 2);
                 movendo = true;
             }
         }
         if (caminho == UP) {
             this.y -= VELOCIDADE_TIRO;
             if (direcao != 4) {
-                setSequence(1, 2);
+                setSequence(2, 3);
                 movendo = true;
             }
         }
         if (caminho == DOWN) {
             this.y += VELOCIDADE_TIRO;
             if (direcao != 5) {
-                setSequence(1, 2);
+                setSequence(3, 4);
                 movendo = true;
             }
         }
