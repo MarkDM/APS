@@ -5,6 +5,7 @@
  */
 package jogo;
 
+import java.util.ArrayList;
 import jplay.GameObject;
 import jplay.TileInfo;
 
@@ -18,23 +19,23 @@ public class Controle {
     /**
      * Numero do tile do arquivo .scn
      */
-    private int tileId = 7;
+    private ArrayList<Integer> tiles = new ArrayList<>();
 
     public boolean colisao(GameObject obj, TileInfo tile) {
 
-        if ((tile.id >= tileId) && obj.collided(tile)) {
+        if (tiles.contains(tile.id) && obj.collided(tile)) {
             return true;
         }
 
         return false;
     }
 
-    public int getTileId() {
-        return tileId;
+    public ArrayList<Integer> getTiles() {
+        return tiles;
     }
 
-    public void setTileId(int tileId) {
-        this.tileId = tileId;
+    public void setTiles(ArrayList<Integer> tiles) {
+        this.tiles = tiles;
     }
 
 }

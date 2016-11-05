@@ -9,6 +9,7 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Vector;
 import jplay.GameImage;
 import jplay.GameObject;
@@ -35,6 +36,16 @@ public class Jogador extends Personagem {
         this.x = x;
         this.y = y;
         this.setTotalDuration(2000);
+        ArrayList<Integer> tilesBloqueio = new ArrayList<>();
+        tilesBloqueio.add(3);
+        tilesBloqueio.add(11);
+        tilesBloqueio.add(17);
+        tilesBloqueio.add(15);
+        tilesBloqueio.add(16);
+        tilesBloqueio.add(10);
+        tilesBloqueio.add(7);
+
+        this.controle.setTiles(tilesBloqueio);
     }
 
     /**
@@ -99,11 +110,11 @@ public class Jogador extends Personagem {
 
     }
 
-    public void atirar(Window janela, Scene cena, Keyboard teclado) {
+    public void atirar(Window janela, Scene cena, Keyboard teclado, Lixo lixo) {
         if (teclado.keyDown(KeyEvent.VK_A)) {
-            tiros.adicionaTiro(x, y - 15, direcao, cena);
+            tiros.adicionaTiro(x - 10, y - 15, direcao, cena);
         }
-        tiros.run(this);
+        tiros.run(lixo, this);
     }
 
     public void morrer(Window janela) {

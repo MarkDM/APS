@@ -16,7 +16,7 @@ public class Tiro extends Sprite {
 
     public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
 
-    protected static final int VELOCIDADE_TIRO = 1;
+    protected static final double VELOCIDADE_TIRO = 0.3;
     protected int caminho = STOP;
     protected boolean movendo = false;
     protected int direcao = 3;

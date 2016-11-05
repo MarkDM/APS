@@ -23,19 +23,27 @@ public class ControleTiros {
 
     /**
      * Tiros em um inimigo
+     *
      * @param inimigo
-     * @param jogador 
+     * @param jogador
      */
-    public void run(Personagem inimigo, Jogador jogador) {
+    public void run(Lixo lixo, Jogador jogador) {
         for (int i = 0; i < tiros.size(); i++) {
             Tiro tiro = tiros.removeFirst();
             tiro.mover();
             tiros.addLast(tiro);
 
-            if (tiro.collided(inimigo)) {
+            if (tiro.collided(lixo)) {
                 //Tira o tiro de cena
-                tiro.x = 100_000;
-                inimigo.energia -= jogador.ataque;
+                //tiro.x = 100_000;
+
+                //Remove a grama dos tiles de bloqueio do lixo
+                if (lixo.controle.getTiles().get(0) == 1) {
+                    lixo.controle.getTiles().remove(0);
+                }
+
+                lixo.x = tiro.x;
+                lixo.y = tiro.y;
             }
         }
 
@@ -43,7 +51,8 @@ public class ControleTiros {
 
     /**
      * Tiros independentes
-     * @param jogador 
+     *
+     * @param jogador
      */
     public void run(Jogador jogador) {
         for (int i = 0; i < tiros.size(); i++) {
@@ -56,7 +65,7 @@ public class ControleTiros {
     }
 
     private void somDisparo() {
-        //new Sound(URL.audio("pistol.wav")).play();
+        new Sound(URL.audio("foom.wav")).play();
     }
 
 }

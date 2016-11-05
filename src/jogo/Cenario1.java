@@ -24,7 +24,7 @@ public class Cenario1 extends Cenario {
     private Jogador jogador;
     private Keyboard teclado;
 
-    private ArrayList<Npc> zumbis = new ArrayList<>();
+    private ArrayList<Lixo> lixos = new ArrayList<>();
 
     //private Npc zumbi;
     public Cenario1(Window janela) {
@@ -36,14 +36,11 @@ public class Cenario1 extends Cenario {
          */
         cena.loadFromFile(URL.scenario("Cenario1.scn"));
         teclado = janela.getKeyboard();
-        jogador = new Jogador(640, 350);
+        jogador = new Jogador(20, janela.getWidth() / 2);
 
-        Random r = new Random();
-//        for (int i = 0; i < 15; i++) {
-//            Npc zumbi = new Npc(r.nextInt(janela.getWidth()), r.nextInt(janela.getHeight()));
-//            zumbis.add(zumbi);
-//
-//        }
+        gerarLatas();
+        gerarSacosDeLixo();
+        gerarPneus();
 
         //Som.play("Mars.wav");
         //Som.play("Enter_Sandman.mid");
@@ -63,28 +60,19 @@ public class Cenario1 extends Cenario {
             //Move o jogador conforme o movimento do cenário
             jogador.x += cena.getXOffset();
             jogador.y += cena.getYOffset();
-            jogador.atirar(janela, cena, teclado);
-            
-//            for (Npc zumbi : zumbis) {
-//
-//                if (zumbi.energia > 0) {
-//
-//                    jogador.atirar(janela, cena, teclado, zumbi);
-//                    zumbi.caminho(cena);
-//                    zumbi.perseguir(jogador);
-//                    zumbi.x += cena.getXOffset();
-//                    zumbi.y += cena.getYOffset();
-//                    zumbi.morrer();
-//                    zumbi.draw();
-//
-//                } else {
-//                    zumbi = null;
-//                    zumbis.remove(zumbi);
-//                    jogador.atirar(janela, cena, teclado);
-//                }
-//
-//            }
 
+            int i = 0;
+
+            for (Lixo lixo : lixos) {
+
+                jogador.atirar(janela, cena, teclado, lixo);
+                lixo.caminho(cena);
+                lixo.flutuar(janela.getWidth() / 2 + 16 * i++, janela.getHeight());
+                lixo.x += cena.getXOffset();
+                lixo.y += cena.getYOffset();
+                lixo.draw();
+
+            }
             //Atualiza o jogador a cada refresh da tela
             jogador.draw();
             jogador.mostrarEnergia(janela);
@@ -100,7 +88,31 @@ public class Cenario1 extends Cenario {
     private void mudarCenario() {
 
         if (tileCollision(3, jogador, cena)) {
-            new Cenario2(janela);
+
+        }
+    }
+
+    private void gerarSacosDeLixo() {
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) {
+            Lixo lixo = new Lixo(janela.getWidth() / 2 + i * 10, 0 + 10 * i, "lixo.png");
+            lixos.add(lixo);
+        }
+    }
+
+    private void gerarLatas() {
+        Random r = new Random();
+        for (int i = 0; i < 15; i++) {
+            Lixo lata = new Lixo(janela.getWidth() / 2 + i * 13, 0 + 13 * i, "lata.png");
+            lixos.add(lata);
+        }
+    }
+
+    private void gerarPneus() {
+        Random r = new Random();
+        for (int i = 0; i < 8; i++) {
+            Lixo pneu = new Lixo(janela.getWidth() / 2 + i * 20, 0 + 20 * i, "pneu.png");
+            lixos.add(pneu);
         }
     }
 
