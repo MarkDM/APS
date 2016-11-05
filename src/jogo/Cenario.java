@@ -30,6 +30,24 @@ public abstract class Cenario {
         return false;
     }
 
+    protected boolean tileCollision(int value, Lixo lixo, Scene cena) {
+
+        Point min = new Point((int) lixo.x, (int) lixo.y);
+        Point max = new Point((int) (lixo.x + lixo.width), (int) (lixo.y + lixo.height));
+
+        Vector<?> tiles = cena.getTilesFromPosition(min, max);
+
+        for (int i = 0; i < tiles.size(); i++) {
+            TileInfo tile = (TileInfo) tiles.elementAt(i);
+
+            if (tileCollision(lixo, tile, value)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     private boolean tileCollision(GameObject object, TileInfo tile, int value) {
         if ((tile.id == value) && object.collided(tile)) {
             return true;

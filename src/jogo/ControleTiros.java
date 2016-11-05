@@ -34,16 +34,21 @@ public class ControleTiros {
             tiros.addLast(tiro);
 
             if (tiro.collided(lixo)) {
-                //Tira o tiro de cena
-                //tiro.x = 100_000;
-
-                //Remove a grama dos tiles de bloqueio do lixo
-                if (lixo.controle.getTiles().get(0) == 1) {
-                    lixo.controle.getTiles().remove(0);
+                lixo.energia -= jogador.ataque;
+                if (lixo.energia <= 0) {
+                    //Remove a grama dos tiles de bloqueio do lixo
+                    if (lixo.controle.getTiles().get(0) == 1) {
+                        lixo.controle.getTiles().remove(0);
+                    }
+                    lixo.x = tiro.x + tiro.width;
+                    lixo.y = tiro.y;
+                } else {
+                    //lixo.x += 5;
+                    //lixo.y -= 5;
+                                       
+                    tiro.x = 100000;
                 }
 
-                lixo.x = tiro.x;
-                lixo.y = tiro.y;
             }
         }
 
@@ -54,16 +59,15 @@ public class ControleTiros {
      *
      * @param jogador
      */
-    public void run(Jogador jogador) {
-        for (int i = 0; i < tiros.size(); i++) {
-            Tiro tiro = tiros.removeFirst();
-            tiro.mover();
-            tiros.addLast(tiro);
-
-        }
-
-    }
-
+//    public void run(Jogador jogador) {
+//        for (int i = 0; i < tiros.size(); i++) {
+//            Tiro tiro = tiros.removeFirst();
+//            tiro.mover();
+//            tiros.addLast(tiro);
+//
+//        }
+//
+//    }
     private void somDisparo() {
         new Sound(URL.audio("foom.wav")).play();
     }

@@ -21,7 +21,7 @@ import jplay.Window;
  *
  * @author Marcos
  */
-public class Personagem extends Sprite {
+public class ObjetoJogo extends Sprite {
 
     protected int direcao = 3;
     public boolean movendo = false;
@@ -29,7 +29,7 @@ public class Personagem extends Sprite {
     public double velocidade = 1;
     public double energia = 1000;
 
-    public Personagem(String fileName, int numFrames) {
+    public ObjetoJogo(String fileName, int numFrames) {
         super(fileName, numFrames);
     }
 

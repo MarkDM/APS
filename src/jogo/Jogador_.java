@@ -19,7 +19,7 @@ import jplay.Window;
  *
  * @author Marcos
  */
-public class Jogador_ extends Personagem {
+public class Jogador_ extends ObjetoJogo {
 
     public double energia = 1000;
     //ControleTiros tiros = new ControleTiros();

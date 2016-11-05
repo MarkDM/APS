@@ -70,24 +70,21 @@ public class Cenario1 extends Cenario {
                 lixo.flutuar(janela.getWidth() / 2 + 16 * i++, janela.getHeight());
                 lixo.x += cena.getXOffset();
                 lixo.y += cena.getYOffset();
+                lixoAlcancouCachoeira(cena, lixo);
                 lixo.draw();
+                
+//                if (lixo.energia <= 0) {
+//                   lixo.sumir();
+//                }
 
             }
             //Atualiza o jogador a cada refresh da tela
             jogador.draw();
             jogador.mostrarEnergia(janela);
-            jogador.morrer(janela);
+            jogador.perdeu(janela);
             janela.delay(4);
 
             janela.update();
-
-            //mudarCenario();
-        }
-    }
-
-    private void mudarCenario() {
-
-        if (tileCollision(3, jogador, cena)) {
 
         }
     }
@@ -95,25 +92,32 @@ public class Cenario1 extends Cenario {
     private void gerarSacosDeLixo() {
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
-            Lixo lixo = new Lixo(janela.getWidth() / 2 + i * 10, 0 + 10 * i, "lixo.png");
-            lixos.add(lixo);
+            LixoSaco saco = new LixoSaco(janela.getWidth() / 2 + i * r.nextInt(10), 0 + r.nextInt(10) * i, "lixo.png");
+            lixos.add(saco);
         }
     }
 
     private void gerarLatas() {
         Random r = new Random();
         for (int i = 0; i < 15; i++) {
-            Lixo lata = new Lixo(janela.getWidth() / 2 + i * 13, 0 + 13 * i, "lata.png");
-            lixos.add(lata);
+            LixoLatinha latinha = new LixoLatinha(janela.getWidth() / 2 + i * 13, 0 + 13 * i, "lata.png");
+            lixos.add(latinha);
         }
     }
 
     private void gerarPneus() {
         Random r = new Random();
         for (int i = 0; i < 8; i++) {
-            Lixo pneu = new Lixo(janela.getWidth() / 2 + i * 20, 0 + 20 * i, "pneu.png");
+            LixoPneu pneu = new LixoPneu(janela.getWidth() / 2 + i * 20, 0 + 20 * i, "pneu.png");
             lixos.add(pneu);
         }
+    }
+
+    private void lixoAlcancouCachoeira(Scene cena, Lixo lixo) {
+        if (tileCollision(11, lixo, cena)) {
+           lixo.sumir();
+        }
+
     }
 
 }

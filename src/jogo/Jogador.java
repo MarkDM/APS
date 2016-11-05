@@ -24,11 +24,11 @@ import jplay.Window;
  *
  * @author Marcos
  */
-public class Jogador extends Personagem {
+public class Jogador extends ObjetoJogo {
 
     public double energia = 1000;
     private Font f = new Font("arial", Font.BOLD, 20);
-    public int ataque = 500;
+    public int ataque = 200;
     ControleTiros tiros = new ControleTiros();
 
     public Jogador(int x, int y) {
@@ -117,7 +117,7 @@ public class Jogador extends Personagem {
         tiros.run(lixo, this);
     }
 
-    public void morrer(Window janela) {
+    public void perdeu(Window janela) {
         if (this.energia <= 0) {
             GameImage plano = new GameImage(URL.sprite("game_over.jpg"));
             Keyboard teclado = janela.getKeyboard();
