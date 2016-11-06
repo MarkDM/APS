@@ -27,7 +27,6 @@ import jplay.Window;
 public class Jogador extends ObjetoJogo {
 
     public double energia = 1000;
-    private Font f = new Font("arial", Font.BOLD, 20);
     public int ataque = 200;
     ControleTiros tiros = new ControleTiros();
 
@@ -35,6 +34,7 @@ public class Jogador extends ObjetoJogo {
         super(URL.sprite("panda.png"), 20);
         this.x = x;
         this.y = y;
+        //this.velocidade = 2;
         this.setTotalDuration(2000);
         ArrayList<Integer> tilesBloqueio = new ArrayList<>();
         tilesBloqueio.add(3);
@@ -56,7 +56,7 @@ public class Jogador extends ObjetoJogo {
      */
     public void controle(Window janela, Keyboard teclado) {
 
-        if (teclado.keyDown(Keyboard.LEFT_KEY)){
+        if (teclado.keyDown(Keyboard.LEFT_KEY)) {
 
             if (this.x > 0) {
                 this.x -= this.velocidade;
@@ -68,7 +68,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        }else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
+        } else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
 
             if (this.x < janela.getWidth() - 50) {
                 this.x += velocidade;
@@ -79,7 +79,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        }else if (teclado.keyDown(Keyboard.UP_KEY)) {
+        } else if (teclado.keyDown(Keyboard.UP_KEY)) {
 
             if (this.y > 0) {
                 this.y -= velocidade;
@@ -90,7 +90,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        }else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+        } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
 
             if (this.y < janela.getHeight() - 60) {
                 this.y += velocidade;
@@ -114,30 +114,25 @@ public class Jogador extends ObjetoJogo {
         if (teclado.keyDown(KeyEvent.VK_A)) {
             tiros.adicionaTiro(x - 10, y - 15, direcao, cena);
         }
-        tiros.run(lixo, this);
+        tiros.run(lixo, this, janela);
     }
 
     public void perdeu(Window janela) {
-        if (this.energia <= 0) {
-            GameImage plano = new GameImage(URL.sprite("game_over.jpg"));
-            Keyboard teclado = janela.getKeyboard();
+        GameImage plano = new GameImage(URL.sprite("game_over.jpg"));
+        Keyboard teclado = janela.getKeyboard();
 
-            while (true) {
-                plano.draw();
-                janela.delay(20);
-                janela.update();
-                if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-                    Som.play("Mars.wav");
-                    new Cenario1(janela);
-
-                }
+        while (true) {
+            plano.draw();
+            janela.delay(20);
+            janela.update();
+            if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+                Som.play("Mars.wav");
+                new Cenario1(janela);
 
             }
-        }
-    }
 
-    public void mostrarEnergia(Window janela) {
-        janela.drawText("Health: " + this.energia, 30, 30, Color.GREEN, f);
+        }
+
     }
 
 }

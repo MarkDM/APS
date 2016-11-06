@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import jplay.Scene;
 import jplay.Sound;
 import jplay.URL;
+import jplay.Window;
 
 /**
  * Classe para fazer o controle de tiros do personagem, colisão com o inimigo etc
@@ -27,7 +28,7 @@ public class ControleTiros {
      * @param inimigo
      * @param jogador
      */
-    public void run(Lixo lixo, Jogador jogador) {
+    public void run(Lixo lixo, Jogador jogador, Window janela) {
         for (int i = 0; i < tiros.size(); i++) {
             Tiro tiro = tiros.removeFirst();
             tiro.mover();
@@ -43,6 +44,7 @@ public class ControleTiros {
                     }
                     lixo.x = tiro.x + tiro.width;
                     lixo.y = tiro.y;
+                    lixo.sumiu = true;
                 } else {
 
                     lixo.x += 10;
