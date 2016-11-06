@@ -1,6 +1,5 @@
 package jogo;
 
-import javax.swing.JOptionPane;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
@@ -16,7 +15,8 @@ public class Main {
         //Som.play("Enter_Sandman.mid");
 
         Window janela = new Window(800, 600);
-        GameImage plano = new GameImage(URL.sprite("menu.png"));
+     
+        GameImage plano = new GameImage(URL.sprite("fundo.jpg"));
         Keyboard teclado = janela.getKeyboard();
 
         while (true) {
@@ -28,9 +28,9 @@ public class Main {
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
                 Som.play("Mars.wav");
                 new Cenario1(janela);
+            } else if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
+                System.exit(0);
             }
-
         }
     }
-
 }
