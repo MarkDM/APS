@@ -27,7 +27,7 @@ import jplay.Window;
 public class Jogador extends ObjetoJogo {
 
     public double energia = 1000;
-    public int ataque = 200;
+    public int ataque = 500;
     ControleTiros tiros = new ControleTiros();
 
     public Jogador(int x, int y) {
