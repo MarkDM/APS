@@ -12,7 +12,7 @@ import jplay.Window;
 public class Main {
 
     public static void main(String[] args) {
-        //Som.play("Enter_Sandman.mid");
+        Som.play("Nothing_Else_Matters.mid");
 
         Window janela = new Window(800, 600);
      

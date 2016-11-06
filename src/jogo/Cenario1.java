@@ -31,10 +31,9 @@ public class Cenario1 extends Cenario {
     private int numLixosPassaram = 0;
     private ArrayList<Lixo> lixos = new ArrayList<>();
     private Long horaStart = new Date().getTime();
-    // private ArrayList<Peixe> peixes = new ArrayList<>();
     private Font f = new Font("arial", Font.BOLD, 20);
 
-    //private Npc zumbi;
+    
     public Cenario1(Window janela) {
         this.janela = janela;
         cena = new Scene();
@@ -47,12 +46,9 @@ public class Cenario1 extends Cenario {
         jogador = new Jogador(20, janela.getWidth() / 2);
 
         gerarLixo();
-        //gerarPeixes();
 
-        //totalPeixes = peixes.size();
         numLixosNaTela = lixos.size();
-        //Som.play("Mars.wav");
-        //Som.play("Enter_Sandman.mid");
+
         run();
     }
 
@@ -74,52 +70,27 @@ public class Cenario1 extends Cenario {
 
             int i = 0;
 
-            if (new Date().getTime() - horaStart > 10000) {
+            if (new Date().getTime() - horaStart > 7000) {
                 gerarLixoExtra();
                 this.horaStart = new Date().getTime();
             }
 
             for (Lixo lixo : lixos) {
+                if (!lixo.sumiu) {
+                    jogador.atirar(janela, cena, teclado, lixo);
+                    lixo.caminho(cena);
 
-//                if (lixo.sumiu) {
-//                    lixo.sumir();
-//                    Cenario1.numLixosNaTela--;
-//                }
-                jogador.atirar(janela, cena, teclado, lixo);
-                lixo.caminho(cena);
+                    lixo.flutuar(cena);
+                    i++;
+                    lixo.x += cena.getXOffset();
+                    lixo.y += cena.getYOffset();
+                    lixoPassouCachoeira(lixo);
+                    lixoAlcancouCachoeira(lixo);
+                    lixo.draw();
+                }
 
-//                if (i < peixes.size()) {
-//                    if (!peixes.get(i).morto) {
-//                        lixo.flutuar((int) peixes.get(i).x, (int) peixes.get(i).y);
-//                    }
-//
-//                } else if (!peixes.get(0).morto) {
-//                    lixo.flutuar((int) peixes.get(0).x, (int) peixes.get(0).y);
-//                } else {
-//                    lixo.flutuar(cena);
-//                }
-//                
-                lixo.flutuar(cena);
-                i++;
-                lixo.x += cena.getXOffset();
-                lixo.y += cena.getYOffset();
-                lixoPassouCachoeira(lixo);
-                lixoAlcancouCachoeira(lixo);
-                lixo.draw();
             }
 
-//            for (Peixe peixe : peixes) {
-//
-//                Random r = new Random();
-//
-//                for (Lixo lixo : lixos) {
-//                    lixoAlcancouPeixe(lixo, peixe);
-//                }
-//                // peixe.nadar(0, 12, cena);
-//                peixe.x += cena.getXOffset();
-//                peixe.y += cena.getYOffset();
-//                peixe.draw();
-//            }
             //Atualiza o jogador a cada refresh da tela
             jogador.draw();
             qtdLixosPassaramCachoeira();
@@ -176,42 +147,6 @@ public class Cenario1 extends Cenario {
         }
     }
 
-//    public void gerarPeixes() {
-//        Random r = new Random();
-//
-//        for (int i = 0; i < 3; i++) {
-//            Peixe peixe = new Peixe("peixe1.png", 12, r.nextInt(janela.getWidth()), 950);
-//            peixes.add(peixe);
-//        }
-//
-//        for (int i = 0; i < 4; i++) {
-//            Peixe peixe = new Peixe("peixe2.png", 12, r.nextInt(janela.getWidth()), 950);
-//            peixes.add(peixe);
-//        }
-//
-//        for (int i = 0; i < 5; i++) {
-//            Peixe peixe = new Peixe("peixe3.png", 16, r.nextInt(janela.getWidth()), 950);
-//            peixes.add(peixe);
-//        }
-//    }
-//    private void lixoAlcancouPeixe(Lixo lixo, Peixe peixe) {
-//
-//        Random r = new Random();
-//
-//        if (lixo.collided(peixe)) {
-//            totalPeixes--;
-//            Cenario1.numLixosNaTela--;
-//            peixe.morrer();
-//            lixo.velocidade = 0;
-//            lixo.sumir();
-//        }
-//
-//        if (tileCollision(18, lixo, cena)) {
-//            lixo.sumir();
-//            Cenario1.numLixosNaTela--;
-//        }
-//
-//    }
     private void lixoAlcancouCachoeira(Lixo lixo) {
         if (tileCollision(11, lixo, cena)) {
             lixo.velocidade = 1;
