@@ -70,7 +70,7 @@ public class ObjetoJogo extends Sprite {
                         this.x = tile.x - this.width;
                         //Colisão Horizontal com tiles a Direita do personagem
                     } else {
-                        this.x = tile.x + this.width - 8;
+                        this.x = tile.x + tile.width;
                     }
                 }
 

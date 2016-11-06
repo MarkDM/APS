@@ -40,8 +40,8 @@ public class Jogador extends ObjetoJogo {
         tilesBloqueio.add(3);
         tilesBloqueio.add(11);
         tilesBloqueio.add(17);
-        tilesBloqueio.add(15);
-        tilesBloqueio.add(16);
+        tilesBloqueio.add(8);
+        tilesBloqueio.add(9);
         tilesBloqueio.add(10);
         tilesBloqueio.add(7);
 
@@ -56,7 +56,7 @@ public class Jogador extends ObjetoJogo {
      */
     public void controle(Window janela, Keyboard teclado) {
 
-        if (teclado.keyDown(Keyboard.LEFT_KEY)) {
+        if (teclado.keyDown(Keyboard.LEFT_KEY)){
 
             if (this.x > 0) {
                 this.x -= this.velocidade;
@@ -68,7 +68,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        } else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
+        }else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
 
             if (this.x < janela.getWidth() - 50) {
                 this.x += velocidade;
@@ -79,7 +79,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        } else if (teclado.keyDown(Keyboard.UP_KEY)) {
+        }else if (teclado.keyDown(Keyboard.UP_KEY)) {
 
             if (this.y > 0) {
                 this.y -= velocidade;
@@ -90,7 +90,7 @@ public class Jogador extends ObjetoJogo {
             }
             movendo = true;
 
-        } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+        }else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
 
             if (this.y < janela.getHeight() - 60) {
                 this.y += velocidade;

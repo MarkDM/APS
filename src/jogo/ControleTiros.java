@@ -35,6 +35,7 @@ public class ControleTiros {
 
             if (tiro.collided(lixo)) {
                 lixo.energia -= jogador.ataque;
+
                 if (lixo.energia <= 0) {
                     //Remove a grama dos tiles de bloqueio do lixo
                     if (lixo.controle.getTiles().get(0) == 1) {
@@ -43,9 +44,10 @@ public class ControleTiros {
                     lixo.x = tiro.x + tiro.width;
                     lixo.y = tiro.y;
                 } else {
-                    //lixo.x += 5;
-                    //lixo.y -= 5;
-                                       
+
+                    lixo.x += 10;
+                    lixo.y -= 5;
+
                     tiro.x = 100000;
                 }
 
