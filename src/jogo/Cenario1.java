@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import javax.swing.JOptionPane;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.TileInfo;
@@ -33,7 +34,6 @@ public class Cenario1 extends Cenario {
     private Long horaStart = new Date().getTime();
     private Font f = new Font("arial", Font.BOLD, 20);
 
-    
     public Cenario1(Window janela) {
         this.janela = janela;
         cena = new Scene();
@@ -54,9 +54,9 @@ public class Cenario1 extends Cenario {
 
     private void run() {
 
-        boolean gambiarraPraLixo = false;
-
         while (true) {
+
+            sair(teclado);
             //cena.draw();
             jogador.controle(janela, teclado);
             jogador.caminho(cena);
@@ -76,18 +76,18 @@ public class Cenario1 extends Cenario {
             }
 
             for (Lixo lixo : lixos) {
-                if (!lixo.sumiu) {
-                    jogador.atirar(janela, cena, teclado, lixo);
-                    lixo.caminho(cena);
+                //if (!lixo.sumiu) {
+                jogador.atirar(janela, cena, teclado, lixo);
+                lixo.caminho(cena);
 
-                    lixo.flutuar(cena);
-                    i++;
-                    lixo.x += cena.getXOffset();
-                    lixo.y += cena.getYOffset();
-                    lixoPassouCachoeira(lixo);
-                    lixoAlcancouCachoeira(lixo);
-                    lixo.draw();
-                }
+                lixo.flutuar(cena);
+                i++;
+                lixo.x += cena.getXOffset();
+                lixo.y += cena.getYOffset();
+                lixoPassouCachoeira(lixo);
+                lixoAlcancouCachoeira(lixo);
+                lixo.draw();
+                // }
 
             }
 
@@ -115,6 +115,12 @@ public class Cenario1 extends Cenario {
     }
 
     private void gerarLixoExtra() {
+
+        //Gambiarra pra não ficar lento
+        if (lixos.size() > 80) {
+            lixos.clear();
+        }
+
         gerarLatas();
         gerarPneus();
         gerarSacosDeLixo();
@@ -166,7 +172,7 @@ public class Cenario1 extends Cenario {
     }
 
     private void perder() {
-        if (numLixosPassaram > 15) {
+        if (numLixosPassaram >= 15) {
             jogador.perdeu(janela);
         }
     }
@@ -174,6 +180,19 @@ public class Cenario1 extends Cenario {
     private void progressoJogo() {
         if (Cenario1.numLixosNaTela <= 0) {
             gerarLixo();
+        }
+    }
+
+    private void sair(Keyboard teclado) {
+        if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
+
+            int option = JOptionPane.showConfirmDialog(null, "Deseja sair do Jogo", "Sair?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (option == 0) {
+
+                Game.rodar(janela);
+            }
+
         }
     }
 }
