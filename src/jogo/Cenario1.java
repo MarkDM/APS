@@ -54,8 +54,6 @@ public class Cenario1 extends Cenario {
 
     private void run() {
 
-        boolean gambiarraPraLixo = false;
-
         while (true) {
             //cena.draw();
             jogador.controle(janela, teclado);
