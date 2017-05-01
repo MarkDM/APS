@@ -16,7 +16,7 @@ public class LixoSaco extends Lixo {
     public LixoSaco(int x, int y, String sprite) {
         super(x, y, sprite);
         this.velocidade = 0.2;
-        this.energia = 400;
+        this.energia = 600;
 
     }
 
