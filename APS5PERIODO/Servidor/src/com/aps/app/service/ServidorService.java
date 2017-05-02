@@ -5,6 +5,7 @@
  */
 package com.aps.app.service;
 
+import com.aps.app.Log;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import com.aps.app.bean.ChatMessage;
 import com.aps.app.bean.ChatMessage.Action;
 import java.net.Inet4Address;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -32,8 +35,7 @@ public class ServidorService {
         try {
 
             serverSocket = new ServerSocket(5555);
-            System.out.println("Servidor on!");
-
+            Log.i("Servidor on!");
             while (true) {
                 socket = serverSocket.accept();
 
@@ -49,32 +51,43 @@ public class ServidorService {
     private boolean connect(ChatMessage message, ObjectOutputStream output) {
         if (mapOnlines.size() == 0) {
             message.setText("YES");
-            sendOne(message, output);
+            Log.i("Usuário: " + message.getName() + " se conectou ao chat");
+            send(message, output);
             return true;
         }
 
-        for (Map.Entry<String, ObjectOutputStream> kv : mapOnlines.entrySet()) {
-            if (kv.getKey().equals(message.getName())) {
-                message.setText("NO");
-                sendOne(message, output);
-                return false;
-            } else if (true) {
-                message.setText("YES");
-                sendOne(message, output);
-                return true;
-            }
-
+        if (mapOnlines.containsKey(message.getName())) {
+            message.setText("NO");
+            send(message, output);
+            return false;
+        } else {
+            message.setText("YES");
+            send(message, output);
+            return true;
         }
-
-        return false;
     }
 
-    private void sendOne(ChatMessage message, ObjectOutputStream output) {
+    private void send(ChatMessage message, ObjectOutputStream output) {
         try {
             output.writeObject(message);
         } catch (IOException ex) {
             Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void sendOne(ChatMessage message) {
+
+        //Envia apenas para o usuario selecionado na lista
+        for (Map.Entry<String, ObjectOutputStream> kv : mapOnlines.entrySet()) {
+            if (kv.getKey().equals(message.getNameReserved())) {
+                try {
+                    kv.getValue().writeObject(message);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
     }
 
     private void sendAll(ChatMessage message) {
@@ -84,7 +97,7 @@ public class ServidorService {
 
                 try {
 
-                    System.out.println("Enviando mensagem de broadcast para: " + kv.getKey());
+                    Log.i("Enviando mensagem de broadcast para: " + kv.getKey());
                     kv.getValue().writeObject(message);
                 } catch (IOException ex) {
                     Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,17 +105,43 @@ public class ServidorService {
             }
         }
 
-        System.out.println("Broadcast finalizado");
+        Log.i("Broadcast finalizado");
     }
 
     public void disconnect(ChatMessage message, ObjectOutputStream output) {
         //Remove da lista de usuários o usuário com a chave igual ao seu nome
         mapOnlines.remove(message.getName());
-        message.setText("deixou o chat");
+        message.setText("Deixou o chat");
         message.setAction(Action.SEND_ONE);
         sendAll(message);
 
-        System.out.println("Usuário: " + message.getName() + " saiu do chat");
+        Log.i("Usuário: " + message.getName() + " se desconectou do chat");
+    }
+
+    private void sendOnlines() {
+
+        Set<String> setNames = new HashSet<String>();
+
+        //Prenche o set com os nomes dos usuários
+        for (Map.Entry<String, ObjectOutputStream> kv : mapOnlines.entrySet()) {
+            setNames.add(kv.getKey());
+        }
+
+        ChatMessage message = new ChatMessage();
+        message.setAction(Action.USERS_ONLINE);
+        message.setSetOnline(setNames);
+
+        //Envia o set para cada um dos usuários online
+        for (Map.Entry<String, ObjectOutputStream> kv : mapOnlines.entrySet()) {
+            message.setName(kv.getKey());
+
+            try {
+                kv.getValue().writeObject(message);
+            } catch (IOException ex) {
+                Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     private class ListenerSocket implements Runnable {
@@ -132,26 +171,27 @@ public class ServidorService {
 
                         if (connect(message, output)) {
                             mapOnlines.put(message.getName(), output);
+                            sendOnlines();
                         }
 
                     } else if (action.equals(action.DISCONECT)) {
                         disconnect(message, output);
+                        sendOnlines();
                         return;
                     } else if (action.equals(action.SEND_ONE)) {
 
-                        sendOne(message, output);
+                        sendOne(message);
 
                     } else if (action.equals(action.SEND_ALL)) {
 
                         sendAll(message);
 
-                    } else if (action.equals(action.USERS_ONLINE)) {
-
                     }
                 }
             } catch (IOException ex) {
                 disconnect(message, output);
-                Logger.getLogger(ListenerSocket.class.getName()).log(Level.SEVERE, null, ex);
+                sendOnlines();
+                //Logger.getLogger(ListenerSocket.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
             }
