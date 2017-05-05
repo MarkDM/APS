@@ -5,7 +5,7 @@
  */
 package com.aps.app;
 
-import com.aps.app.frame.ClienteFrame;
+import com.aps.app.view.ClienteFrame;
 
 /**
  *
