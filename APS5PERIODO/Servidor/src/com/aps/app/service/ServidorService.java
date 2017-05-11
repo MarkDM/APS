@@ -31,6 +31,23 @@ public class ServidorService {
     private Socket socket;
     private Map<String, ObjectOutputStream> mapOnlines = new HashMap<String, ObjectOutputStream>();
 
+    public ServidorService(int porta) {
+        try {
+
+            serverSocket = new ServerSocket(porta);
+            Log.i("Servidor on!");
+            while (true) {
+                socket = serverSocket.accept();
+
+                new Thread(new ListenerSocket(socket)).start();
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public ServidorService() {
         try {
 
@@ -45,7 +62,6 @@ public class ServidorService {
         } catch (IOException ex) {
             Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private boolean connect(ChatMessage message, ObjectOutputStream output) {

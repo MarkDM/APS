@@ -36,6 +36,7 @@ public class ClienteFrame extends TelaChat {
      */
     public ClienteFrame() {
         initComponents();
+          this.setLocationRelativeTo(null);
     }
 
     private class ListenerSocket implements Runnable {

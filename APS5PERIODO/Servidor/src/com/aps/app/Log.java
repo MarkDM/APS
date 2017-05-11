@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author Marcos
+ * @author Marcos & Igor
  */
 public class Log {
 
@@ -22,6 +22,13 @@ public class Log {
         System.out.println("Info: " + f.format(data) + " - " + msg);
     }
 
+    public static String getI(String msg) {
+
+        Date data = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return ("Info: " + f.format(data) + " - " + msg + "\n");
+    }
+
     //Erro
     public static void e(String msg) {
 
@@ -29,6 +36,14 @@ public class Log {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         System.out.println("Erro: " + f.format(data) + " - " + msg);
+    }
+
+    public static String getE(String msg) {
+
+        Date data = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        return ("Erro: " + f.format(data) + " - " + msg + "\n");
     }
 
 }
