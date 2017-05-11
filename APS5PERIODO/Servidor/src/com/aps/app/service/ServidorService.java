@@ -38,6 +38,7 @@ public class ServidorService {
             Log.i("Servidor on!");
             while (true) {
                 socket = serverSocket.accept();
+                Log.i("Conexão de socket detectada");
 
                 new Thread(new ListenerSocket(socket)).start();
             }
@@ -148,8 +149,11 @@ public class ServidorService {
 
         private ObjectOutputStream output;
         private ObjectInputStream input;
+        private Socket socket;
 
         public ListenerSocket(Socket socket) {
+            this.socket = socket;
+            
             try {
                 this.output = new ObjectOutputStream(socket.getOutputStream());
                 this.input = new ObjectInputStream(socket.getInputStream());
@@ -188,6 +192,8 @@ public class ServidorService {
 
                     }
                 }
+                
+                Log.i("Conexão de socket encerrada");
             } catch (IOException ex) {
                 disconnect(message, output);
                 sendOnlines();
