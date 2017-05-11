@@ -30,6 +30,7 @@ public class ClienteFrame extends TelaChat {
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
+    
 
     /**
      * Creates new form ClienteFrame
@@ -90,14 +91,13 @@ public class ClienteFrame extends TelaChat {
         this.listOnlines.setLayoutOrientation(JList.VERTICAL);
     }
 
-    private void receive(ChatMessage message) {
+    public void receive(ChatMessage message) {
 
         this.txtAreaReceive.append(montarInfoMensagem(message, null));
     }
 
 
-    @Override
-    public void connected(ChatMessage message) {
+    private void connected(ChatMessage message) {
 
         if (message.getText().equals("NO")) {
             this.txtName.setText("");
@@ -117,8 +117,7 @@ public class ClienteFrame extends TelaChat {
     }
     
     
-    @Override
-    public void disconnected() throws IOException {
+    private void disconnected() throws IOException {
 
         ChatMessage message = new ChatMessage();
         message.setName(this.message.getName());
@@ -391,13 +390,14 @@ public class ClienteFrame extends TelaChat {
         int selected = this.listOnlines.getSelectedIndex();
 
         if (selected > -1) {
-            this.message.setNameReserved((String) this.listOnlines.getSelectedValue());
-            this.message.setAction(Action.SEND_ONE);
+            ChatMessage message = new ChatMessage();
+            message.setNameReserved((String) this.listOnlines.getSelectedValue());
+            message.setAction(Action.SEND_ONE);
+            message.setName(txtName.getText());
             new ChatPrivado(message).setVisible(true);
             //this.listOnlines.clearSelection();
-        } else {
-            this.message.setAction(Action.SEND_ALL);
-        }
+        } 
+        
         
         
 

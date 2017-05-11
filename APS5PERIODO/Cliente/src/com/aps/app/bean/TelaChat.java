@@ -18,20 +18,14 @@ import javax.swing.JOptionPane;
  */
 public abstract class TelaChat extends javax.swing.JFrame {
 
-    private Socket socket;
-    private ChatMessage message;
-    private ClienteService service;
 
     public String montarInfoMensagem(ChatMessage message, String sender) {
         Date data = new Date();
         SimpleDateFormat f = new SimpleDateFormat("HH:mm:ss");
         return "(" + (sender == null ? message.getName() : sender) + " - " + f.format(data) + ")\n" + message.getText() + "\n\n";
     }
-
-    public abstract void connected(ChatMessage message);
-
-    public abstract void disconnected() throws IOException;
-
+    
+    public abstract void receive(ChatMessage message);
 
     public void alertaErro(String msg, String title) {
         JOptionPane.showMessageDialog(this, msg, title, JOptionPane.ERROR_MESSAGE);

@@ -3,7 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Usuario/Igor/Documents/GitHub/APS/APS5PERIODO/Cliente/src/com/aps/app/view/ClienteFrame.java</file>
+=======
+            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Cliente/src/com/aps/app/Cliente.java</file>
+            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Cliente/src/com/aps/app/view/ClienteFrame.java</file>
+            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Cliente/src/com/aps/app/bean/TelaChat.java</file>
+            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Cliente/src/com/aps/app/view/ChatPrivado.java</file>
+            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Cliente/src/com/aps/app/service/ClienteService.java</file>
+>>>>>>> a0f8b13e625b763807c3024da5e883de0a5ddb83
         </group>
     </open-files>
 </project-private>

@@ -7,25 +7,29 @@ package com.aps.app.view;
 
 import com.aps.app.bean.ChatMessage;
 import com.aps.app.bean.TelaChat;
+import com.aps.app.service.ClienteService;
 import java.io.IOException;
 
 /**
  *
  * @author marcos
  */
-public class ChatPrivado extends TelaChat  {
+public class ChatPrivado extends TelaChat {
 
+    private ClienteService service;
+    private ChatMessage message;
     /**
      * Creates new form ChatPrivado
      */
     public ChatPrivado(ChatMessage message) {
         initComponents();
+        this.message = message;
         this.txtNome.setText(message.getNameReserved());
+        this.service = new ClienteService();
     }
-    
+
     public ChatPrivado() {
         initComponents();
-        
     }
 
     /**
@@ -38,30 +42,62 @@ public class ChatPrivado extends TelaChat  {
     private void initComponents() {
 
         txtNome = new javax.swing.JLabel();
+        btnEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtNome.setText("jLabel1");
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(txtNome)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(txtNome))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(btnEnviar)))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addContainerGap()
                 .addComponent(txtNome)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addComponent(btnEnviar)
+                .addGap(94, 94, 94))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        //String text = this.txtAreaSend.getText();
+        String text = "Mensagem teste";
+        
+        
+        if (text.isEmpty()) {
+            return;
+        }
+
+        String name = this.message.getName();
+        this.message = new ChatMessage();
+        this.message.setText(text);
+
+        //this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
+        this.service.send(message);
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,28 +126,30 @@ public class ChatPrivado extends TelaChat  {
         }
         //</editor-fold>
 
-        
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ChatPrivado().setVisible(true);
-                
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel txtNome;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void connected(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void connected(ChatMessage message) {
+        
+    }
+
+    private void disconnected() throws IOException {
+       
     }
 
     @Override
-    public void disconnected() throws IOException {
+    public void receive(ChatMessage message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
