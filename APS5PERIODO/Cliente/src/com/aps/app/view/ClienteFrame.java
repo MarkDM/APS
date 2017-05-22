@@ -9,6 +9,8 @@ import com.aps.app.bean.ChatMessage;
 import com.aps.app.bean.ChatMessage.Action;
 import com.aps.app.bean.TelaChat;
 import com.aps.app.service.ClienteService;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -17,6 +19,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -30,14 +33,20 @@ public class ClienteFrame extends TelaChat {
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
-    
+
+    private long tamanhoPermitidoKB = 5120; //Igual a 5MB
+    private boolean temArquivo = false;
+
+    private String nomeArquivo;
+    private byte[] conteudoArquivo;
+    private String diretorioDestino;
 
     /**
      * Creates new form ClienteFrame
      */
     public ClienteFrame() {
         initComponents();
-          this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     private class ListenerSocket implements Runnable {
@@ -96,7 +105,6 @@ public class ClienteFrame extends TelaChat {
         this.txtAreaReceive.append(montarInfoMensagem(message, null));
     }
 
-
     private void connected(ChatMessage message) {
 
         if (message.getText().equals("NO")) {
@@ -113,10 +121,9 @@ public class ClienteFrame extends TelaChat {
         this.txtAreaSend.setEnabled(true);
         this.btnEnviar.setEnabled(true);
         this.btnLimpar.setEnabled(true);
-
+        this.btnSelecionarArquivo.setEnabled(true);
     }
-    
-    
+
     private void disconnected() throws IOException {
 
         ChatMessage message = new ChatMessage();
@@ -156,6 +163,7 @@ public class ClienteFrame extends TelaChat {
         txtAreaSend = new javax.swing.JTextArea();
         btnLimpar = new javax.swing.JButton();
         btnEnviar = new javax.swing.JButton();
+        btnSelecionarArquivo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -257,6 +265,14 @@ public class ClienteFrame extends TelaChat {
             }
         });
 
+        btnSelecionarArquivo.setText("Selecionar Arquivo");
+        btnSelecionarArquivo.setEnabled(false);
+        btnSelecionarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarArquivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -268,6 +284,8 @@ public class ClienteFrame extends TelaChat {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSelecionarArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -283,7 +301,8 @@ public class ClienteFrame extends TelaChat {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpar)
-                    .addComponent(btnEnviar))
+                    .addComponent(btnEnviar)
+                    .addComponent(btnSelecionarArquivo))
                 .addGap(12, 12, 12))
         );
 
@@ -369,6 +388,12 @@ public class ClienteFrame extends TelaChat {
             this.message.setAction(Action.SEND_ALL);
         }
 
+        if (temArquivo) {
+            this.message.setNomeArquivo(nomeArquivo);
+            this.message.setConteudoArquivo(conteudoArquivo);
+            this.message.setDiretorioDestino(diretorioDestino);
+        }
+
         this.message.setName(name);
         this.message.setText(text);
 
@@ -376,12 +401,13 @@ public class ClienteFrame extends TelaChat {
 
         this.service.send(message);
         this.txtAreaSend.setText("");
+        temArquivo = false;
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            disconnected();
-        } catch (IOException ex) {
+            System.exit(0);
+        } catch (Exception ex) {
             Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing
@@ -396,13 +422,42 @@ public class ClienteFrame extends TelaChat {
             message.setName(txtName.getText());
             new ChatPrivado(message).setVisible(true);
             //this.listOnlines.clearSelection();
-        } 
-        
-        
-        
+        }
+
 
     }//GEN-LAST:event_listOnlinesValueChanged
 
+    private void btnSelecionarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarArquivoActionPerformed
+        FileInputStream fis;
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.setDialogTitle("Escolha o arquivo");
+
+            if (chooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG) {
+                File fileSelected = chooser.getSelectedFile();
+
+                if ((fileSelected.length()/1024) > tamanhoPermitidoKB) {
+                    JOptionPane.showMessageDialog(this, "Arquivo com tamanho maior que o permitido!", "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                
+                byte[] bFile = new byte[(int) fileSelected.length()];
+                fis = new FileInputStream(fileSelected);
+                fis.read(bFile);
+                fis.close();
+
+                this.conteudoArquivo = bFile;
+                this.nomeArquivo = fileSelected.getName();
+                this.diretorioDestino = "C:\\Temp";
+                temArquivo = true;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSelecionarArquivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -410,6 +465,7 @@ public class ClienteFrame extends TelaChat {
     private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSelecionarArquivo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

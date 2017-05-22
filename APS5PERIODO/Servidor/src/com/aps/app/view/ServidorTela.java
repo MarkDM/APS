@@ -8,6 +8,8 @@ package com.aps.app.view;
 import com.aps.app.Log;
 import com.aps.app.bean.ChatMessage;
 import com.aps.app.service.ServidorService;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,7 +46,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         jPanel1 = new javax.swing.JPanel();
         btnConectar = new javax.swing.JButton();
         btnLimpaLog = new javax.swing.JButton();
-        btnParar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaLog = new javax.swing.JTextArea();
@@ -72,13 +73,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        btnParar.setText("Parar");
-        btnParar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPararActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,10 +81,8 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                 .addContainerGap()
                 .addComponent(btnConectar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnParar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLimpaLog)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +90,8 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConectar)
-                    .addComponent(btnLimpaLog)
-                    .addComponent(btnParar))
-                .addContainerGap(183, Short.MAX_VALUE))
+                    .addComponent(btnLimpaLog))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Log Servidor"));
@@ -120,7 +111,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Onlines"));
@@ -159,11 +150,11 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -179,13 +170,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
         txtAreaLog.setText("");
     }//GEN-LAST:event_btnLimpaLogActionPerformed
-
-    private void btnPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararActionPerformed
-        // TODO add your handling code here:
-        principal.interrupt();
-        btnConectar.setEnabled(true);
-        txtAreaLog.append(Log.getI("Servidor interrompido!"));
-    }//GEN-LAST:event_btnPararActionPerformed
 
     private void listUsersOnValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listUsersOnValueChanged
 
@@ -215,6 +199,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         try {
             output.writeObject(message);
         } catch (IOException ex) {
+            txtAreaLog.append(Log.getE(ex.getMessage()));
             Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -226,7 +211,11 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             if (kv.getKey().equals(message.getNameReserved())) {
                 try {
                     kv.getValue().writeObject(message);
+                    if (message.getNomeArquivo() != null) {
+                        sendArquivo(message);
+                    }
                 } catch (IOException ex) {
+                    txtAreaLog.append(Log.getE(ex.getMessage()));
                     Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -240,16 +229,18 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                 message.setAction(ChatMessage.Action.SEND_ONE);
 
                 try {
-
                     Log.i("Enviando mensagem de broadcast para: " + kv.getKey());
+                    txtAreaLog.append(Log.getI("Enviando mensagem de broadcast para: " + kv.getKey()));
                     kv.getValue().writeObject(message);
+                    if (message.getNomeArquivo() != null) {
+                        sendArquivo(message);
+                    }
                 } catch (IOException ex) {
+                    txtAreaLog.append(Log.getE(ex.getMessage()));
                     Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-
-        Log.i("Broadcast finalizado");
     }
 
     public void disconnect(ChatMessage message, ObjectOutputStream output) {
@@ -260,6 +251,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         sendAll(message);
 
         Log.i("Usuário: " + message.getName() + " se desconectou do chat");
+        txtAreaLog.append(Log.getE("Usuário: " + message.getName() + " se desconectou do chat"));
     }
 
     private void sendOnlines() {
@@ -286,6 +278,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             try {
                 kv.getValue().writeObject(message);
             } catch (IOException ex) {
+                txtAreaLog.append(ex.getMessage());
                 Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -311,6 +304,27 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
         }
     }
 
+    public void sendArquivo(ChatMessage message) {
+        String dir = message.getDiretorioDestino().endsWith("/")
+                ? message.getDiretorioDestino() + message.getNomeArquivo()
+                : message.getDiretorioDestino() + "/" + message.getNomeArquivo();
+
+        System.out.print("Escrevendo arquivo " + dir);
+
+        FileOutputStream fos;
+
+        try {
+            fos = new FileOutputStream(dir);
+            fos.write(message.getConteudoArquivo());
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ServidorTela.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     private class ListenerSocket implements Runnable {
 
         private ObjectOutputStream output;
@@ -321,6 +335,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                 this.output = new ObjectOutputStream(socket.getOutputStream());
                 this.input = new ObjectInputStream(socket.getInputStream());
             } catch (IOException ex) {
+                txtAreaLog.append(Log.getE(ex.getMessage()));
                 Logger.getLogger(ListenerSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -359,6 +374,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                 sendOnlines();
                 //Logger.getLogger(ListenerSocket.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                txtAreaLog.append(Log.getE(ex.getMessage()));
                 Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -370,7 +386,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnLimpaLog;
-    private javax.swing.JButton btnParar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

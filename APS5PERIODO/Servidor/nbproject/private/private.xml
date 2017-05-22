@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Usuario/Igor/Documents/GitHub/APS/APS5PERIODO/Servidor/src/com/aps/app/Log.java</file>
             <file>file:/D:/Usuario/Igor/Documents/GitHub/APS/APS5PERIODO/Servidor/src/com/aps/app/view/ServidorTela.java</file>
-            <file>file:/D:/Usuario/Igor/Documents/GitHub/APS/APS5PERIODO/Servidor/src/com/aps/app/service/ServidorService.java</file>
-=======
-            <file>file:/Users/marcos/GIT/APS/APS/APS5PERIODO/Servidor/src/com/aps/app/service/ServidorService.java</file>
->>>>>>> a0f8b13e625b763807c3024da5e883de0a5ddb83
+            <file>file:/D:/Usuario/Igor/Documents/GitHub/APS/APS5PERIODO/Servidor/src/com/aps/app/bean/ChatMessage.java</file>
         </group>
     </open-files>
 </project-private>

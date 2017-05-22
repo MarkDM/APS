@@ -6,6 +6,8 @@
 package com.aps.app.service;
 
 import com.aps.app.bean.ChatMessage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -17,23 +19,21 @@ import java.util.logging.Logger;
  * @author Marcos
  */
 public class ClienteService {
+
     private Socket socket;
     private ObjectOutputStream output;
-    
-    
-    public Socket connect(){
+
+    public Socket connect() {
         try {
-            this.socket = new Socket("127.0.0.1",5555);
+            this.socket = new Socket("127.0.0.1", 5555);
             this.output = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return socket;
     }
-    
-    
-    
-    public void send(ChatMessage message){
+
+    public void send(ChatMessage message) {
         try {
             this.output.writeObject(message);
         } catch (IOException ex) {
