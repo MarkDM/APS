@@ -28,7 +28,7 @@ public class ClienteService {
             this.socket = new Socket("127.0.0.1", 5555);
             this.output = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException ex) {
-            Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Servidor fora do ar! " + ex.getMessage());
         }
         return socket;
     }
@@ -37,7 +37,7 @@ public class ClienteService {
         try {
             this.output.writeObject(message);
         } catch (IOException ex) {
-            Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Servidor fora do ar! " + ex.getMessage());
         }
     }
 }

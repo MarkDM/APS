@@ -11,6 +11,8 @@ import com.aps.app.bean.TelaChat;
 import com.aps.app.service.ClienteService;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -39,7 +41,7 @@ public class ClienteFrame extends TelaChat {
 
     private String nomeArquivo;
     private byte[] conteudoArquivo;
-    private String diretorioDestino;
+
 
     /**
      * Creates new form ClienteFrame
@@ -101,8 +103,35 @@ public class ClienteFrame extends TelaChat {
     }
 
     public void receive(ChatMessage message) {
-
+        if (message.getConteudoArquivo()!= null) {
+            try {
+                receiveArquivo(message);
+            } catch (IOException ex) {
+                Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         this.txtAreaReceive.append(montarInfoMensagem(message, null));
+    }
+
+    public void receiveArquivo(ChatMessage message) throws FileNotFoundException, IOException {
+        FileOutputStream fos;
+
+        File criarPasta = new File("arquivos");
+        String caminho = criarPasta.getAbsolutePath() + "/";
+
+        if (criarPasta.exists()) {
+
+            fos = new FileOutputStream(caminho + message.getNomeArquivo());
+            fos.write(message.getConteudoArquivo());
+            fos.close();
+            Runtime.getRuntime().exec("explorer " + criarPasta.getAbsolutePath());
+        } else {
+            criarPasta.mkdir();
+            fos = new FileOutputStream(caminho + message.getNomeArquivo());
+            fos.write(message.getConteudoArquivo());
+            fos.close();
+            Runtime.getRuntime().exec("explorer " + criarPasta.getAbsolutePath());
+        }
     }
 
     private void connected(ChatMessage message) {
@@ -164,6 +193,10 @@ public class ClienteFrame extends TelaChat {
         btnLimpar = new javax.swing.JButton();
         btnEnviar = new javax.swing.JButton();
         btnSelecionarArquivo = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblNomeArquivo = new javax.swing.JLabel();
+        lblTamanhoArquivo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -273,6 +306,14 @@ public class ClienteFrame extends TelaChat {
             }
         });
 
+        jLabel1.setText("Tamanho:");
+
+        jLabel2.setText("Nome:");
+
+        lblNomeArquivo.setText("         ");
+
+        lblTamanhoArquivo.setText("      ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -281,29 +322,47 @@ public class ClienteFrame extends TelaChat {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnSelecionarArquivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblTamanhoArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(29, 29, 29)
+                                .addComponent(lblNomeArquivo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSelecionarArquivo)
+                    .addComponent(btnLimpar)
+                    .addComponent(btnEnviar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpar)
-                    .addComponent(btnEnviar)
-                    .addComponent(btnSelecionarArquivo))
-                .addGap(12, 12, 12))
+                    .addComponent(jLabel2)
+                    .addComponent(lblNomeArquivo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblTamanhoArquivo))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,15 +382,13 @@ public class ClienteFrame extends TelaChat {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -341,6 +398,7 @@ public class ClienteFrame extends TelaChat {
         String name = this.txtName.getText();
 
         if (!name.isEmpty()) {
+            try{
             //Cria mensagem do tipo CONNECT
             this.message = new ChatMessage();
             this.message.setAction(Action.CONNECT);
@@ -352,7 +410,9 @@ public class ClienteFrame extends TelaChat {
             new Thread(new ListenerSocket(this.socket)).start();
 
             this.service.send(this.message);
-
+            }catch(Exception e){
+                alertaErro(e.getMessage(), "Erro ao conectar!");
+            }
         }
     }//GEN-LAST:event_btnConectarActionPerformed
 
@@ -366,12 +426,13 @@ public class ClienteFrame extends TelaChat {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         this.txtAreaSend.setText("");
+        this.conteudoArquivo = null;
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String text = this.txtAreaSend.getText();
 
-        if (text.isEmpty()) {
+        if (text.isEmpty() && !temArquivo) {
             return;
         }
 
@@ -391,7 +452,6 @@ public class ClienteFrame extends TelaChat {
         if (temArquivo) {
             this.message.setNomeArquivo(nomeArquivo);
             this.message.setConteudoArquivo(conteudoArquivo);
-            this.message.setDiretorioDestino(diretorioDestino);
         }
 
         this.message.setName(name);
@@ -401,7 +461,9 @@ public class ClienteFrame extends TelaChat {
 
         this.service.send(message);
         this.txtAreaSend.setText("");
-        temArquivo = false;
+        this.temArquivo = false;
+        this.lblNomeArquivo.setText("");
+        this.lblTamanhoArquivo.setText("");
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -437,20 +499,24 @@ public class ClienteFrame extends TelaChat {
             if (chooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG) {
                 File fileSelected = chooser.getSelectedFile();
 
-                if ((fileSelected.length()/1024) > tamanhoPermitidoKB) {
+                long tamanhoArquivo = fileSelected.length()/1024;
+                
+                if (tamanhoArquivo > tamanhoPermitidoKB) {
                     JOptionPane.showMessageDialog(this, "Arquivo com tamanho maior que o permitido!", "Aviso",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-                
+
                 byte[] bFile = new byte[(int) fileSelected.length()];
                 fis = new FileInputStream(fileSelected);
                 fis.read(bFile);
                 fis.close();
-
+                
                 this.conteudoArquivo = bFile;
                 this.nomeArquivo = fileSelected.getName();
-                this.diretorioDestino = "C:\\Temp";
+                lblNomeArquivo.setText(this.nomeArquivo);
+                lblTamanhoArquivo.setText(tamanhoArquivo + " KB");
+                txtAreaSend.append("\n" + nomeArquivo + "\n");
                 temArquivo = true;
             }
 
@@ -466,12 +532,16 @@ public class ClienteFrame extends TelaChat {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSelecionarArquivo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblNomeArquivo;
+    private javax.swing.JLabel lblTamanhoArquivo;
     private javax.swing.JList listOnlines;
     private javax.swing.JTextArea txtAreaReceive;
     private javax.swing.JTextArea txtAreaSend;

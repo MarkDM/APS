@@ -211,9 +211,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             if (kv.getKey().equals(message.getNameReserved())) {
                 try {
                     kv.getValue().writeObject(message);
-                    if (message.getNomeArquivo() != null) {
-                        sendArquivo(message);
-                    }
                 } catch (IOException ex) {
                     txtAreaLog.append(Log.getE(ex.getMessage()));
                     Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
@@ -232,9 +229,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
                     Log.i("Enviando mensagem de broadcast para: " + kv.getKey());
                     txtAreaLog.append(Log.getI("Enviando mensagem de broadcast para: " + kv.getKey()));
                     kv.getValue().writeObject(message);
-                    if (message.getNomeArquivo() != null) {
-                        sendArquivo(message);
-                    }
                 } catch (IOException ex) {
                     txtAreaLog.append(Log.getE(ex.getMessage()));
                     Logger.getLogger(ServidorService.class.getName()).log(Level.SEVERE, null, ex);
@@ -302,27 +296,6 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             Log.e(ex.getMessage());
             txtAreaLog.append(Log.getE(ex.getMessage()));
         }
-    }
-
-    public void sendArquivo(ChatMessage message) {
-        String dir = message.getDiretorioDestino().endsWith("/")
-                ? message.getDiretorioDestino() + message.getNomeArquivo()
-                : message.getDiretorioDestino() + "/" + message.getNomeArquivo();
-
-        System.out.print("Escrevendo arquivo " + dir);
-
-        FileOutputStream fos;
-
-        try {
-            fos = new FileOutputStream(dir);
-            fos.write(message.getConteudoArquivo());
-            fos.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ServidorTela.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ServidorTela.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     private class ListenerSocket implements Runnable {

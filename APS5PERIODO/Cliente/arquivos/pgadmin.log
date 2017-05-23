@@ -1,0 +1,502 @@
+2016-02-20 23:57:29 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-02-20 23:58:24 ERROR  : ERROR:  syntax error at or near "log_codigo"
+LINE 3:  log_codigo integer not null,
+         ^
+2016-02-20 23:58:48 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-02-20 23:59:01 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-02-20 23:59:10 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-02-20 23:59:19 ERROR  : ERROR:  syntax error at or near "log_codigo"
+LINE 2:  log_codigo int not null,
+         ^
+2016-02-21 00:20:43 ERROR  : ERROR:  syntax error at or near "COLUMN"
+LINE 2: ALTER TABLE login COLUMN log_codigo SET DEFAULT NEXTVAL('log...
+                          ^
+2016-02-21 00:25:29 ERROR  : ERROR:  column "igor" does not exist
+LINE 1: ...n (log_usuario,log_senha,log_nivelacesso) VALUES ("igor","12...
+                                                             ^
+2016-02-21 00:32:03 ERROR  : ERROR:  operator does not exist: character > integer
+LINE 2: where log_nivelacesso > 1
+                              ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+2016-02-21 00:32:31 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:32:41 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:32:49 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:32:54 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:32:58 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:33:00 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:33:05 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:33:13 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:33:29 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:33:50 ERROR  : ERROR:  operator does not exist: character > integer
+LINE 1: select * from login where log_nivelacesso > 1
+                                                  ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+2016-02-21 00:33:55 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:34:00 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-02-21 00:34:07 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-04 23:02:58 ERROR  : ERROR:  syntax error at or near "integer"
+LINE 1: integer
+        ^
+2016-03-04 23:04:44 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-03-04 23:04:55 ERROR  : ERROR:  syntax error at or near "log_codigo"
+LINE 3:  log_codigo integer NOT NULL,
+         ^
+2016-03-04 23:05:06 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-04 23:06:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-04 23:06:52 ERROR  : ERROR:  syntax error at or near "ALTER"
+LINE 8: )ALTER TABLE public.login
+         ^
+2016-03-04 23:06:58 ERROR  : ERROR:  syntax error at or near "ALTER"
+LINE 9: ALTER TABLE public.login
+        ^
+2016-03-04 23:08:05 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-04 23:08:23 ERROR  : ERROR:  syntax error at or near "{"
+LINE 1: CREATE TABLE public.login{
+                                 ^
+2016-03-04 23:08:31 ERROR  : ERROR:  syntax error at or near "{"
+LINE 2: {
+        ^
+2016-03-04 23:11:12 ERROR  : ERROR:  syntax error at or near "("
+LINE 7:  CONTRAINT pk_login PRIMARY KEY (log_codigo)
+                                        ^
+2016-03-04 23:11:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-04 23:13:49 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-12 21:11:58 ERROR  : ERROR:  relation "cidades" already exists
+2016-03-16 21:32:31 ERROR  : ERROR:  syntax error at or near "serial"
+LINE 3:  id bigint not null serial,
+                            ^
+2016-03-16 21:34:43 ERROR  : ERROR:  type "data" does not exist
+LINE 5:  dataNascimento data
+                        ^
+2016-03-16 21:34:57 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-20 01:20:19 ERROR  : ERROR:  relation "clientes" does not exist
+LINE 1: select * from clientes
+                      ^
+2016-03-20 01:20:22 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-20 01:20:29 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-20 01:20:37 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:22:50 ERROR  : ERROR:  column "%vi%" does not exist
+LINE 1: select * from bairro where bai_nome = "%vi%"
+                                              ^
+2016-03-23 21:23:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:28 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:37 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:45 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:55 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:56 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:57 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:23:57 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:24:06 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:24:33 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:24:43 ERROR  : ERROR:  syntax error at or near ""vi""
+LINE 1: select * from bairro where bai_nome = like "vi"
+                                                   ^
+2016-03-23 21:24:50 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:33:43 ERROR  : ERROR:  syntax error at or near "where"
+LINE 1: ...elect * from bairro where bai_nome like '%v%' and where bai_...
+                                                             ^
+2016-03-23 21:33:49 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:33:52 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:34:49 ERROR  : ERROR:  syntax error at or near "select"
+LINE 1: ...elect * from bairro where bai_nome like '%v%' and select * f...
+                                                             ^
+2016-03-23 21:34:50 ERROR  : ERROR:  syntax error at or near "select"
+LINE 1: ...elect * from bairro where bai_nome like '%v%' and select * f...
+                                                             ^
+2016-03-23 21:34:58 ERROR  : ERROR:  syntax error at or near "select"
+LINE 1: select * from bairro where bai_nome like '%v%'  select * fro...
+                                                        ^
+2016-03-23 21:35:03 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:35:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:36:44 ERROR  : ERROR:  syntax error at or near "in"
+LINE 1: select * from bairro where bai_nome like in ('%v%','%V%')
+                                                 ^
+2016-03-23 21:36:53 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:37:05 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-03-23 21:37:35 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-04-08 01:06:17 ERROR  : ERROR:  relation "menus" does not exist
+LINE 1: select * from menus
+                      ^
+2016-04-08 01:06:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-04-08 01:06:24 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-04-08 01:15:09 ERROR  : ERROR:  syntax error at or near "on"
+LINE 1: alter table endereco alter constraint add on delete cascade
+                                                  ^
+2016-04-08 01:15:14 ERROR  : ERROR:  syntax error at or near "on"
+LINE 1: alter table endereco alter constraint  on delete cascade
+                                               ^
+2016-04-08 01:15:31 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-04-08 01:16:00 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using aula_neri
+        ^
+2016-04-08 01:16:11 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-04-08 01:16:24 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-05-29 16:21:10 ERROR  : ERROR:  relation "usuarios" does not exist
+LINE 1: select * from usuarios
+                      ^
+2016-05-29 16:21:14 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-05-29 16:21:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-07-30 22:40:22 ERROR  : Error connecting to the server: FATAL:  the database system is starting up
+
+2016-07-31 16:47:55 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using exemplo
+        ^
+2016-07-31 16:47:59 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using exemplo;
+        ^
+2016-07-31 16:48:05 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using 'exemplo'
+        ^
+2016-07-31 16:51:09 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-07-31 16:52:59 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-07-31 16:53:37 ERROR  : ERROR:  relation "public.contato" does not exist
+2016-08-21 14:08:50 ERROR  : ERROR:  DROP DATABASE cannot run inside a transaction block
+2016-08-21 14:09:38 ERROR  : Can not wait for thread termination (error 6: identificador inválido.)
+2016-08-21 14:09:39 ERROR  : Couldn't terminate thread (error 6: identificador inválido.)
+2016-08-21 14:11:19 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using postgres
+        ^
+2016-08-21 14:11:31 ERROR  : ERROR:  syntax error at or near "using"
+LINE 1: using 'postgres'
+        ^
+2016-08-30 20:32:04 ERROR  : ERROR:  relation "pk_aluno" already exists
+2016-08-31 18:40:54 ERROR  : ERROR:  relation "endereco" does not exist
+LINE 1: select * from endereco edrc
+                      ^
+2016-08-31 18:41:09 ERROR  : ERROR:  syntax error at or near "."
+LINE 2: inner join alunos a on 'a'.'RA' = 'edrc'.'ALUNO_RA'
+                                  ^
+2016-08-31 18:41:12 ERROR  : ERROR:  syntax error at or near "."
+LINE 2: inner join alunos a on 'a'.'RA' = 'edrc'.'ALUNO_RA'
+                                  ^
+2016-08-31 18:41:20 ERROR  : ERROR:  syntax error at or near "'RA'"
+LINE 2: inner join alunos a on a.'RA' = edrc.'ALUNO_RA'
+                                 ^
+2016-08-31 18:41:26 ERROR  : ERROR:  syntax error at or near "'RA'"
+LINE 2: inner join alunos a on a.'RA' = edrc.'ALUNO_RA';
+                                 ^
+2016-08-31 18:41:37 ERROR  : ERROR:  syntax error at or near "'endereco'"
+LINE 1: select * from 'endereco' edrc
+                      ^
+2016-08-31 18:41:49 ERROR  : ERROR:  syntax error at or near "'endereco'"
+LINE 1: select * from 'endereco' 'edrc'
+                      ^
+2016-08-31 18:41:52 ERROR  : ERROR:  syntax error at or near "'endereco'"
+LINE 1: select * from 'endereco' 'edrc'
+                      ^
+2016-08-31 18:42:39 ERROR  : ERROR:  syntax error at or near "'ENDERECO'"
+LINE 1: select * from 'ENDERECO' 
+                      ^
+2016-08-31 18:42:44 ERROR  : ERROR:  syntax error at or near "'ENDERECO'"
+LINE 1: select * from 'ENDERECO' 
+                      ^
+2016-08-31 18:42:57 ERROR  : ERROR:  syntax error at or near "'ENDERECO'"
+LINE 1: select * from 'ENDERECO' 
+                      ^
+2016-08-31 18:43:07 ERROR  : ERROR:  syntax error at or near "'ENDERECO'"
+LINE 1: select * from 'ENDERECO' 
+                      ^
+2016-08-31 18:43:17 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-08-31 18:46:33 ERROR  : ERROR:  column "ID" does not exist
+LINE 1: SELECT "ID","RUA", "SETOR", "CIDADE", "UF", "CEP", "ENDERECO...
+               ^
+2016-08-31 18:46:38 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-08-31 18:47:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-08-31 18:47:08 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-08-31 18:47:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-08-31 18:47:26 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-04 15:34:50 ERROR  : ERROR:  relation "aluno" does not exist
+LINE 1: select * from aluno
+                      ^
+2016-09-04 15:35:02 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 09:28:24 ERROR  : ERROR:  syntax error at or near "atleta"
+LINE 3: update atleta 
+               ^
+2016-09-18 09:28:32 ERROR  : ERROR:  syntax error at or near "'atleta'"
+LINE 1: update 'atleta' 
+               ^
+2016-09-18 09:28:45 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 09:32:35 ERROR  : ERROR:  syntax error at or near "c"
+LINE 1: select c Clube c LEFT JOIN FETCH atletas WHERE c = 1 order b...
+                       ^
+2016-09-18 09:32:44 ERROR  : ERROR:  syntax error at or near "c"
+LINE 1: select c Clube c LEFT JOIN  atletas WHERE c = 1 order by a.n...
+                       ^
+2016-09-18 09:34:37 ERROR  : ERROR:  argument of WHERE must be type boolean, not type integer
+LINE 2: where idf_clube
+              ^
+2016-09-18 09:34:43 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 09:34:47 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 09:34:48 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 09:34:48 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-18 10:38:21 ERROR  : ERROR:  insert or update on table "atleta" violates foreign key constraint "fk758048791aa19ded"
+DETAIL:  Key (idf_clube)=(2) is not present in table "clube".
+2016-09-18 10:38:24 ERROR  : ERROR:  insert or update on table "atleta" violates foreign key constraint "fk758048791aa19ded"
+DETAIL:  Key (idf_clube)=(2) is not present in table "clube".
+2016-09-24 16:48:45 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+
+2016-09-24 16:52:27 ERROR  : ERROR:  null value in column "id" violates not-null constraint
+DETAIL:  Failing row contains (null, vila matinha, GO).
+2016-09-24 16:52:29 ERROR  : ERROR:  null value in column "id" violates not-null constraint
+DETAIL:  Failing row contains (null, vila matinha, GO).
+2016-09-25 08:38:53 ERROR  : ERROR:  relation "itens_pedido" does not exist
+LINE 1: select * from itens_pedido itpd
+                      ^
+2016-09-25 08:39:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 08:39:22 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 08:39:35 ERROR  : ERROR:  syntax error at or near "'itempedido'"
+LINE 1: select * from 'itempedido' itpd
+                      ^
+2016-09-25 08:39:51 ERROR  : ERROR:  syntax error at or near "'itempedido'"
+LINE 1: select * from 'itempedido' 'itpd'
+                      ^
+2016-09-25 09:33:14 ERROR  : ERROR:  null value in column "preco" violates not-null constraint
+DETAIL:  Failing row contains (3, null, null, null).
+2016-09-25 15:13:34 ERROR  : ERROR:  column u.id does not exist
+LINE 2: inner join papelusuario pu on pu.usuario_id = u.id
+                                                      ^
+HINT:  Perhaps you meant to reference the column "pu.id".
+2016-09-25 15:13:35 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:13:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:13:43 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:13:48 ERROR  : ERROR:  column u.id does not exist
+LINE 2: inner join papelusuario pu on pu.usuario_id = u.id
+                                                      ^
+HINT:  Perhaps you meant to reference the column "pu.id".
+2016-09-25 15:15:54 ERROR  : ERROR:  operator does not exist: character varying = integer
+LINE 3: where u.login = 1
+                      ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+2016-09-25 15:16:06 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:07 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:07 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:11 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:12 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:12 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:23 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:30 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-09-25 15:16:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-12 20:43:44 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 20:44:08 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 20:44:27 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 20:44:40 ERROR  : ERROR:  insert or update on table "pedido" violates foreign key constraint "fk8e420365efcd232b"
+DETAIL:  Key (cliente_email)=(null) is not present in table "cliente".
+2016-10-12 20:44:45 ERROR  : ERROR:  insert or update on table "pedido" violates foreign key constraint "fk8e420365efcd232b"
+DETAIL:  Key (cliente_email)=(Null) is not present in table "cliente".
+2016-10-12 20:45:12 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 20:45:20 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 20:45:38 ERROR  : ERROR:  constraint "fk8e420365efcd232b" of relation "pedido" does not exist
+2016-10-12 21:25:13 ERROR  : ERROR:  null value in column "id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null, f).
+2016-10-12 21:25:18 ERROR  : ERROR:  null value in column "id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null, f).
+2016-10-19 20:04:58 ERROR  : ERROR:  update or delete on table "curso" violates foreign key constraint "curso_fk" on table "alunos"
+DETAIL:  Key (curso_id)=(1) is still referenced from table "alunos".
+2016-10-19 20:05:18 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:05:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:05:33 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:05:42 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:06:27 ERROR  : ERROR:  relation "cursos" does not exist
+LINE 1: delete from cursos
+                    ^
+2016-10-19 20:06:32 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:06:39 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-19 20:07:35 ERROR  : ERROR:  cannot drop table curso column curso_id because other objects depend on it
+DETAIL:  constraint curso_fk on table alunos depends on table curso column curso_id
+constraint fk_curso on table aluno_curso depends on table curso column curso_id
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2016-10-19 20:07:40 ERROR  : ERROR:  cannot drop table curso column curso_id because other objects depend on it
+DETAIL:  constraint curso_fk on table alunos depends on table curso column curso_id
+constraint fk_curso on table aluno_curso depends on table curso column curso_id
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2016-10-19 20:07:57 ERROR  : ERROR:  cannot drop sequence curso_curso_id_seq because other objects depend on it
+DETAIL:  default for table curso column curso_id depends on sequence curso_curso_id_seq
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2016-10-19 20:08:25 ERROR  : ERROR:  null value in column "aluno_curso_id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null).
+2016-10-19 20:08:33 ERROR  : ERROR:  null value in column "aluno_curso_id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null).
+2016-10-19 20:08:37 ERROR  : ERROR:  null value in column "aluno_curso_id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null).
+2016-10-19 20:08:39 ERROR  : ERROR:  null value in column "aluno_curso_id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null).
+2016-10-19 20:08:42 ERROR  : ERROR:  null value in column "aluno_curso_id" violates not-null constraint
+DETAIL:  Failing row contains (null, null, null, null).
+2016-10-19 20:10:06 ERROR  : ERROR:  syntax error at or near "not"
+LINE 1: ...lter table curso alter column curso_id type serial not null 
+                                                              ^
+2016-10-28 01:08:11 ERROR  : ERROR:  function retira_acentuacao(text) does not exist
+LINE 1: select cidade_id from cidades where retira_acentuacao(UPPER(...
+                                            ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+2016-10-28 01:08:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:24:52 ERROR  : ERROR:  column "curso_descricao" does not exist
+LINE 2: select curso_descricao from curso
+               ^
+2016-10-28 01:25:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:25:14 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:25:20 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:25:27 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:25:42 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:25:54 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:27:50 ERROR  : ERROR:  syntax error at or near "from"
+LINE 1: ...ct UPPER(trim(both retira_acentuacao(nome_curso)) from curso
+                                                             ^
+2016-10-28 01:27:51 ERROR  : ERROR:  syntax error at or near "from"
+LINE 1: ...ct UPPER(trim(both retira_acentuacao(nome_curso)) from curso
+                                                             ^
+2016-10-28 01:28:01 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:28:18 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:28:22 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:28:35 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:28:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:28:36 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:29:43 ERROR  : ERROR:  syntax error at or near ")"
+LINE 1: select UPPER(retira_acentuacao(nome_curso)))from curso
+                                                   ^
+2016-10-28 01:29:49 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 01:31:58 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-28 23:44:00 ERROR  : ERROR:  null value in column "cidade_nascimento" violates not-null constraint
+DETAIL:  Failing row contains (c66hdf2, igor, 1996-01-01, pai, pai                                                         , null, null, null, 1, 2015-01-01).
+2016-10-28 23:44:29 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:07:15 ERROR  : ERROR:  syntax error at or near "select"
+LINE 3: select * from alunos
+        ^
+2016-10-29 01:07:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:07:23 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:34:13 ERROR  : ERROR:  operator does not exist: character = integer
+LINE 19: ...erativa uf on uf.uf_sigla = e.uf_sigla WHERE a.RA = 1234567 
+                                                              ^
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+2016-10-29 01:34:20 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:34:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:34:38 ERROR  : ERROR:  column "1234567" does not exist
+LINE 19: ...ativa uf on uf.uf_sigla = e.uf_sigla WHERE a.RA = "1234567" 
+                                                              ^
+2016-10-29 01:35:45 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:45:46 ERROR  : ERROR:  syntax error at or near "o"
+LINE 1: o
+        ^
+2016-10-29 01:45:49 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 01:49:28 ERROR  : ERROR:  syntax error at or near "order"
+LINE 20:  order by a.nome
+          ^
+2016-10-29 01:49:33 ERROR  : ERROR:  syntax error at or near "order"
+LINE 20:  order by a.nome
+          ^
+2016-10-29 01:49:45 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 18:33:26 ERROR  : ERROR:  relation "unidades_federatica" does not exist
+LINE 1: delete from unidades_federatica
+                    ^
+2016-10-29 18:33:36 ERROR  : ERROR:  relation "unidade_federatica" does not exist
+LINE 1: delete from unidade_federatica
+                    ^
+2016-10-29 18:57:21 ERROR  : ERROR:  type "serial" does not exist
+2016-10-29 22:35:36 ERROR  : ERROR:  syntax error at or near "alter"
+LINE 2:  alter table public.alunos
+         ^
+2016-10-29 23:06:27 ERROR  : ERROR:  relation "aluno" does not exist
+LINE 1: select * from aluno
+                      ^
+2016-10-29 23:06:37 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 0,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:06:39 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 0,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:06:44 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 1,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:06:46 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 1,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:06:59 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:07:08 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 1,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:07:10 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from alunos limit 1,1
+                             ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:07:19 ERROR  : ERROR:  argument of LIMIT must be type bigint, not type record
+LINE 1: select * from alunos limit (1,1)
+                                   ^
+2016-10-29 23:09:06 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from unidade_federativa limit 1,2
+                                         ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:09:10 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from unidade_federativa limit 1,2
+                                         ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:09:12 ERROR  : ERROR:  LIMIT #,# syntax is not supported
+LINE 1: select * from unidade_federativa limit 1,2
+                                         ^
+HINT:  Use separate LIMIT and OFFSET clauses.
+2016-10-29 23:09:14 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:10:55 ERROR  : ERROR:  syntax error at or near "union"
+LINE 3: union 
+        ^
+2016-10-29 23:11:20 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:11:21 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:12:24 ERROR  : ERROR:  OFFSET must not be negative
+2016-10-29 23:12:28 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:12:38 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:30:00 ERROR  : ERROR:  relation "aluno" does not exist
+LINE 1: select * from aluno
+                      ^
+2016-10-29 23:30:04 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-29 23:30:44 ERROR  : ERROR:  syntax error at or near "select"
+LINE 4: select * from alunos
+        ^
+2016-10-29 23:30:48 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-10-31 23:53:29 ERROR  : ERROR:  relation "produtos" does not exist
+LINE 1: select * from produtos
+                      ^
+2016-10-31 23:53:33 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-11-20 17:21:16 ERROR  : ERROR:  syntax error at or near "insert"
+LINE 2: insert into empregados values(2,'CARLOS EDUARDO','RUA T-7 NR...
+        ^
+2016-11-20 17:22:02 ERROR  : ERROR:  relation "empregado_audit" does not exist
+LINE 1: select * from empregado_audit
+                      ^
+2016-11-20 17:22:12 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-11-20 17:22:31 ERROR  : ERROR:  syntax error at or near "update"
+LINE 2: update empregados set endereco = 'RUA 3009 LT-01 QD-10 NR-10...
+        ^
+2016-11-20 17:22:33 ERROR  : ERROR:  syntax error at or near "update"
+LINE 2: update empregados set endereco = 'RUA 3009 LT-01 QD-10 NR-10...
+        ^
+2016-11-20 17:23:24 ERROR  : ERROR:  syntax error at or near "*"
+LINE 1: delete * from empregados
+               ^
+2016-11-20 17:23:29 ERROR  : ERROR:  syntax error at or near "empregados"
+LINE 1: delete empregados
+               ^
+2016-11-20 17:23:46 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
+2016-11-20 17:32:23 ERROR  : ERROR:  cannot drop function processa_emp_audit() because other objects depend on it
+DETAIL:  trigger emp_audit on table empregados depends on function processa_emp_audit()
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2017-03-22 21:01:05 ERROR  : ERROR:  type "data" does not exist
+LINE 5:  PESS_DATA_NASC DATA,
+                        ^
+2017-03-22 21:01:13 ERROR  : ERROR:  current transaction is aborted, commands ignored until end of transaction block
