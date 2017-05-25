@@ -31,17 +31,16 @@ import javax.swing.ListSelectionModel;
  * @author Marcos
  */
 public class ClienteFrame extends TelaChat {
-
+    
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
-
+    
     private long tamanhoPermitidoKB = 5120; //Igual a 5MB
     private boolean temArquivo = false;
-
+    
     private String nomeArquivo;
     private byte[] conteudoArquivo;
-
 
     /**
      * Creates new form ClienteFrame
@@ -50,11 +49,11 @@ public class ClienteFrame extends TelaChat {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    
     private class ListenerSocket implements Runnable {
-
+        
         private ObjectInputStream input;
-
+        
         public ListenerSocket(Socket socket) {
             try {
                 input = new ObjectInputStream(socket.getInputStream());
@@ -62,22 +61,22 @@ public class ClienteFrame extends TelaChat {
                 Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         @Override
         public void run() {
             ChatMessage message = null;
-
+            
             try {
                 while ((message = (ChatMessage) input.readObject()) != null) {
                     Action action = message.getAction();
-
+                    
                     if (action.equals(action.CONNECT)) {
                         connected(message);
                     } else if (action.equals(action.DISCONECT)) {
-                        disconnected();
+                        socket.close();
                     } else if (action.equals(action.SEND_ONE)) {
                         receive(message);
-
+                        
                     } else if (action.equals(action.USERS_ONLINE)) {
                         refreshOnlines(message);
                     }
@@ -88,39 +87,47 @@ public class ClienteFrame extends TelaChat {
                 Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
-
+    
     private void refreshOnlines(ChatMessage message) {
         Set<String> names = message.getSetOnline();
         names.remove((String) message.getName());
-
+        
         String[] array = (String[]) names.toArray(new String[names.size()]);
-
+        
         this.listOnlines.setListData(array);
         this.listOnlines.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.listOnlines.setLayoutOrientation(JList.VERTICAL);
     }
-
+    
     public void receive(ChatMessage message) {
-        if (message.getConteudoArquivo()!= null) {
+        if (message.getConteudoArquivo() != null) {
             try {
                 receiveArquivo(message);
             } catch (IOException ex) {
                 Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.txtAreaReceive.append(montarInfoMensagem(message, null));
+        
+        if (message.getAction().equals(Action.SEND_ONE)) {
+            ChatPrivado chatPrivado = new ChatPrivado(message, this.service);
+            chatPrivado.setVisible(true);
+            chatPrivado.receive(message);
+        } else {
+            this.txtAreaReceive.append(montarInfoMensagem(message, null));
+        }
+        
     }
-
+    
     public void receiveArquivo(ChatMessage message) throws FileNotFoundException, IOException {
         FileOutputStream fos;
-
+        
         File criarPasta = new File("arquivos");
         String caminho = criarPasta.getAbsolutePath() + "/";
-
+        
         if (criarPasta.exists()) {
-
+            
             fos = new FileOutputStream(caminho + message.getNomeArquivo());
             fos.write(message.getConteudoArquivo());
             fos.close();
@@ -133,15 +140,15 @@ public class ClienteFrame extends TelaChat {
             Runtime.getRuntime().exec("explorer " + criarPasta.getAbsolutePath());
         }
     }
-
+    
     private void connected(ChatMessage message) {
-
+        
         if (message.getText().equals("NO")) {
             this.txtName.setText("");
             alertaErro("Não foi possível conectar, nome de usuário já existe", "Erro ao conectar");
             return;
         }
-
+        
         alerta("Você está conectado ao chat", "Conectado com sucesso");
         this.message = message;
         this.btnConectar.setEnabled(false);
@@ -152,14 +159,18 @@ public class ClienteFrame extends TelaChat {
         this.btnLimpar.setEnabled(true);
         this.btnSelecionarArquivo.setEnabled(true);
     }
-
+    
     private void disconnected() throws IOException {
-
+        
+        if (this.message == null) {
+            return;
+        }
+        
         ChatMessage message = new ChatMessage();
         message.setName(this.message.getName());
-        this.message.setAction(Action.DISCONECT);
-        socket.close();
+        message.setAction(Action.DISCONECT);
         this.service.send(message);
+        //socket.close();
         this.btnConectar.setEnabled(true);
         this.txtName.setEnabled(true);
         this.btnSair.setEnabled(false);
@@ -170,9 +181,7 @@ public class ClienteFrame extends TelaChat {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -250,6 +259,11 @@ public class ClienteFrame extends TelaChat {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Onlines"));
 
         listOnlines.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        listOnlines.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listOnlinesMouseClicked(evt);
+            }
+        });
         listOnlines.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listOnlinesValueChanged(evt);
@@ -396,21 +410,21 @@ public class ClienteFrame extends TelaChat {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         String name = this.txtName.getText();
-
+        
         if (!name.isEmpty()) {
-            try{
-            //Cria mensagem do tipo CONNECT
-            this.message = new ChatMessage();
-            this.message.setAction(Action.CONNECT);
-            this.message.setName(name);
-
-            this.service = new ClienteService();
-            this.socket = service.connect();
-
-            new Thread(new ListenerSocket(this.socket)).start();
-
-            this.service.send(this.message);
-            }catch(Exception e){
+            try {
+                //Cria mensagem do tipo CONNECT
+                this.message = new ChatMessage();
+                this.message.setAction(Action.CONNECT);
+                this.message.setName(name);
+                
+                this.service = new ClienteService();
+                this.socket = service.connect();
+                
+                new Thread(new ListenerSocket(this.socket)).start();
+                
+                this.service.send(this.message);
+            } catch (Exception e) {
                 alertaErro(e.getMessage(), "Erro ao conectar!");
             }
         }
@@ -431,16 +445,16 @@ public class ClienteFrame extends TelaChat {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String text = this.txtAreaSend.getText();
-
+        
         if (text.isEmpty() && !temArquivo) {
             return;
         }
-
+        
         String name = this.message.getName();
         this.message = new ChatMessage();
-
+        
         int selected = this.listOnlines.getSelectedIndex();
-
+        
         if (selected > -1) {
             this.message.setNameReserved((String) this.listOnlines.getSelectedValue());
             this.message.setAction(Action.SEND_ONE);
@@ -448,17 +462,17 @@ public class ClienteFrame extends TelaChat {
         } else {
             this.message.setAction(Action.SEND_ALL);
         }
-
+        
         if (temArquivo) {
             this.message.setNomeArquivo(nomeArquivo);
             this.message.setConteudoArquivo(conteudoArquivo);
         }
-
+        
         this.message.setName(name);
         this.message.setText(text);
-
+        
         this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
-
+        
         this.service.send(message);
         this.txtAreaSend.setText("");
         this.temArquivo = false;
@@ -468,24 +482,13 @@ public class ClienteFrame extends TelaChat {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            System.exit(0);
+            disconnected();
         } catch (Exception ex) {
             Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing
 
     private void listOnlinesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listOnlinesValueChanged
-        int selected = this.listOnlines.getSelectedIndex();
-
-        if (selected > -1) {
-            ChatMessage message = new ChatMessage();
-            message.setNameReserved((String) this.listOnlines.getSelectedValue());
-            message.setAction(Action.SEND_ONE);
-            message.setName(txtName.getText());
-            new ChatPrivado(message).setVisible(true);
-            //this.listOnlines.clearSelection();
-        }
-
 
     }//GEN-LAST:event_listOnlinesValueChanged
 
@@ -495,18 +498,18 @@ public class ClienteFrame extends TelaChat {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.setDialogTitle("Escolha o arquivo");
-
+            
             if (chooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG) {
                 File fileSelected = chooser.getSelectedFile();
-
-                long tamanhoArquivo = fileSelected.length()/1024;
+                
+                long tamanhoArquivo = fileSelected.length() / 1024;
                 
                 if (tamanhoArquivo > tamanhoPermitidoKB) {
                     JOptionPane.showMessageDialog(this, "Arquivo com tamanho maior que o permitido!", "Aviso",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
-
+                
                 byte[] bFile = new byte[(int) fileSelected.length()];
                 fis = new FileInputStream(fileSelected);
                 fis.read(bFile);
@@ -519,11 +522,32 @@ public class ClienteFrame extends TelaChat {
                 txtAreaSend.append("\n" + nomeArquivo + "\n");
                 temArquivo = true;
             }
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSelecionarArquivoActionPerformed
+
+    private void listOnlinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOnlinesMouseClicked
+        JList list = (JList) evt.getSource();
+        if (evt.getClickCount() == 2) {
+            //int index = list.locationToIndex(evt.getPoint());
+            // System.out.println("index: " + index);
+            int selected = list.getSelectedIndex();
+            
+            if (selected > -1) {
+                ChatMessage message = new ChatMessage();
+                message.setNameReserved((String) this.listOnlines.getSelectedValue());
+                message.setAction(Action.SEND_ONE);
+                message.setName(txtName.getText());
+                //this.service.send(message);
+                new ChatPrivado(message, this.service).setVisible(true);
+                //this.listOnlines.clearSelection();
+            }
+        }
+        
+
+    }//GEN-LAST:event_listOnlinesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
