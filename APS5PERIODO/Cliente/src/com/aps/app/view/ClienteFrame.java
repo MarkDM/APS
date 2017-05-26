@@ -124,7 +124,7 @@ public class ClienteFrame extends TelaChat {
             }
 
             //Se não houver inicia um novo chat privado
-            ChatPrivado chatPrivado = new ChatPrivado(message, this.service, this.conversasPrivadas);
+            ChatPrivado chatPrivado = new ChatPrivado(message, message.getNameReserved(), this.service, this.conversasPrivadas);
             chatPrivado.setVisible(true);
             chatPrivado.receive(message);
 
@@ -569,7 +569,7 @@ public class ClienteFrame extends TelaChat {
                     }
                 }
 
-                ChatPrivado chat = new ChatPrivado(message, this.service, this.conversasPrivadas);
+                ChatPrivado chat = new ChatPrivado(message, nameReserved, this.service, this.conversasPrivadas);
                 chat.setVisible(true);
                 conversasPrivadas.put(nameReserved, chat);
             }

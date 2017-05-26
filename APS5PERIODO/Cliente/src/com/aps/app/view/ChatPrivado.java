@@ -25,10 +25,10 @@ public class ChatPrivado extends TelaChat {
     /**
      * Creates new form ChatPrivado
      */
-    public ChatPrivado(ChatMessage message, ClienteService service, Map<String, ChatPrivado> conversasPrivadas) {
+    public ChatPrivado(ChatMessage message, String nome, ClienteService service, Map<String, ChatPrivado> conversasPrivadas) {
         initComponents();
         this.message = message;
-        this.txtNome.setText(message.getNameReserved());
+        this.txtNome.setText(nome);
         this.service = service;
         this.conversasPrivadas = conversasPrivadas;
     }
@@ -116,18 +116,18 @@ public class ChatPrivado extends TelaChat {
 
         ChatMessage message = new ChatMessage();
 
-        String name = this.message.getNameReserved();
+        String name = this.txtNome.getText();
         message.setText(text);
-        message.setName(name);
+        message.setName(this.message.getName());
         message.setAction(ChatMessage.Action.SEND_ONE);
-        message.setNameReserved(this.message.getName());
+        message.setNameReserved(this.message.getNameReserved());
 
         //this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
         this.service.send(message);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.conversasPrivadas.remove(this.message.getName());
+        this.conversasPrivadas.remove(this.message.getNameReserved());
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -183,6 +183,7 @@ public class ChatPrivado extends TelaChat {
 
     @Override
     public void receive(ChatMessage message) {
+        this.message = message;
         this.txtMsg.append(montarInfoMensagem(message, null));
     }
 
