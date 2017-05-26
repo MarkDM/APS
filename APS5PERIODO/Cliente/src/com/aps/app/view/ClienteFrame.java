@@ -16,8 +16,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class ClienteFrame extends TelaChat {
     private Socket socket;
     private ChatMessage message;
     private ClienteService service;
-    
+    private Map<String, ChatPrivado> conversasPrivadas = new HashMap<String, ChatPrivado>();
     private long tamanhoPermitidoKB = 5120; //Igual a 5MB
     private boolean temArquivo = false;
     
@@ -111,9 +111,25 @@ public class ClienteFrame extends TelaChat {
         }
         
         if (message.getAction().equals(Action.SEND_ONE)) {
-            ChatPrivado chatPrivado = new ChatPrivado(message, this.service);
+
+            /*
+             Verifica se já existe uma conversa em aberto com o sender da mensagem
+             caso houver apenas chama o receive() do chat privado
+             */
+            for (Map.Entry<String, ChatPrivado> kv : conversasPrivadas.entrySet()) {
+                if (kv.getKey().equals(message.getNameReserved())) {
+                    kv.getValue().receive(message);
+                    return;
+                }
+            }
+
+            //Se não houver inicia um novo chat privado
+            ChatPrivado chatPrivado = new ChatPrivado(message, this.service, this.conversasPrivadas);
             chatPrivado.setVisible(true);
             chatPrivado.receive(message);
+            
+            conversasPrivadas.put(message.getName(), chatPrivado);
+            
         } else {
             this.txtAreaReceive.append(montarInfoMensagem(message, null));
         }
@@ -537,12 +553,25 @@ public class ClienteFrame extends TelaChat {
             
             if (selected > -1) {
                 ChatMessage message = new ChatMessage();
-                message.setNameReserved((String) this.listOnlines.getSelectedValue());
+                String nameReserved = (String) this.listOnlines.getSelectedValue();
+                message.setNameReserved(nameReserved);
                 message.setAction(Action.SEND_ONE);
                 message.setName(txtName.getText());
-                //this.service.send(message);
-                new ChatPrivado(message, this.service).setVisible(true);
-                //this.listOnlines.clearSelection();
+
+                /*
+                 Verifica se já existe uma conversa em aberto com o sender da mensagem
+                 caso houver apenas chama o receive() do chat privado
+                 */
+                for (Map.Entry<String, ChatPrivado> kv : conversasPrivadas.entrySet()) {
+                    if (kv.getKey().equals(nameReserved)) {
+                        kv.getValue().receive(message);
+                        return;
+                    }
+                }
+                
+                ChatPrivado chat = new ChatPrivado(message, this.service, this.conversasPrivadas);
+                chat.setVisible(true);
+                conversasPrivadas.put(nameReserved, chat);
             }
         }
         

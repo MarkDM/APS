@@ -321,7 +321,7 @@ public class ServidorTela extends javax.swing.JFrame implements Runnable {
             try {
                 while ((message = (ChatMessage) input.readObject()) != null) {
                     ChatMessage.Action action = message.getAction();
-                    
+
                     if (action.equals(action.CONNECT)) {
                         if (connect(message, output)) {
                             mapOnlines.put(message.getName(), output);

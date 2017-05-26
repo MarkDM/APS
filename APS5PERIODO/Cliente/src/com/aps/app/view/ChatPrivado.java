@@ -9,6 +9,8 @@ import com.aps.app.bean.ChatMessage;
 import com.aps.app.bean.TelaChat;
 import com.aps.app.service.ClienteService;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,19 +20,25 @@ public class ChatPrivado extends TelaChat {
 
     private ClienteService service;
     private ChatMessage message;
+    private Map<String, ChatPrivado> conversasPrivadas;
 
     /**
      * Creates new form ChatPrivado
      */
-    public ChatPrivado(ChatMessage message, ClienteService service) {
+    public ChatPrivado(ChatMessage message, ClienteService service, Map<String, ChatPrivado> conversasPrivadas) {
         initComponents();
         this.message = message;
         this.txtNome.setText(message.getNameReserved());
         this.service = service;
+        this.conversasPrivadas = conversasPrivadas;
     }
 
     public ChatPrivado() {
         initComponents();
+    }
+
+    public ChatMessage getMessage() {
+        return message;
     }
 
     /**
@@ -42,8 +50,15 @@ public class ChatPrivado extends TelaChat {
 
         txtNome = new javax.swing.JLabel();
         btnEnviar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtMsg = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txtNome.setText("jLabel1");
 
@@ -54,28 +69,38 @@ public class ChatPrivado extends TelaChat {
             }
         });
 
+        txtMsg.setColumns(20);
+        txtMsg.setRows(5);
+        jScrollPane1.setViewportView(txtMsg);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEnviar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(txtNome))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(btnEnviar)))
-                .addContainerGap(252, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNome)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(btnEnviar)
-                .addGap(94, 94, 94))
+                .addContainerGap())
         );
 
         pack();
@@ -100,6 +125,10 @@ public class ChatPrivado extends TelaChat {
         //this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
         this.service.send(message);
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.conversasPrivadas.remove(this.message.getNameReserved());
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -139,6 +168,8 @@ public class ChatPrivado extends TelaChat {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtMsg;
     private javax.swing.JLabel txtNome;
     // End of variables declaration//GEN-END:variables
 
@@ -152,7 +183,7 @@ public class ChatPrivado extends TelaChat {
 
     @Override
     public void receive(ChatMessage message) {
-        alerta(this.message.getText(), "Mensagem");
+        this.txtMsg.append(montarInfoMensagem(message, null));
     }
 
 }
