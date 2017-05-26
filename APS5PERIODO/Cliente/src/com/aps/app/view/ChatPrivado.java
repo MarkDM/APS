@@ -116,18 +116,18 @@ public class ChatPrivado extends TelaChat {
 
         ChatMessage message = new ChatMessage();
 
-        String name = this.message.getName();
+        String name = this.message.getNameReserved();
         message.setText(text);
         message.setName(name);
         message.setAction(ChatMessage.Action.SEND_ONE);
-        message.setNameReserved(this.message.getNameReserved());
+        message.setNameReserved(this.message.getName());
 
         //this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
         this.service.send(message);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.conversasPrivadas.remove(this.message.getNameReserved());
+        this.conversasPrivadas.remove(this.message.getName());
     }//GEN-LAST:event_formWindowClosing
 
     /**
