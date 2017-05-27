@@ -5,7 +5,7 @@
  */
 package com.aps.app.service;
 
-import com.aps.app.bean.ChatMessage;
+import com.aps.app.bean.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,10 +25,13 @@ public class ClienteService {
 
     public Socket connect() {
         try {
-            this.socket = new Socket("127.0.0.1", 5555);
+            String ip = Configuracoes.getIp();
+            int porta = Configuracoes.getPorta();
+
+            this.socket = new Socket(ip, porta);
             this.output = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException ex) {
-            throw new RuntimeException("Servidor fora do ar! " + ex.getMessage());
+            throw new RuntimeException("Não foi possível conectar ao servidor. \n Servidor está fora do ar ou as informações de configuração estão incorretas. \n Detalhes do erro: " + ex.getMessage());
         }
         return socket;
     }

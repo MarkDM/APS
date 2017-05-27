@@ -1,0 +1,948 @@
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Autenticador Central                               
+
+                 15790      22/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        MARIA APARECIDA DE OLIVEIRA 
+                 15500      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        AUTO PEÇAS E ELETRICA RD EIRELI 
+                 15572      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        JUAREZ RIBEIRO ALVES JUNIOR 
+
+                 15978      30/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        ANA REGINA CORREA DA SILVA 
+                 15793      22/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        ELBER SOARES 
+
+                 15314      04/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        DENISE MARIA MACHADO 
+                 15574      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        VANDERLAN ADRIANO DE MORAES 
+                 15553      13/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        AUTO PEÇAS E ELETRICA RD EIRELI 
+
+                 15571      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        LOURENÇO & LOURENÇO LTDA 
+                 15573      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        HANNAS SALGADOS LTDA 
+
+                 15487      11/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        GILBERTO RODRIGUES DA SILVA 
+                 15684      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        POLICIA MILITAR 
+
+                                                      Subtotal   12                R$0,00 
+      SSID:      Banda_Larga_Dinamica_1                             
+
+                 15563      13/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        RENATO JATENE DE CARVALHO E SILVA 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_10                            
+
+                 15409      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        ADRIANA APARECIDA DOS SANTOS PRADO 
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_12                            
+
+                 15845      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        IVANETE ALECRIM DA ROCHA 
+                 16055      03/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        SEBASTIAO JOSE DE SANTIAGO 
+
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_15                            
+
+                 15310      02/01/2016 Avisos para Suporte       S   02/01/2016    R$0,00        WILSON MONTEIRO DOS SANTOS 
+                 15456      10/01/2016 Avisos para Suporte       S   11/01/2016    R$0,00        LEANDRO TELES FERREIRA 
+                 15939      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        KELLY LEDES DA SILVA 
+
+                 16135      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        LEANDRO TELES FERREIRA 
+                 15688      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        DENISE FAUSTINO DO PRADO 
+                 15521      12/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        VINICIUS RODRIGUES MARRA 
+
+                 15529      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        JAIR BATISTA DE GODOI JUNIOR 
+                 15382      06/01/2016 Avisos para Suporte       S   07/01/2016    R$0,00        VINICIUS RODRIGUES MARRA 
+
+                 15871      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        ADEMAR MARQUES DE SOUZA 
+                 15982      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        LEANDRO TELES FERREIRA 
+
+                                                      Subtotal   10                R$0,00 
+      SSID:      Banda_Larga_Dinamica_17                            
+
+                 15721      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        GENI APARECIDA DE MORAES E PRADO 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_19                            
+
+                 15496      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        VALDIVINO ETERNO DA CUNHA BORGES 
+                 15851      25/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        CLEIA IZABEL DE FARIA                                                    
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_2                             
+
+                 15953      29/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        MARLENE ROSA DA SILVA SOUZA 
+
+                                                      Subtotal   1                 R$0,00 
+
+
+
+
+      9 de fevereiro de 2016                                                                                                             Página 1 de 11 
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_20                            
+
+                 15624      15/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        MARLENE DE OLIVEIRA GUIMARAES 
+                 16097      05/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        Dinamica Segurança e Internet Ltda Me 
+
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_21                            
+                 15629      15/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        LAUDICENA PEREIRA JACOB 
+
+                 15730      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        PAULO JUNIOR SANTOS DE OLIVEIRA 
+                 16100      05/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        ANTONIO AGUIAR SILVA LTDA 
+
+                 15463      11/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        Aparecida Pereira dos Santos (CIDA) 
+                 15607      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        LAUDICENA PEREIRA JACOB 
+                 15757      21/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        LAUDICENA PEREIRA JACOB 
+
+                 15560      13/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        MARCOS FERNANDO DA SILVA 
+                                                      Subtotal   7                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_22                            
+
+                 16117      06/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        MARCIA DE SOUZA LOBO 
+
+                                                      Subtotal   1                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_25                            
+
+                 15701      19/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        ELMAR BARBOSA DE JESUS 
+
+                 15944      28/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        LINDOMAR DIVINO PEREIRA 
+                 15954      29/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        VIVIANE DE ALMEIDA MARQUEZ 
+                 15323      04/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        PREFEITURA MUNICIPAL DE BELA VISTA DE GOIÁS 
+
+                 16093      05/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        VIVIANE DE ALMEIDA MARQUEZ 
+                 15422      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        LAZARO COSTA MACHADO NETO 
+
+                                                      Subtotal   6                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_26                            
+
+                 16116      06/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        ROSANA FERREIRA MAGALHAES 
+                 16112      05/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        ROSANA FERREIRA MAGALHAES 
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_27                            
+
+                 15977      30/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        WIRLEY DE SOUSA GOMES 
+
+                 15727      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        ANDREIA APARECIDA DIAS MEIRELES 
+                 15505      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        WITOR PEREIRA 
+
+                                                      Subtotal   3                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_28                            
+
+                 15552      13/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        DARCI MARIA BONIFACIO DE MELO 
+
+                 15523      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        DARCI MARIA BONIFACIO DE MELO 
+                 15441      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        LUCIENE DE PAULA OLIVEIRA SANTANA 
+
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_29                            
+                 15446      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        WANDERSON PIRES DA CRUZ 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_32                            
+
+                 15678      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        SILVANIA RODRIGUES DE SOUZA 
+                 15606      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        PAULO ANTONIO DA SILVA 
+                 15964      30/01/2016 Avisos para Suporte       S   30/01/2016    R$0,00        LUCIMAR DE JESUS SOARES 
+
+                                                      Subtotal   3                 R$0,00 
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_33                            
+
+                 15968      30/01/2016 Avisos para Suporte       S   02/02/2016    R$0,00        JOSE MARCIO ROSA 
+                 15439      08/01/2016 Avisos para Suporte       S   11/01/2016    R$0,00        JOSE MARCIO ROSA 
+                 15823      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        ITALIANO MONINI 
+
+                 15913      27/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        JERONIMO SILVA 
+
+                                                      Subtotal   4                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_34                            
+
+                 15357      05/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        IGREJA VIDA 
+
+                 15518      12/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        JERÔNIMA ANA DE JESUS 
+                 15744      20/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        SARAH LOPES DO NASCIMENTO 
+
+                                                      Subtotal   3                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_35                            
+
+                 16008      01/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        NIVALDO SEVERINO DE PAULA 
+
+                 15930      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        AUTO POSTO SV LTDA 
+                 15645      16/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        MARCIO MENDES DA SILVA 
+
+                                                      Subtotal   3                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_36                            
+
+                 15499      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        ELISENE APARECIDA ROSA 
+
+                 15836      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        Luiz Estevam Vieira 
+                 15598      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        FAGNER LUIZ PINTO DA SILVA 
+                 15704      19/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        ELISENE APARECIDA ROSA 
+
+                 15864      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        FAGNER LUIZ PINTO DA SILVA 
+                 15729      20/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        ALESSANDRO GONCALVES DA CRUZ 
+
+                                                      Subtotal   6                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_37                            
+
+                 15667      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        MARCELO SERGIO DOS SANTOS 
+                 15956      29/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        BRASILEI FRANCISCO DA SILVA 
+                 16075      04/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        SOLENY PEREIRA DA SILVA 
+
+                 15962      29/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        BRASILEI FRANCISCO DA SILVA 
+                                                      Subtotal   4                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_38                            
+
+                 15748      21/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        ANDREIA DOS SANTOS 
+                 15810      24/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        GABRIEL ALVES RIBEIRO (SAMU) 
+
+                 16082      04/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        JOSELAINE CASTRO REIS 
+                 15640      15/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        JOSELAINE CASTRO REIS 
+
+                 15972      30/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        DIVANILDO GONÇALVES RODRIGUES 
+                 15746      20/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        GABRIEL ALVES RIBEIRO (SAMU) 
+                 15894      26/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        DIVANILDO GONÇALVES RODRIGUES 
+
+                 15634      15/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        Angela Divina Batista Costa 
+                 15882      26/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        EDUARDO MACHADO PEREIRA 
+                 15485      11/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        MATHEUS GARCIA RODRIGUES 
+
+                                                      Subtotal   10                R$0,00 
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_39                            
+
+                 15419      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        ADEGILSON ROSA DE SOUSA 
+                 15495      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        CINTHIA DANIELLY BORGES DE SOUZA 
+                 16127      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        Miguel Agostinho Pires Neto 
+
+                 15436      08/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        ADEGILSON ROSA DE SOUSA 
+                 15718      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        ADEGILSON ROSA DE SOUSA 
+
+                 15443      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        ADEGILSON ROSA DE SOUSA 
+                 15917      27/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        JESSICA MARQUES DO NASCIMENTO 
+                 15796      23/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        RODRIGO GONÇALVES REBELO 
+
+                                                      Subtotal   8                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_4                             
+
+                 16133      08/02/2016 Avisos para Suporte       N                               VILMA LEMES PEREIRA PERES 
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_40                            
+
+                 15858      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        KLEBER DAMASCENO 
+                 16007      01/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        CLEIDE CAMILO DE MORAES 
+
+                 15812      24/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        THIAGO DA FONSECA 
+                 15590      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        CLEIDE CAMILO DE MORAES 
+
+                 15623      15/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        JONISVALDO BATISTA GOMES 
+                 15412      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        CLEIDE CAMILO DE MORAES 
+                 15857      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        ALBERSON TEIXEIRA COSTA 
+
+                                                      Subtotal   7                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_42                            
+
+                 15756      21/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        RICARDO CAIXETA LEMES 
+                 15648      16/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        JOSE LOURENÇO NUNES NETO 
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_43                            
+
+                 15608      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        JOANILSON DE MORAES E SOUZA 
+
+                 15663      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        JOANILSON DE MORAES E SOUZA 
+                 15666      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        NILDA DOS ANJOS ROSA DE SOUZA 
+                 16006      01/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        ELZIO DIVINO MIGUEL DE SOUZA 
+
+                 15434      08/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        ADEMIR CORREA DA SILVA 
+                 15408      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        ADEMIR CORREA DA SILVA 
+
+                                                      Subtotal   6                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_44                            
+
+                 16081      04/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        JOSIANE DA SILVA PEREIRA 
+                 16054      03/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        CHRISTIAN FERNANDO DA SILVA 
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_45                            
+
+                 15358      05/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        CATIANE PEREIRA DE FREITAS LIMA 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_47                            
+
+                 16044      03/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        KARLA BIATRIZ DE SOUSA GUIMARAES 
+                 16038      03/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        KARLA BIATRIZ DE SOUSA GUIMARAES 
+
+                                                      Subtotal   2                 R$0,00 
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_48                            
+
+                 15687      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        LILIANE BARROS DE FREITAS 
+                 16142      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        WANESSA PEREIRA MOTA 
+                 15822      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        CHULÉ CALÇADOS 
+
+                 15593      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        EURIPEDES RIBEIRO DE ANDRADE 
+
+                                                      Subtotal   4                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_49                            
+
+                 15714      19/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        CARLOS JOSE BELO LEAL 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_5                             
+                 15461      11/01/2016 Avisos para Suporte       S   11/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+
+                 15936      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+                 15583      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+
+                 15418      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+                 15884      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+                 15976      30/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+
+                 16030      02/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        LEIDE RIBEIRO DA SILVA 
+                 15965      30/01/2016 Avisos para Suporte       S   30/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+
+                 15903      27/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+                 15825      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        EZIO CORREIA DE OLIVEIRA 
+
+                                                      Subtotal   10                R$0,00 
+      SSID:      Banda_Larga_Dinamica_50                            
+
+                 15780      22/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        DANIEL COSTA FARIA LOPES 
+
+                 15994      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        ELIUDE ALVES PEREIRA 
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_51                            
+
+                 15877      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        ANA PAULA VIEIRA DA ROCHA MENDES 
+                 15993      01/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        MARIA SERGENI SANTIAGO 
+
+                 15906      27/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        MARINEIDE RIBEIRO GUIMARAES 
+                 15379      06/01/2016 Avisos para Suporte       S   07/01/2016    R$0,00        ANA PAULA GOMES DE OLIVEIRA 
+                 15898      26/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        ANA PAULA VIEIRA DA ROCHA MENDES 
+
+                 15686      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        ERCIMEIRE BONIFACIO DE SOUZA 
+
+                                                      Subtotal   6                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_6                             
+
+                 15971      30/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        ADILSON LOURENÇO DE SOUZA 
+
+                 15417      08/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        ANTONIO RODRIGUES DE OLIVEIRA 
+                 16106      05/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        ANTONIO RODRIGUES DE OLIVEIRA 
+                 16095      05/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        ANTONIO RODRIGUES DE OLIVEIRA 
+
+                                                      Subtotal   4                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_62                            
+
+                 15390      07/01/2016 Avisos para Suporte       S   07/01/2016    R$0,00        GANDIA VIEIRA DOURADO DUARTE 
+                                                      Subtotal   1                 R$0,00 
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_63                            
+
+                 15451      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        DIVINO DIAS BATISTA 
+                 15710      19/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        DIVINO DIAS BATISTA 
+                 15438      08/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        VANESSA MONTEIRO BORGES 
+
+                 15658      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        DIVINO DIAS BATISTA 
+                 15440      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        MARCIA RODRIGUES BARBOSA 
+
+                 15442      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        TIAGO CARVALHO RIBEIRO 
+                                                      Subtotal   6                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_64                            
+
+                 15641      15/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        DENE RAILY PEREIRA RODRIGUES 
+                 15932      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        MANOEL JOSE DE FIGUEREDO 
+
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_65                            
+
+                 16062      03/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        ANDERSON LEANDRO DA SILVA REIS 
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_68                            
+
+                 16003      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        JOILSON DE SOUSA FIGUEIREDO 
+                 15307      02/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        JEANE CARDOSO COUTO 
+
+                 15967      30/01/2016 Avisos para Suporte       S   30/01/2016    R$0,00        ANA LUCIA SILVA BISPO 
+                 15830      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        ROBERTA AQUINO BORGES 
+
+                                                      Subtotal   4                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_75                            
+                 15526      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        BEATRIZ FALEIRO DE OLIVEIRA 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_76                            
+
+                 15772      22/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        MARCELO MATOS DO NASCIMENTO 
+                 15535      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        ELIANA GOMES PEREIRA LOPES 
+                 15940      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        JOSIMAR ALVES DOS SANTOS 
+
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_78                            
+
+                 16025      02/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        NIVALDO MAGALHÃES BRAGA 
+                 16052      03/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        ANTONIO CORREA DE OLIVEIRA 
+
+                 15470      11/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        COOPERATIVA DE TRANSPORTE GOIAS- COOTRAN 
+                 15745      20/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        ANTONIO CORREA DE OLIVEIRA 
+                 15685      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        DALVA LOPES DOS ANJOS 
+
+                 15468      11/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        MARCIO DE PAULA GONÇALVES 
+                                                      Subtotal   6                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_79                            
+
+                 15935      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        RICARDO OLIVEIRA 
+                 15410      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        SEBASTIAO FERREIRA MORENO 
+
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_82                            
+
+                 16026      02/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        REGINA DA COSTA MENDES 
+                                                      Subtotal   1                 R$0,00 
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_84                            
+
+                 15656      17/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        CLEUSA GONÇALVES FERREIRA 
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_86                            
+
+                 15768      21/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        LUANA ROBERTA ALVES DE REZENDE 
+                 16034      02/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        VANEIDE MARIA VIEIRA 
+
+                 15792      22/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        LUANA ROBERTA ALVES DE REZENDE 
+                 15725      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        Elvis Presley Santos de Jesus 
+
+                 15524      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        REXILDES TEREZINHA DIAS MEIRELES 
+                                                      Subtotal   5                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_87                            
+
+                 15861      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        HYAGO MELO SILVA 
+                 16115      06/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        LUCIARA CANDIDA DE JESUS CAMILO 
+
+                 15599      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        RODRIGO DE SOUZA GUIMARÃES 
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_88                            
+
+                 15682      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        LAURIENE DIAS DE OLIVEIRA 
+
+                                                      Subtotal   1                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_89                            
+
+                 15801      23/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        PATRICIO TULIO CALDAS 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_90                            
+
+                 15626      15/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        PAULO HENRIQUE DE SOUZA LINO 
+                 15406      07/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        LUCIMAR FERREIRA DOS SANTOS 
+                 15437      08/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        LUCIMAR FERREIRA DOS SANTOS 
+
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_91                            
+
+                 15870      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        VERDE OESTE COMERCIO PROD.AGROPECUARIOS  
+                 15594      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        VERDE OESTE COMERCIO PROD.AGROPECUARIOS  
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Banda_Larga_Dinamica_92                            
+
+                 15318      04/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        ANTONIO JOSE DOS SANTOS 
+
+                 15338      04/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        ROMARIO SILVA SOUZA MOREIRA 
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_93                            
+
+                 15506      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        VIVIANE PAULA DA ANUNCIAÇÃO 
+                 15498      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        MARIA ANGELITA BONIFACIO MAGALHAES 
+
+                 15575      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        RAFAEL DE MATOS RODRIGUES 
+                 16134      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        MARISLEI BATISTA DOS SANTOS 
+
+                 15421      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        JESSICA GABRIELA DOS SANTOS 
+                                                      Subtotal   5                 R$0,00 
+
+      SSID:      Banda_Larga_Dinamica_94                            
+
+                 15503      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        BRUNO LAWRENCE SILVA E MARQUES 
+
+                                                      Subtotal   1                 R$0,00 
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Banda_Larga_Dinamica_97                            
+
+                 16125      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        ADRIANA ROBERTA DE JESUS SOUSA 
+                 16126      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        ROGERIO LOPES DA COSTA 
+                 16079      04/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        ROBSON ARAUJO MELO 
+
+                 16136      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        JOAO FELIPE DO CARMO 
+                 15342      05/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        SIDNEI RODRIGUES DE SOUSA 
+
+                 15458      11/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        SIDNEI RODRIGUES DE SOUSA 
+                 16123      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        SIDNEI RODRIGUES DE SOUSA 
+                 15603      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        ROBSON ARAUJO MELO 
+
+                 16124      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        ANDERSON LAUREANO DAMAS 
+                 16120      06/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        CHRISTIANO MAGNO MONTEIRO RIBEIRO 
+
+                 16122      07/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        WELLINGTON JORGE MACIEL DA SILVA 
+                 15378      06/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        PEDRO GOMES DA SILVA 
+
+                                                      Subtotal   12                R$0,00 
+      SSID:      Cliente_Neirival                                   
+
+                 15407      08/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        NEIRIVAL RODRIGUES CARDOSO 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Clientes_Cabo_Maria_Nadir                          
+
+                 15596      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        PAULO PIRES CORREIA 
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Dinamica_Boutt                                     
+
+                 15763      21/01/2016 Avisos para Suporte       S   22/01/2016    R$0,00        ALINE RIBEIRO MACHADO PEREIRA 
+                 16111      05/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        MARIA DE LOURDES DE ABREU 
+
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Fiberhome-Vlan112                                  
+
+                 15586      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        GRACIELLA DE SOUZA GUIMARÃES 
+                 15681      18/01/2016 Avisos para Suporte       S   19/01/2016    R$0,00        ROMULO CARVALHO PEREIRA 
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Fiberhome-Vlan114                                  
+
+                 15741      20/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        LIANDRA DE OLIVEIRA BARCELOS 
+
+                 15334      04/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        LIANDRA DE OLIVEIRA BARCELOS 
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Fiberhome-Vlan115                                  
+
+                 15697      19/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        MARGARETH RODRIGUES DA SILVA OLIVEIRA 
+
+                                                      Subtotal   1                 R$0,00 
+      SSID:      Fiberhome-Vlan118                                  
+
+                 15309      02/01/2016 Avisos para Suporte       S   02/01/2016    R$0,00        MAGAZINE DAS FABRICAS CN EIRELE 
+
+                                                      Subtotal   1                 R$0,00 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      fibra_clientes                                     
+
+                 15367      06/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        Rakel Pereira da Silva 
+                 15800      23/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        RICARDO PROTASIO SILVA 
+                 15937      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        MARIA ADELINA DOS SANTOS 
+
+                 16018      01/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        RONALDO FERNANDES NOGUEIRA 
+                 15655      16/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        LAIANE DE OLIVEIRA RAMOS 
+
+                 15979      31/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        RONALDO FERNANDES NOGUEIRA 
+                 15601      14/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        LEONARDO ANTONIO E SILVA 
+                 16023      02/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        CLEUBER PEREIRA 
+
+                 16029      02/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        LUANA LEMES VIEIRA 
+                 15361      05/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        WALDJAIR INACIO FERREIRA 
+
+                 15580      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        HEMERSON MARTINS PINHEIRO 
+                 15981      31/01/2016 Avisos para Suporte       S   01/02/2016    R$0,00        RICARDO PROTASIO SILVA 
+                 15534      12/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        HEMERSON MARTINS PINHEIRO 
+
+                 15651      16/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        JALES WAGNER MARTINS RODRIGUES 
+                 15995      01/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        LEONARDO DE ARAUJO BARBOSA 
+                 16016      01/02/2016 Avisos para Suporte       S   03/02/2016    R$0,00        RICARDO PROTASIO SILVA 
+
+                 15570      13/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        RONALDO FERNANDES NOGUEIRA 
+                 15576      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        VINICIUS LOPES DE SOUSA 
+
+                 15577      14/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        COMERCIAL JUNIOR MAT. DE CONSTRUÇÃO LTDA 
+                 15558      13/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        CLEBER CAMILO DE MELO 
+                 15949      29/01/2016 Avisos para Suporte       S   30/01/2016    R$0,00        WILSON RODRIGUES 
+
+                 15952      29/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        PREFEITURA MUNICIPAL DE BELA VISTA DE GOIÁS 
+                 15711      19/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        FRANCISCO BARBOSA DE PAULA 
+
+                 15550      13/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        CLAUDIA SILVESTRE RODRIGUES 
+                 15539      13/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        LEONARDO ANTONIO E SILVA 
+                 15531      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        JOSE MARTINS NOGUEIRA FILHO 
+
+                 15862      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        RICARDO PROTASIO SILVA 
+                 16121      06/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        JALES WAGNER MARTINS RODRIGUES 
+                 15510      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        CLEUBER PEREIRA 
+
+                 15427      08/01/2016 Avisos para Suporte       S   08/01/2016    R$0,00        RICARDO PROTASIO SILVA 
+                 15320      04/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        ODILON LEAL CAETANO COSTA 
+
+                 15504      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        LEONARDO ANTONIO E SILVA 
+                 16129      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        MARIA ADELIA PINTO ARAUJO 
+                 16049      03/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        RAPHAEL RIBEIRO DE SIQUEIRA 
+
+                 16065      03/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        ALESSANDRO ALVES DE OLIVEIRA 
+                 15480      11/01/2016 Avisos para Suporte       S   11/01/2016    R$0,00        JUAREZ PEIXOTO DOS SANTOS 
+
+                 15665      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        CELSO ROSA DE OLIVEIRA 
+                 16070      04/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        GLORINHA MIQUELINO DE JESUS DA SILVA OLIVEIR 
+                 15340      04/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        CASSIA GUIMARAES GOMES 
+
+                 16088      04/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        RONALDO FERNANDES NOGUEIRA 
+                 16118      06/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        JOELTON DA SILVA FALEIRO 
+                 15934      28/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        FRANCISCO BARBOSA DE PAULA 
+
+                                                      Subtotal   42                R$0,00 
+
+      SSID:      ptp-dinamica-goiasconstrutora                      
+
+                 16108      05/02/2016 Avisos para Suporte       S   06/02/2016    R$0,00        ROMULO DOS SANTOS CARVALHO 
+                 15532      12/01/2016 Avisos para Suporte       S   13/01/2016    R$0,00        MARCO AURELIO SOUZA DE BARROS 
+
+                 15890      26/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        LUIZ SARAIVA VIEIRA 
+                 15771      22/01/2016 Avisos para Suporte       S   23/01/2016    R$0,00        OSNEIR RODRIGUES DO LAGO 
+                 16083      04/02/2016 Avisos para Suporte       S   05/02/2016    R$0,00        METAIS AMERICANA LTDA-ME 
+
+                 15819      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        ANA FLAVIA PEREIRA 
+                                                      Subtotal   6                 R$0,00 
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      torre_pura_sede                                    
+
+                 15364      06/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        RAIO DE SOL MINERAÇÃO LTDA 
+                 15616      15/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        JODAIR TELES 
+                 15628      15/01/2016 Avisos para Suporte       S   15/01/2016    R$0,00        LEONISSY NICOLAU DE SOUSA 
+
+                 15886      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        RAIO DE SOL MINERAÇÃO LTDA 
+
+                                                      Subtotal   4                 R$0,00 
+      SSID:      Unilink_CTD_2_V                                    
+
+                 15980      31/01/2016 Avisos para Suporte       S   08/02/2016    R$0,00        DURVAL OLIVEIRA FIGUEIREDO 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Unilink_G20_1_H                                    
+                 15605      14/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        Marcos Augusto da Silva 
+
+                 15349      05/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        COMERCIAL REZENDE E MIRANDA LTDA - ME 
+                 15346      05/01/2016 Avisos para Suporte       S   05/01/2016    R$0,00        PREFEITURA MUNICIPAL DE BELA VISTA DE GOIÁS 
+
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Unilink_G20_2_V                                    
+
+                 15490      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        CELSO DE PAULA ASSIS NETO 
+                 15388      06/01/2016 Avisos para Suporte       S   07/01/2016    R$0,00        CELSO DE PAULA ASSIS NETO 
+                 15749      21/01/2016 Avisos para Suporte       S   21/01/2016    R$0,00        ALEXANDRA LEMES DOS SANTOS 
+
+                 16140      08/02/2016 Avisos para Suporte       N                               ALEXANDRA LEMES DOS SANTOS 
+                 15373      06/01/2016 Avisos para Suporte       S   07/01/2016    R$0,00        ALEXANDRA LEMES DOS SANTOS 
+
+                                                      Subtotal   5                 R$0,00 
+
+      SSID:      Unilink_G20_3_V                                    
+                 15947      29/01/2016 Avisos para Suporte       S   29/01/2016    R$0,00        WESTER CARLOS DO PRADO 
+
+                 15838      25/01/2016 Avisos para Suporte       S   28/01/2016    R$0,00        NATALIA BASTOS SOARES 
+                                                      Subtotal   2                 R$0,00 
+
+      SSID:      Unilink_G20_4_H                                    
+
+                 15863      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        MARIA AUXILIADORA NOGUEIRA DE SOUZA 
+                 15716      20/01/2016 Avisos para Suporte       S   20/01/2016    R$0,00        VALQUENES EVANGELISTA BENTO 
+
+                 15854      25/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        MARIA AUXILIADORA NOGUEIRA DE SOUZA 
+
+                                                      Subtotal   3                 R$0,00 
+      SSID:      Unilink_Jet_2_V                                    
+
+                 15368      06/01/2016 Avisos para Suporte       S   06/01/2016    R$0,00        ODIRLEI PEREIRA DA SILVA 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:      Unilink_LVA_1_H                                    
+                 15494      12/01/2016 Avisos para Suporte       S   12/01/2016    R$0,00        LEONARDO DE OLIVEIRA RAMOS 
+
+                 15562      13/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        LEONARDO DE OLIVEIRA RAMOS 
+                 15889      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        VANESSA BARRETO PIMENTEL 
+
+                                                      Subtotal   3                 R$0,00 
+
+      SSID:      Unilink_LVA_2_V                                    
+
+                 16019      01/02/2016 Avisos para Suporte       S   02/02/2016    R$0,00        ELTON MARINS RODRIGUES 
+                 15983      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        NIVIA RACHEL DALBOSCO 
+                 15991      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        IRENY DE FATIMA SILVANO 
+
+                 15987      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        SINESIO ANTONIO DOS REIS 
+                                                      Subtotal   4                 R$0,00 
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+
+      Relação de Ordens de Serviço
+
+
+                  Código   Abertura    Tipo O.S.                 Encerrada         R$ Total      Cliente 
+
+      SSID:      Unilink_LVA_4_V                                    
+
+                 15873      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        LIANA RIZA NASCIMENTO BORGES 
+                 15600      14/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        FERNANDA GOMES DE MELO 
+                 15621      15/01/2016 Avisos para Suporte       S   16/01/2016    R$0,00        WILIAN DE SOUZA SANTOS 
+
+                 15915      27/01/2016 Avisos para Suporte       S   27/01/2016    R$0,00        GERALDO DUARTE BARBOSA 
+                 15997      01/02/2016 Avisos para Suporte       S   01/02/2016    R$0,00        FERNANDA GOMES DE MELO 
+
+                                                      Subtotal   5                 R$0,00 
+
+      SSID:      Unilink_Rsl_1_V                                    
+
+                 15330      04/01/2016 Avisos para Suporte       S   04/01/2016    R$0,00        PREFEITURA MUNICIPAL DE BELA VISTA DE GOIÁS 
+                 16066      04/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        TRILHA ALIMENTOS LTDA 
+
+                                                      Subtotal   2                 R$0,00 
+      SSID:      Unilink_Torre_Berto_1_V                            
+
+                 15450      09/01/2016 Avisos para Suporte       S   09/01/2016    R$0,00        VALTER BERTO DA SILVA 
+
+                                                      Subtotal   1                 R$0,00 
+
+      SSID:
+
+                 16068      04/02/2016 Avisos para Suporte       S   04/02/2016    R$0,00        VIEIRA E SOUZA MATERIAIS DE CONSTRUCAO LTDA 
+                 15544      13/01/2016 Avisos para Suporte       S   14/01/2016    R$0,00        LORHANNY VITAL E SILVA 
+                 15660      18/01/2016 Avisos para Suporte       S   18/01/2016    R$0,00        VARSILENE DE FATIMA DOS SANTOS PEREIRA 
+
+                 15868      26/01/2016 Avisos para Suporte       S   26/01/2016    R$0,00        LIVERTINA PINTO CORREA CNPJ 
+                 15818      25/01/2016 Avisos para Suporte       S   25/01/2016    R$0,00        LORHANNY VITAL E SILVA 
+                 16128      08/02/2016 Avisos para Suporte       S   08/02/2016    R$0,00        VIEIRA E SOUZA MATERIAIS DE CONSTRUCAO LTDA 
+
+                                                      Subtotal   6                 R$0,00 
+
+                                                     Total:      305                R$0,00
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
