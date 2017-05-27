@@ -21,13 +21,15 @@ public class ChatPrivado extends TelaChat {
     private ClienteService service;
     private ChatMessage message;
     private Map<String, ChatPrivado> conversasPrivadas;
+    private String nome;
+    private String destinatario;
 
     /**
      * Creates new form ChatPrivado
      */
-    public ChatPrivado(ChatMessage message, String nome, ClienteService service, Map<String, ChatPrivado> conversasPrivadas) {
+    public ChatPrivado(String nome, ClienteService service, Map<String, ChatPrivado> conversasPrivadas) {
         initComponents();
-        this.message = message;
+        //this.message = message;
         this.txtNome.setText(nome);
         this.service = service;
         this.conversasPrivadas = conversasPrivadas;
@@ -39,6 +41,22 @@ public class ChatPrivado extends TelaChat {
 
     public ChatMessage getMessage() {
         return message;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
     }
 
     /**
@@ -115,19 +133,17 @@ public class ChatPrivado extends TelaChat {
         }
 
         ChatMessage message = new ChatMessage();
-
-        String name = this.txtNome.getText();
         message.setText(text);
-        message.setName(this.message.getName());
+        message.setName(this.getNome());
         message.setAction(ChatMessage.Action.SEND_ONE);
-        message.setNameReserved(this.message.getNameReserved());
+        message.setNameReserved(this.getDestinatario());
 
         //this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
         this.service.send(message);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.conversasPrivadas.remove(this.message.getNameReserved());
+        this.conversasPrivadas.remove(this.getNome());
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -184,15 +200,15 @@ public class ChatPrivado extends TelaChat {
     @Override
     public void receive(ChatMessage message) {
 
-        ChatMessage msg = new ChatMessage();
-        msg.setAction(message.getAction());
-        msg.setName(message.getName());
-        msg.setNameReserved(message.getNameReserved());
-        msg.setText(message.getText());
-
-        this.message.setName(msg.getNameReserved());
-        this.message.setNameReserved(msg.getName());
-        this.txtMsg.append(montarInfoMensagem(msg, null));
+        //Copia o objeto para poder inverter o sender e o receptor
+//        ChatMessage msg = new ChatMessage();
+//        msg.setAction(message.getAction());
+//        msg.setName(message.getName());
+//        msg.setNameReserved(message.getNameReserved());
+//        msg.setText(message.getText());
+        this.setNome(message.getNameReserved());
+        this.setDestinatario(message.getName());
+        this.txtMsg.append(montarInfoMensagem(message, message.getName()));
     }
 
 }

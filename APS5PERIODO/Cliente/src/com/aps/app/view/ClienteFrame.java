@@ -124,7 +124,7 @@ public class ClienteFrame extends TelaChat {
             }
 
             //Se não houver inicia um novo chat privado
-            ChatPrivado chatPrivado = new ChatPrivado(message, message.getNameReserved(), this.service, this.conversasPrivadas);
+            ChatPrivado chatPrivado = new ChatPrivado(message.getNameReserved(), this.service, this.conversasPrivadas);
             chatPrivado.setVisible(true);
             chatPrivado.receive(message);
 
@@ -552,11 +552,11 @@ public class ClienteFrame extends TelaChat {
             int selected = list.getSelectedIndex();
 
             if (selected > -1) {
-                ChatMessage message = new ChatMessage();
+                //ChatMessage message = new ChatMessage();
                 String nameReserved = (String) this.listOnlines.getSelectedValue();
-                message.setNameReserved(nameReserved);
-                message.setAction(Action.SEND_ONE);
-                message.setName(txtName.getText());
+                //message.setNameReserved(nameReserved);
+                //message.setAction(Action.SEND_ONE);
+                //message.setName(txtName.getText());
 
                 /*
                  Verifica se já existe uma conversa em aberto com o sender da mensagem
@@ -569,7 +569,9 @@ public class ClienteFrame extends TelaChat {
                     }
                 }
 
-                ChatPrivado chat = new ChatPrivado(message, nameReserved, this.service, this.conversasPrivadas);
+                ChatPrivado chat = new ChatPrivado(nameReserved, this.service, this.conversasPrivadas);
+                chat.setNome(txtName.getText());
+                chat.setDestinatario(nameReserved);
                 chat.setVisible(true);
                 conversasPrivadas.put(nameReserved, chat);
             }
