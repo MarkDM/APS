@@ -183,9 +183,16 @@ public class ChatPrivado extends TelaChat {
 
     @Override
     public void receive(ChatMessage message) {
-        this.message.setName(message.getNameReserved());
-        this.message.setNameReserved(message.getName());
-        this.txtMsg.append(montarInfoMensagem(message, null));
+
+        ChatMessage msg = new ChatMessage();
+        msg.setAction(message.getAction());
+        msg.setName(message.getName());
+        msg.setNameReserved(message.getNameReserved());
+        msg.setText(message.getText());
+
+        this.message.setName(msg.getNameReserved());
+        this.message.setNameReserved(msg.getName());
+        this.txtMsg.append(montarInfoMensagem(msg, null));
     }
 
 }
