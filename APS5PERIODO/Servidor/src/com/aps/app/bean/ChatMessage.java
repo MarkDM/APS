@@ -21,6 +21,7 @@ public class ChatMessage implements Serializable {
     private String nameReserved;
     private Set<String> setOnline = new HashSet<String>();
     private Action action;
+    private boolean msgPrivada;
     
     private String nomeArquivo;
     private byte[] conteudoArquivo;
@@ -33,6 +34,16 @@ public class ChatMessage implements Serializable {
     public String getName() {
         return name;
     }
+
+    public boolean isMsgPrivada() {
+        return msgPrivada;
+    }
+
+    public void setMsgPrivada(boolean msgPrivada) {
+        this.msgPrivada = msgPrivada;
+    }
+    
+    
 
     public void setName(String name) {
         this.name = name;

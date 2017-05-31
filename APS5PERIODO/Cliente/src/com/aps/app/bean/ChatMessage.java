@@ -25,12 +25,23 @@ public class ChatMessage implements Serializable{
     private String nomeArquivo;
     private byte[] conteudoArquivo;
     private String diretorioDestino;
+    private boolean msgPrivada;
 
     public enum Action {
 
         CONNECT, DISCONECT, SEND_ONE, SEND_ALL, USERS_ONLINE;
     }
 
+    public boolean isMsgPrivada() {
+        return msgPrivada;
+    }
+
+    public void setMsgPrivada(boolean msgPrivada) {
+        this.msgPrivada = msgPrivada;
+    }
+
+    
+    
     public String getName() {
         return name;
     }
