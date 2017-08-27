@@ -160,6 +160,7 @@ public class ChatPrivado extends TelaChat {
         message.setName(this.getNome());
         message.setAction(ChatMessage.Action.SEND_ONE);
         message.setNameReserved(this.getDestinatario());
+        message.setMsgPrivada(true);
         this.txtAreaReceive.append(montarInfoMensagem(message, "Você"));
         this.service.send(message);
         limparAreaSend();

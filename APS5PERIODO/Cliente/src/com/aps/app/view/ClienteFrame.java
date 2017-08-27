@@ -111,7 +111,7 @@ public class ClienteFrame extends TelaChat {
             }
         }
         
-        if (message.getAction().equals(Action.SEND_ONE)) {
+        if (message.getAction().equals(Action.SEND_ONE) && message.isMsgPrivada()) {
 
             /*
              Verifica se já existe uma conversa em aberto com o sender da mensagem
