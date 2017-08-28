@@ -22,7 +22,7 @@ public class App {
         ImageCompare ic = new ImageCompare(img1, img2);
         // Set the comparison parameters. 
         //   (num vertical regions, num horizontal regions, sensitivity, stabilizer)
-        ic.setParameters(8, 6, 5, 10);
+        ic.setParameters(8, 6, 3, 10);
         // Display some indication of the differences in the image.
         ic.setDebugMode(2);
         // Compare.
