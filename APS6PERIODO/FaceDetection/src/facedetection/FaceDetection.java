@@ -1,4 +1,4 @@
-package it.polito.teaching.cv;
+package facedetection;
 
 import org.opencv.core.Core;
 
