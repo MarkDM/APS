@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 /**
  *
  * @author marcu
- * 
+ *
  */
 public class PGMConverter {
 
@@ -26,19 +26,29 @@ public class PGMConverter {
         File img = new File(inputPath);
 
         if (img.isDirectory()) {
-            mensagem = "Caminho informado é um diretório, arquivo esperado";
+            mensagem = "Caminho informado Ã© um diretÃ³rio, arquivo esperado";
             return false;
         }
 
         if (!img.exists()) {
-            mensagem = "Arquivo de entrada não encontrado";
+            mensagem = "Arquivo de entrada nï¿½o encontrado";
             return false;
         }
 
         try {
             BufferedImage bi = ImageIO.read(img);
-            ImageIO.write(bi, "pnm", new File(outputPath));
-            return true;
+            return ImageIO.write(bi, "pnm", new File(outputPath));
+        } catch (Exception e) {
+            mensagem = "Erro ao salvar imagem em disco: " + e.getMessage();
+        }
+
+        return false;
+    }
+
+    public Boolean write2pgm(BufferedImage bi, String outputPath) {
+        try {
+            return ImageIO.write(bi, "pnm", new File(outputPath));
+
         } catch (Exception e) {
             mensagem = "Erro ao salvar imagem em disco: " + e.getMessage();
         }
