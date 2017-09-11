@@ -22,7 +22,7 @@ import utils.Utils;
 public class TreinadorDeFaces {
 
     ClassLoader classLoader = getClass().getClassLoader();
-    public String mensagemErro;
+    private String mensagem;
     private Trainer trainer;
     private String identificador;
     private List<String> listPgmTrain = new ArrayList<String>();
@@ -31,6 +31,16 @@ public class TreinadorDeFaces {
         return trainer;
 
     }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+    
+    
 
     private void setTrainer(Trainer trainer) {
         this.trainer = trainer;
@@ -79,6 +89,7 @@ public class TreinadorDeFaces {
                     .numberOfComponents(1).k(1).build();
             Utils ut = new Utils();
 
+            t.setTrainer(trainer);
             for (String pgm : t.getListPgmTrain()) {
                 trainer.add(ut.convertToMatrix(pgm), t.getIdentificador());
             }
@@ -86,9 +97,9 @@ public class TreinadorDeFaces {
             try {
                 // train
                 trainer.train();
-                System.out.println("Treinamento concluido com sucesso");
+                mensagem  = "Treinamento concluido com sucesso";
             } catch (Exception e) {
-                mensagemErro = "Erro ao realizar treinamento";
+                mensagem = "Erro ao realizar treinamento";
             }
         }
 

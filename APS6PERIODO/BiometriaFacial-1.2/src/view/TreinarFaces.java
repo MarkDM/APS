@@ -232,12 +232,14 @@ public class TreinarFaces extends TelaComCaptura {
             for (TreinadorDeFaces t : listaDeTreinadores) {
                 if (t.getListPgmTrain().size() < 2) {
                     msg("Numero de imagens para treinamento precisa ser pelo menos 2", "Imagens insuficientes", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
             }
 
             trainer.setIdentificador(txtIdentificador.getText());
             setSalvandoPGM(false);
             trainer.Treinar(listaDeTreinadores);
+            msg(trainer.getMensagem(), "Resultado", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -262,7 +264,7 @@ public class TreinarFaces extends TelaComCaptura {
             try {
                 if (salvarPgm(pgmPath, bi) != null) {
                     add2ListaPgmRecognize(pgmPath);
-                   
+
                 } else {
                     System.out.println("Imagem não foi salva como PGM");
                     return;
@@ -275,16 +277,20 @@ public class TreinarFaces extends TelaComCaptura {
 
         setPessoasReconhecidas(r.reconhecer(listaDeTreinadores, getListPgmRecognize()));
 
-        if (getPessoasReconhecidas().size() == 0) {
-            System.out.println("Não foi reconhecida nenhuma face");
+        if (getPessoasReconhecidas().isEmpty()) {
+            msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        System.out.println("Pessoas reconhecidas");
+        //System.out.println("Pessoas reconhecidas");
+        String facesReconhecidas = "Pessoas reconhecidas\n";
+
         for (String id : getPessoasReconhecidas()) {
-            System.out.println(id);
+
+            facesReconhecidas += id + "\n";
         }
 
+        msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnReconhecerActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed

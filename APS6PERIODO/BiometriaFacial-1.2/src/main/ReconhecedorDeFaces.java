@@ -34,7 +34,14 @@ public class ReconhecedorDeFaces {
         for (String pgmReconhecer : listaPgmsReconhecer) {
             for (TreinadorDeFaces t : listaTreinadores) {
                 String idReconhecido = t.getTrainer().recognize(ut.convertToMatrix(pgmReconhecer));
-                idsReconhecidos.add(idReconhecido);
+
+                if (idReconhecido != null) {
+                    if (idsReconhecidos.contains(idReconhecido)) {
+                        idsReconhecidos.add(idReconhecido);
+                    }
+
+                }
+
             }
         }
 
