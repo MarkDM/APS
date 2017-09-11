@@ -7,11 +7,15 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
@@ -31,9 +35,13 @@ import utils.Utils;
 public abstract class TelaComCaptura extends javax.swing.JFrame {
 
     private BufferedImage frameAtual;
-    private List<String> listPgmTrain = new ArrayList<String>();
+    private boolean salvandoPGM = false;
+    private List<String> listPgmRecognize = new ArrayList<String>();
     private String mensagem;
-    private String cascadeFile;
+    private List<BufferedImage> lstFacesRecortadas = new ArrayList<>();
+    private List<String> pessoasReconhecidas;
+    //private List<String> listPgmTrain = new ArrayList<>();
+    private VideoCapture captura;
 
     String localPath;
 
@@ -46,8 +54,47 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         return frameAtual;
     }
 
+    public void add2ListaPgmRecognize(String pathPgm) {
+        listPgmRecognize.add(pathPgm);
+    }
+
+    public boolean isSalvandoPGM() {
+        return salvandoPGM;
+    }
+
+    public void OpenCapture() {
+        captura.open(0);
+    }
+
+    public void StopCapture() {
+        captura.release();
+    }
+
+    public void setSalvandoPGM(boolean salvandoPGM) {
+        this.salvandoPGM = salvandoPGM;
+    }
+
     public String getMensagem() {
         return mensagem;
+    }
+
+    public List<String> getPessoasReconhecidas() {
+        return pessoasReconhecidas;
+    }
+
+    public void setPessoasReconhecidas(List<String> pessoasReconhecidas) {
+        this.pessoasReconhecidas = pessoasReconhecidas;
+    }
+
+    public List<BufferedImage> getFacesRecortadas() {
+
+        List<BufferedImage> listaRetorno = new ArrayList<>();
+
+        for (BufferedImage bi : lstFacesRecortadas) {
+            listaRetorno.add(bi);
+        }
+
+        return listaRetorno;
     }
 
     private void setMensagem(String mensagem) {
@@ -58,8 +105,8 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         this.frameAtual = frameAtual;
     }
 
-    public List<String> getListPgmTrain() {
-        return listPgmTrain;
+    public List<String> getListPgmRecognize() {
+        return listPgmRecognize;
     }
 
     public void mostraVideo(JPanel containerVideo) {
@@ -68,7 +115,8 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         Graphics g = containerVideo.getGraphics();
         //Matriz que contem os dados da imagem
         Mat frame = new Mat();
-        VideoCapture captura = new VideoCapture(0);
+        Mat frameSemRetangulo = new Mat();
+        captura = new VideoCapture(0);
         String cascadeFile = localPath + "\\src\\resources\\cascades\\haarcascade_frontalface_alt.xml";
         //String cascadePath = cascadeFile;
         CascadeClassifier classificador = new CascadeClassifier(cascadeFile);
@@ -81,61 +129,121 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         Scalar cor = new Scalar(0, 255, 0);
         int larguraPanel = containerVideo.getWidth();
         int alturaPanel = containerVideo.getHeight();
+        int thickness = 3;
 
         while (true) {
+
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(TelaComCaptura.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             if (captura.isOpened()) {
                 //Captura um frame
                 captura.read(frame);
                 if (!frame.empty()) {
-                    setSize(frame.width(), frame.height());
+                    // setSize(frame.width(), frame.height());
                     Mat imagemColorida = frame;
                     Mat imagemCinza = new Mat();
                     Imgproc.cvtColor(imagemColorida, imagemCinza, Imgproc.COLOR_BGR2GRAY);
                     //Detecta faces
                     classificador.detectMultiScale(imagemCinza, facesDetectadas, scaleFactor, minNeighbors, flags, minSize, maxSize);
                     Rect[] faces = facesDetectadas.toArray();
-                    for (int i = 0; i < faces.length; i++) {
-                        Imgproc.rectangle(frame, faces[i].tl(), faces[i].br(), cor, 3);
+                    frame.copyTo(frameSemRetangulo);
+                    Rect faceRecortada = null;
+
+                    if (lstFacesRecortadas.size() > faces.length) {
+                        lstFacesRecortadas.clear();
                     }
-                    //BufferedImage imagem = new Utils().convertMatToImage(frame);
-                    BufferedImage imagem = ut.matToBufferedImage(frame);
-                    this.setFrameAtual(imagem);
-                    g.drawImage(imagem, 0, 0, larguraPanel, alturaPanel, null);
+
+                    for (int i = 0; i < faces.length; i++) {
+                        //Adiciono mais 10 pixels na largura para que possa o PGM possa ser convertido em matrix corretamente
+                        //Se w e H forem iguais, scan do arquivo só encontra um valor
+                        Imgproc.rectangle(frame, faces[i].tl(), faces[i].br(), cor, thickness);
+                        faceRecortada = new Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+                        // faceRecortada = new Rect(faces[i].x, faces[i].y, 150, 160);
+                        if (faceRecortada != null) {
+                            // if (lstFacesRecortadas.size() < faces.length) {
+                            //System.out.println("Pessoa entrou da captura");
+
+                            try {
+                                lstFacesRecortadas.add(ut.matToBufferedImage(new Mat(frameSemRetangulo, faceRecortada)));
+                            } catch (Exception e) {
+                            }
+
+//                            } else if (lstFacesRecortadas.size() > faces.length) {
+//                                //System.out.println("Pessoa saiu da captura");
+//                                lstFacesRecortadas.clear();
+//                                lstFacesRecortadas.add(ut.matToBufferedImage(new Mat(frameSemRetangulo, faceRecortada)));
+//                            }
+                        }
+
+                    }
+
+                    BufferedImage frameLimpo = ut.matToBufferedImage(frameSemRetangulo);
+                    BufferedImage frameComRetangulos = ut.matToBufferedImage(frame);
+
+                    this.setFrameAtual(frameLimpo);
+
+                    g.drawImage(frameComRetangulos, 0, 0, larguraPanel, alturaPanel, null);
+
+                    //Limpa variáveis
                     imagemCinza = null;
+                    faceRecortada = null;
+                    frameLimpo = null;
+                    if (!isSalvandoPGM()) {
+                        //lstFacesRecortadas.clear();
+                    }
+
+                    frameComRetangulos = null;
                 }
             }
         }
     }
 
-    public String salvarPgm(String path) {
+    public String salvarPgm(String path, BufferedImage img) {
         PGMConverter converter = new PGMConverter();
 
+        setSalvandoPGM(true);
+
         try {
-            if (converter.write2pgm(this.getFrameAtual(), path)) {
+            BufferedImage resized = new Utils().resize(img, 122, 122);
+            //String path = localPath + "\\src\\resources\\pgmTrainer\\" + identificador + getListPgmTrain().size() + ".pgm";
+            if (converter.write2pgm(resized, path)) {
+                //getListPgmTrain().add(path);
 
-                listPgmTrain.add(path);
-
-                //gridModel.addRow(new Object[]{new ImageIcon(frameAtual)});
                 return path;
             } else {
-                return "";
+
+                return null;
             }
         } catch (Exception e) {
+
             setMensagem(converter.getMensagem() == null ? e.getMessage() : converter.getMensagem());
         }
-        return "";
 
+        return null;
+
+//        if (this.getFaceRecortadaAtual() == null) {
+//            return null;
+//        }
     }
 
-    public BufferedImage salvarPgmGetImage(String path) {
+    public BufferedImage salvarPgmGetImage(String path, BufferedImage img) {
         PGMConverter converter = new PGMConverter();
+
+        //System.out.println(getFaceRecortadaAtual().toString());
         try {
-            if (converter.write2pgm(this.getFrameAtual(), path)) {
+            if (img == null) {
+                return null;
+            }
 
-                listPgmTrain.add(path);
+            BufferedImage resized = new Utils().resize(img, 122, 122);
+            if (converter.write2pgm(resized, path)) {
 
-                //gridModel.addRow(new Object[]{new ImageIcon(frameAtual)});
-                return this.getFrameAtual();
+                //listAddPath.add(path);
+                //return this.getFaceRecortadaAtual();
+                return resized;
             } else {
                 return null;
             }
@@ -145,5 +253,9 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 
         return null;
 
+    }
+
+    public void msg(String msg, String title, int messageType) {
+        JOptionPane.showMessageDialog(rootPane, msg, title, messageType);
     }
 }

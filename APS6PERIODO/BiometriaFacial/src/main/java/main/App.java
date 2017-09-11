@@ -26,20 +26,22 @@ public class App {
         Trainer trainer = Trainer.builder().metric(new CosineDissimilarity()).featureType(FeatureType.PCA)
                 .numberOfComponents(1).k(1).build();
 
-        //Set de imagens, usa duas imagens para treinar e outra para reconhecer
-        String marcos1 = "faces/marcos/marcos2.pgm";
-        String marcos2 = "faces/marcos/marcos0.pgm";
+        //Set de imagens, usa tres imagens para treinar e outra para reconhecer
+        String marcos1 = "faces/marcos/Marcos2.pgm";
+        String marcos2 = "faces/marcos/Marcos0.pgm";
+        String marcos3 = "faces/marcos/Marcos0.pgm";
 
-        String marcos3 = "faces/marcos/marcos1.pgm";
+        String marcos4 = "faces/marcos/MarcosReconhecer0.pgm";
 
         trainer.add(convertToMatrix(marcos1), "Marcos");
         trainer.add(convertToMatrix(marcos2), "Marcos");
+        trainer.add(convertToMatrix(marcos3), "Marcos");
 
         // train
         trainer.train();
 
         // recognize
-        System.out.println("Pessoa encontrada: " + trainer.recognize(convertToMatrix(marcos3)));
+        System.out.println("Pessoa encontrada: " + trainer.recognize(convertToMatrix(marcos4)));
     }
 
     private Matrix convertToMatrix(String fileAddress) {
@@ -55,7 +57,7 @@ public class App {
         }
 
         try {
-            return vectorize(FileManager.convertPGMtoMatrix(file.getAbsolutePath()));
+            return vectorize(convertPGMtoMatrix(file.getAbsolutePath()));
         } catch (Exception e) {
             mensagemErro = "Erro ao converter PGM para matrix";
         }
@@ -78,45 +80,46 @@ public class App {
     }
 
 //    //Apenas para teste, retirar depois
-//    public Matrix convertPGMtoMatrix(String address) throws IOException {
-//        FileInputStream fileInputStream = new FileInputStream(address);
-//        Scanner scan = new Scanner(fileInputStream);
-//
-//        // Discard the magic number
-//        scan.nextLine();
-//        // Read pic width, height and max value
-//        int picWidth = scan.nextInt();
-//        int picHeight = scan.nextInt();
-//
-//        fileInputStream.close();
-//
-//        // Now parse the file as binary data
-//        fileInputStream = new FileInputStream(address);
-//        DataInputStream dis = new DataInputStream(fileInputStream);
-//
-//        // look for 4 lines (i.e.: the header) and discard them
-//        int numnewlines = 3;
-//        while (numnewlines > 0) {
-//            char c;
-//            do {
-//                c = (char) (dis.readUnsignedByte());
-//            } while (c != '\n');
-//            numnewlines--;
-//        }
-//
-//        // read the image data
-//        double[][] data2D = new double[picHeight][picWidth];
-//        for (int row = 0; row < picHeight; row++) {
-//            for (int col = 0; col < picWidth; col++) {
-//
-//                try {
-//                    data2D[row][col] = dis.readUnsignedByte();
-//                } catch (Exception e) {
-//                    mensagemErro = "Erro ao ler byte na posição: linha: " + row + " coluna: " + col; 
-//                }
-//            }
-//        }
-//
-//        return new Matrix(data2D);
-//    }
+    public Matrix convertPGMtoMatrix(String address) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(address);
+        Scanner scan = new Scanner(fileInputStream);
+
+        // Discard the magic number
+        scan.nextLine();
+        scan.nextLine();
+        // Read pic width, height and max value
+        int picWidth = scan.nextInt();
+        int picHeight = scan.nextInt();
+
+        fileInputStream.close();
+
+        // Now parse the file as binary data
+        fileInputStream = new FileInputStream(address);
+        DataInputStream dis = new DataInputStream(fileInputStream);
+
+        // look for 4 lines (i.e.: the header) and discard them
+        int numnewlines = 3;
+        while (numnewlines > 0) {
+            char c;
+            do {
+                c = (char) (dis.readUnsignedByte());
+            } while (c != '\n');
+            numnewlines--;
+        }
+
+        // read the image data
+        double[][] data2D = new double[picHeight][picWidth];
+        for (int row = 0; row < picHeight; row++) {
+            for (int col = 0; col < picWidth; col++) {
+
+                try {
+                    data2D[row][col] = dis.readUnsignedByte();
+                } catch (Exception e) {
+                    mensagemErro = "Erro ao ler byte na posição: linha: " + row + " coluna: " + col; 
+                }
+            }
+        }
+
+        return new Matrix(data2D);
+    }
 }

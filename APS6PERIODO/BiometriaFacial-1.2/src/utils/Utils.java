@@ -8,12 +8,21 @@ package utils;
 import com.github.wihoho.jama.Matrix;
 import com.github.wihoho.training.FileManager;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import net.coobird.thumbnailator.Thumbnails;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -102,7 +111,8 @@ public class Utils {
         }
 
         try {
-            return vectorize(FileManager.convertPGMtoMatrix(file.getAbsolutePath()));
+            //return vectorize(FileManager.convertPGMtoMatrix(file.getAbsolutePath()));
+            return vectorize(convertPGMtoMatrix(file.getAbsolutePath()));
         } catch (Exception e) {
             setMensagemErro("Erro ao converter PGM para matrix");
         }
@@ -122,6 +132,85 @@ public class Utils {
             }
         }
         return result;
+    }
+
+//    public BufferedImage resize(BufferedImage img, int newW, int newH) {
+//        try {
+//            Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+//            BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+//
+//            Graphics2D g2d = dimg.createGraphics();
+//            g2d.drawImage(tmp, 0, 0, null);
+//            g2d.dispose();
+//
+//            return dimg;
+//        } catch (Exception e) {
+//            System.out.println("Erro ao redimensionar imagem " + e.getMessage());
+//        }
+//        return null;
+//    }
+
+    public BufferedImage resize(BufferedImage img, int newW, int newH) {
+        try {
+            BufferedImage thumbnail = Thumbnails.of(img)
+                    .size(newW, newH)
+                    .asBufferedImage();
+
+            return thumbnail;
+
+        } catch (IOException ex) {
+            System.out.println("Erro ao redimensionar imagem " + ex.getMessage());
+        }
+
+        return null;
+    }
+
+    public Matrix convertPGMtoMatrix(String address) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(address);
+        Scanner scan = new Scanner(fileInputStream);
+
+        // Discard the magic number
+        scan.nextLine();
+        //Descarta comentário criado pela Biblioteca de geração do arquivo PGM
+        scan.nextLine();
+        // Read pic width, height and max value
+        int picWidth = scan.nextInt();
+
+        //String line = scan.nextLine();
+        //String StrPicWidth = scan.next();
+        //int picWidth = Integer.parseInt(StrPicWidth);
+        int picHeight = scan.nextInt();
+
+        fileInputStream.close();
+
+        // Now parse the file as binary data
+        fileInputStream = new FileInputStream(address);
+        DataInputStream dis = new DataInputStream(fileInputStream);
+
+        // look for 4 lines (i.e.: the header) and discard them
+        int numnewlines = 3;
+        while (numnewlines > 0) {
+            char c;
+            do {
+                c = (char) (dis.readUnsignedByte());
+            } while (c != '\n');
+            numnewlines--;
+        }
+
+        // read the image data
+        double[][] data2D = new double[picHeight][picWidth];
+        for (int row = 0; row < picHeight; row++) {
+            for (int col = 0; col < picWidth; col++) {
+
+                try {
+                    data2D[row][col] = dis.readUnsignedByte();
+                } catch (Exception e) {
+                    mensagemErro = "Erro ao ler byte na posição: linha: " + row + " coluna: " + col;
+                }
+            }
+        }
+
+        return new Matrix(data2D);
     }
 
 }

@@ -11,6 +11,7 @@ import com.github.wihoho.jama.Matrix;
 import com.github.wihoho.training.CosineDissimilarity;
 import com.github.wihoho.training.FileManager;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import utils.Utils;
 
@@ -22,29 +23,74 @@ public class TreinadorDeFaces {
 
     ClassLoader classLoader = getClass().getClassLoader();
     public String mensagemErro;
+    private Trainer trainer;
+    private String identificador;
+    private List<String> listPgmTrain = new ArrayList<String>();
 
-    public void Treinar(List<String> pgms, String identificador) throws Exception {
-        // Build a trainer
-        Trainer trainer = Trainer.builder().metric(new CosineDissimilarity()).featureType(FeatureType.PCA)
-                .numberOfComponents(1).k(1).build();
-//
-//        //Set de imagens, usa duas imagens para treinar e outra para reconhecer
-//        String marcos1 = "faces/marcos/marcos2.pgm";
-//        String marcos2 = "faces/marcos/marcos0.pgm";
-//
-//        String marcos3 = "faces/marcos/marcos1.pgm";
-//
-//        trainer.add(convertToMatrix(marcos1), "Marcos");
-//        trainer.add(convertToMatrix(marcos2), "Marcos");
+    public Trainer getTrainer() {
+        return trainer;
 
-        Utils ut = new Utils();
+    }
 
-        for (String pgm : pgms) {
-            trainer.add(ut.convertToMatrix(pgm), identificador);
+    private void setTrainer(Trainer trainer) {
+        this.trainer = trainer;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public List<String> getListPgmTrain() {
+        return listPgmTrain;
+    }
+
+    public void add2ListaPgmTrain(String pathPgm) {
+        listPgmTrain.add(pathPgm);
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+//    public void Treinar(List<String> pgms, String identificador) throws Exception {
+//        // Build a trainer
+//        trainer = Trainer.builder().metric(new CosineDissimilarity()).featureType(FeatureType.PCA)
+//                .numberOfComponents(1).k(1).build();
+//        Utils ut = new Utils();
+//
+//        for (String pgm : pgms) {
+//            trainer.add(ut.convertToMatrix(pgm), identificador);
+//        }
+//
+//        try {
+//            // train
+//            trainer.train();
+//            System.out.println("Treinamento concluido com sucesso");
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//    }
+    public void Treinar(List<TreinadorDeFaces> listaDeTreinadores) throws Exception {
+
+        for (TreinadorDeFaces t : listaDeTreinadores) {
+            // Build a trainer
+            trainer = Trainer.builder().metric(new CosineDissimilarity()).featureType(FeatureType.PCA)
+                    .numberOfComponents(1).k(1).build();
+            Utils ut = new Utils();
+
+            for (String pgm : t.getListPgmTrain()) {
+                trainer.add(ut.convertToMatrix(pgm), t.getIdentificador());
+            }
+
+            try {
+                // train
+                trainer.train();
+                System.out.println("Treinamento concluido com sucesso");
+            } catch (Exception e) {
+                mensagemErro = "Erro ao realizar treinamento";
+            }
         }
-
-        // train
-        trainer.train();
 
     }
 
