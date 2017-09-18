@@ -5,8 +5,9 @@ package utils;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.github.wihoho.jama.Matrix;
-import com.github.wihoho.training.FileManager;
+//import com.github.wihoho.jama.Matrix;
+//import com.github.wihoho.training.FileManager;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import net.coobird.thumbnailator.Thumbnails;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import static org.opencv.imgcodecs.Imgcodecs.imread;
@@ -98,41 +100,6 @@ public class Utils {
         return imagemColorida;
     }
 
-    public Matrix convertToMatrix(String fileAddress) {
-        //File file = new File(classLoader.getResource(fileAddress).getFile());
-        //File file = new File(classLoader.getResource("/" + fileAddress).getFile());
-        //String relativeAdress = "src/main/java/main/" + fileAddress;
-
-        File file = new File(fileAddress);
-
-        if (!file.exists()) {
-            System.out.println("Arquivo: " + fileAddress + " não encontrado");
-            return null;
-        }
-
-        try {
-            //return vectorize(FileManager.convertPGMtoMatrix(file.getAbsolutePath()));
-            return vectorize(convertPGMtoMatrix(file.getAbsolutePath()));
-        } catch (Exception e) {
-            setMensagemErro("Erro ao converter PGM para matrix");
-        }
-
-        return null;
-    }
-
-    // Convert a m by n matrix into a m*n by 1 matrix
-    private Matrix vectorize(Matrix input) {
-        int m = input.getRowDimension();
-        int n = input.getColumnDimension();
-
-        Matrix result = new Matrix(m * n, 1);
-        for (int p = 0; p < n; p++) {
-            for (int q = 0; q < m; q++) {
-                result.set(p * m + q, 0, input.get(q, p));
-            }
-        }
-        return result;
-    }
 
 //    public BufferedImage resize(BufferedImage img, int newW, int newH) {
 //        try {
@@ -149,7 +116,6 @@ public class Utils {
 //        }
 //        return null;
 //    }
-
     public BufferedImage resize(BufferedImage img, int newW, int newH) {
         try {
             BufferedImage thumbnail = Thumbnails.of(img)
@@ -165,52 +131,32 @@ public class Utils {
         return null;
     }
 
-    public Matrix convertPGMtoMatrix(String address) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream(address);
-        Scanner scan = new Scanner(fileInputStream);
+    public Mat bufferedImageToMat(BufferedImage bi) {
+        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
+        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+        mat.put(0, 0, data);
+        return mat;
+    }
 
-        // Discard the magic number
-        scan.nextLine();
-        //Descarta comentário criado pela Biblioteca de geração do arquivo PGM
-        scan.nextLine();
-        // Read pic width, height and max value
-        int picWidth = scan.nextInt();
+    public void Img2GrayScale(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
 
-        //String line = scan.nextLine();
-        //String StrPicWidth = scan.next();
-        //int picWidth = Integer.parseInt(StrPicWidth);
-        int picHeight = scan.nextInt();
+        for (int i = 0; i < height; i++) {
 
-        fileInputStream.close();
+            for (int j = 0; j < width; j++) {
 
-        // Now parse the file as binary data
-        fileInputStream = new FileInputStream(address);
-        DataInputStream dis = new DataInputStream(fileInputStream);
+                Color c = new Color(image.getRGB(j, i));
+                int red = (int) (c.getRed() * 0.299);
+                int green = (int) (c.getGreen() * 0.587);
+                int blue = (int) (c.getBlue() * 0.114);
+                Color newColor = new Color(red + green + blue,
+                        red + green + blue, red + green + blue);
 
-        // look for 4 lines (i.e.: the header) and discard them
-        int numnewlines = 3;
-        while (numnewlines > 0) {
-            char c;
-            do {
-                c = (char) (dis.readUnsignedByte());
-            } while (c != '\n');
-            numnewlines--;
-        }
-
-        // read the image data
-        double[][] data2D = new double[picHeight][picWidth];
-        for (int row = 0; row < picHeight; row++) {
-            for (int col = 0; col < picWidth; col++) {
-
-                try {
-                    data2D[row][col] = dis.readUnsignedByte();
-                } catch (Exception e) {
-                    mensagemErro = "Erro ao ler byte na posição: linha: " + row + " coluna: " + col;
-                }
+                image.setRGB(j, i, newColor.getRGB());
             }
         }
 
-        return new Matrix(data2D);
     }
 
 }

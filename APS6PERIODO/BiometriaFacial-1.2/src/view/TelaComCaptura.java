@@ -36,11 +36,9 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 
     private BufferedImage frameAtual;
     private boolean salvandoPGM = false;
-    private List<String> listPgmRecognize = new ArrayList<String>();
     private String mensagem;
     private List<BufferedImage> lstFacesRecortadas = new ArrayList<>();
-    private List<String> pessoasReconhecidas;
-    //private List<String> listPgmTrain = new ArrayList<>();
+    private List<String> pessoasReconhecidas = new ArrayList<>();
     private VideoCapture captura;
 
     String localPath;
@@ -52,10 +50,6 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 
     public BufferedImage getFrameAtual() {
         return frameAtual;
-    }
-
-    public void add2ListaPgmRecognize(String pathPgm) {
-        listPgmRecognize.add(pathPgm);
     }
 
     public boolean isSalvandoPGM() {
@@ -86,6 +80,10 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         this.pessoasReconhecidas = pessoasReconhecidas;
     }
 
+    public void add2PessoasReconhecidas(String id) {
+        this.pessoasReconhecidas.add(id);
+    }
+
     public List<BufferedImage> getFacesRecortadas() {
 
         List<BufferedImage> listaRetorno = new ArrayList<>();
@@ -103,10 +101,6 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 
     private void setFrameAtual(BufferedImage frameAtual) {
         this.frameAtual = frameAtual;
-    }
-
-    public List<String> getListPgmRecognize() {
-        return listPgmRecognize;
     }
 
     public void mostraVideo(JPanel containerVideo) {
@@ -146,6 +140,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     Mat imagemColorida = frame;
                     Mat imagemCinza = new Mat();
                     Imgproc.cvtColor(imagemColorida, imagemCinza, Imgproc.COLOR_BGR2GRAY);
+
                     //Detecta faces
                     classificador.detectMultiScale(imagemCinza, facesDetectadas, scaleFactor, minNeighbors, flags, minSize, maxSize);
                     Rect[] faces = facesDetectadas.toArray();
@@ -201,6 +196,15 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * *
+     * Salva a imagem como .pgm no caminho informado e e retorna uma imagem
+     * redimensionada
+     *
+     * @param path
+     * @param img
+     * @return BufferedImage imagem redimensionada para 122x122
+     */
     public String salvarPgm(String path, BufferedImage img) {
         PGMConverter converter = new PGMConverter();
 

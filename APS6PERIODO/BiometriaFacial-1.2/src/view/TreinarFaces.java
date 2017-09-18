@@ -13,8 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import main.ReconhecedorDeFaces;
-import main.TreinadorDeFaces;
+import main.FileTrain;
+import main.Recognizer;
+import main.Trainer;
+import utils.PreProcessing;
+import utils.Text2ImageConverter;
 import utils.Utils;
 
 /**
@@ -23,9 +26,11 @@ import utils.Utils;
  */
 public class TreinarFaces extends TelaComCaptura {
 
-    private TreinadorDeFaces trainer;
-    private ReconhecedorDeFaces recognizer;
-    private List<TreinadorDeFaces> listaDeTreinadores = new ArrayList<>();
+    private Trainer treinador = new Trainer();
+    private Recognizer reconhecedor = new Recognizer();
+    FileTrain fileTrain;
+    private List<FileTrain> listaTreinamento = new ArrayList<>();
+    private List<String> listaReconhecer = new ArrayList<>();
 
     public TreinarFaces() {
         initComponents();
@@ -163,13 +168,18 @@ public class TreinarFaces extends TelaComCaptura {
 
     public void iniciarCaptura() {
 
-//        Runnable capturar = new Runnable() {
-//            @Override
-//            public void run() {
         mostraVideo(videoCapture);
-//            }
-//        };
 
+    }
+
+    public void addImgToTable(BufferedImage bi) {
+        JTableRenderer renderer = new JTableRenderer();
+        TableColumnModel columnModel = gridImgs.getColumnModel();
+        columnModel.getColumn(0).setCellRenderer(renderer);
+        DefaultTableModel modelo = (DefaultTableModel) gridImgs.getModel();
+        gridImgs.setRowHeight(150);
+        modelo.addRow(new Object[]{new ImageIcon(bi)});
+        gridImgs.scrollRectToVisible(gridImgs.getCellRect(gridImgs.getRowCount() - 1, 0, true));
     }
 
 
@@ -179,34 +189,38 @@ public class TreinarFaces extends TelaComCaptura {
             return;
         }
 
+        //trainer.setIdentificador(txtIdentificador.getText());
         txtIdentificador.setEnabled(false);
+        fileTrain.setIdentificador(txtIdentificador.getText());
         Utils ut = new Utils();
-        JTableRenderer renderer = new JTableRenderer();
+
         setSalvandoPGM(true);
         //StopCapture();
         try {
 
-            // List<BufferedImage> facesRecortadas = getFacesRecortadas();
             for (BufferedImage bi : getFacesRecortadas()) {
-                String path = localPath + "\\src\\resources\\pgmTrainer\\" + txtIdentificador.getText() + trainer.getListPgmTrain().size() + ".pgm";
-                trainer.add2ListaPgmTrain(salvarPgm(path, bi));
+                //Adiciona na lista de treinamento
+                String path = localPath + "\\src\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
 
                 // ut.mostraImagem(bi);
-                TableColumnModel columnModel = gridImgs.getColumnModel();
+                BufferedImage resized = ut.resize(bi, 150, 150);
+                //Pré processa a imagem
+                PreProcessing p = new PreProcessing();
+                BufferedImage imgPreProcessed = p.enhance(resized);
+                Text2ImageConverter txtImg = new Text2ImageConverter();
+                txtImg.writeImage(txtIdentificador.getText() + " " + listaTreinamento.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+                ut.Img2GrayScale(imgPreProcessed);
 
-                columnModel.getColumn(0).setCellRenderer(renderer);
+                addImgToTable(imgPreProcessed);
 
-                DefaultTableModel modelo = (DefaultTableModel) gridImgs.getModel();
+                if (salvarPgm(path, bi) == "") {
+                    continue;
+                }
 
-                // if (bi != null) {
-                Image resized = ut.resize(bi, 150, 150);
+                fileTrain.setPgmImagePath(path);
 
-                gridImgs.setRowHeight(150);
+                listaTreinamento.add(fileTrain);
 
-                modelo.addRow(new Object[]{new ImageIcon(resized)});
-//                } else {
-//                    System.out.println("Imagem não foi salva como PGM");
-//                }
             }
             setSalvandoPGM(false);
             //OpenCapture();
@@ -229,29 +243,42 @@ public class TreinarFaces extends TelaComCaptura {
 
         try {
 
-            for (TreinadorDeFaces t : listaDeTreinadores) {
-                if (t.getListPgmTrain().size() < 2) {
-                    msg("Numero de imagens para treinamento precisa ser pelo menos 2", "Imagens insuficientes", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
+            Boolean trainSuccess = false;
+
+            if (listaTreinamento.isEmpty()) {
+                msg("Lista de treinamento esta vazia", "Lista vazia", JOptionPane.WARNING_MESSAGE);
+                return;
+
             }
 
-            trainer.setIdentificador(txtIdentificador.getText());
-            setSalvandoPGM(false);
-            trainer.Treinar(listaDeTreinadores);
-            msg(trainer.getMensagem(), "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            trainSuccess = treinador.treinar(listaTreinamento);
+
+            if (trainSuccess) {
+                msg("Treinamento concluído com sucesso", "Treinamento concluido", JOptionPane.INFORMATION_MESSAGE);
+
+                setSalvandoPGM(false);
+            } else {
+                msg("Treinamento falhou", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }//GEN-LAST:event_btnTreinarActionPerformed
 
     private void btnReconhecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReconhecerActionPerformed
-        ReconhecedorDeFaces r = new ReconhecedorDeFaces();
+        //Limpa a lista de reconhecimento para montar uma nova
+        listaReconhecer.clear();
+        //Limpa as faces recortadas e espera 200ms para obter novas
+        getFacesRecortadas().clear();
+        getPessoasReconhecidas().clear();
 
-//        if (txtIdentificador.getText().equals("")) {
-//            JOptionPane.showMessageDialog(rootPane, "É necessário preencher o campo identificador", "Preencher identificador", HEIGHT);
-//            return;
-//        }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+
+        }
+
         List<BufferedImage> facesRecortadas = getFacesRecortadas();
 
         if (facesRecortadas.size() == 0) {
@@ -260,14 +287,27 @@ public class TreinarFaces extends TelaComCaptura {
         }
 
         for (BufferedImage bi : facesRecortadas) {
-            String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + getListPgmRecognize().size() + ".pgm";
+            String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + listaReconhecer.size() + ".pgm";
+
+            Utils ut = new Utils();
+
+            // ut.mostraImagem(bi);
+            BufferedImage resized = ut.resize(bi, 150, 150);
+            //Pré processa a imagem
+            PreProcessing p = new PreProcessing();
+            BufferedImage imgPreProcessed = p.enhance(resized);
+
             try {
                 if (salvarPgm(pgmPath, bi) != null) {
-                    add2ListaPgmRecognize(pgmPath);
 
+                    listaReconhecer.add(pgmPath);
+                    Text2ImageConverter txtImg = new Text2ImageConverter();
+                    txtImg.writeImage("Reconhecer" + " " + listaReconhecer.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+                    ut.Img2GrayScale(imgPreProcessed);
+                    addImgToTable(imgPreProcessed);
                 } else {
                     System.out.println("Imagem não foi salva como PGM");
-                    return;
+                    continue;
                 }
             } catch (Exception e) {
                 System.out.println(e.toString());
@@ -275,7 +315,26 @@ public class TreinarFaces extends TelaComCaptura {
 
         }
 
-        setPessoasReconhecidas(r.reconhecer(listaDeTreinadores, getListPgmRecognize()));
+        List<String> pgmsMatched = new ArrayList<>();
+
+        for (String pgm : listaReconhecer) {
+
+            String pgmMatched = reconhecedor.reconhecer(pgm);
+
+            if (pgmMatched != null) {
+                pgmsMatched.add(pgmMatched);
+            }
+
+        }
+
+        for (String pgm : pgmsMatched) {
+            for (FileTrain f : listaTreinamento) {
+
+                if (f.getPgmImagePath() == pgm && !getPessoasReconhecidas().contains(f.getIdentificador())) {
+                    add2PessoasReconhecidas(f.getIdentificador());
+                }
+            }
+        }
 
         if (getPessoasReconhecidas().isEmpty()) {
             msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -295,11 +354,11 @@ public class TreinarFaces extends TelaComCaptura {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         txtIdentificador.setEnabled(true);
-        // setSalvandoPGM(true);
+        setSalvandoPGM(true);
         txtIdentificador.setText("");
-        trainer = new TreinadorDeFaces();
-        //trainer.
-        listaDeTreinadores.add(trainer);
+
+        fileTrain = new FileTrain();
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     public static void main(String args[]) {
