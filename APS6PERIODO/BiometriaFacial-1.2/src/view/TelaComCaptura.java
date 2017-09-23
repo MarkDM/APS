@@ -152,10 +152,12 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     }
 
                     for (int i = 0; i < faces.length; i++) {
-                        //Adiciono mais 10 pixels na largura para que possa o PGM possa ser convertido em matrix corretamente
-                        //Se w e H forem iguais, scan do arquivo só encontra um valor
                         Imgproc.rectangle(frame, faces[i].tl(), faces[i].br(), cor, thickness);
-                        faceRecortada = new Rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+
+                        int larguraFace = (int) (faces[i].width * 1f);
+                        int alturaFace = (int) (faces[i].height * 1f);
+
+                        faceRecortada = new Rect(faces[i].x, faces[i].y, larguraFace, alturaFace);
                         // faceRecortada = new Rect(faces[i].x, faces[i].y, 150, 160);
                         if (faceRecortada != null) {
                             // if (lstFacesRecortadas.size() < faces.length) {
@@ -203,7 +205,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
      *
      * @param path
      * @param img
-     * @return BufferedImage imagem redimensionada para 122x122
+     * @return BufferedImage 
      */
     public String salvarPgm(String path, BufferedImage img) {
         PGMConverter converter = new PGMConverter();
@@ -211,9 +213,9 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         setSalvandoPGM(true);
 
         try {
-            BufferedImage resized = new Utils().resize(img, 122, 122);
+           // BufferedImage resized = new Utils().resize(img, 120, 120);
             //String path = localPath + "\\src\\resources\\pgmTrainer\\" + identificador + getListPgmTrain().size() + ".pgm";
-            if (converter.write2pgm(resized, path)) {
+            if (converter.write2pgm(img, path)) {
                 //getListPgmTrain().add(path);
 
                 return path;
@@ -242,12 +244,12 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                 return null;
             }
 
-            BufferedImage resized = new Utils().resize(img, 122, 122);
-            if (converter.write2pgm(resized, path)) {
+            //BufferedImage resized = new Utils().resize(img, 120, 120);
+            if (converter.write2pgm(img, path)) {
 
                 //listAddPath.add(path);
                 //return this.getFaceRecortadaAtual();
-                return resized;
+                return img;
             } else {
                 return null;
             }

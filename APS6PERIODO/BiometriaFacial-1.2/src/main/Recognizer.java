@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Recognizer extends LaplacianFaces {
 
-    public String reconhecer(String pgm) {
+    public FileTrain reconhecer(String pgm, List<FileTrain> listaDeTreinamento) {
         int xBase, yBase, xSub, ySub;
         int xLow, xHigh, yLow, yHigh;
         int GrayLevel;
@@ -38,7 +38,7 @@ public class Recognizer extends LaplacianFaces {
         int TestLaplacianFace[][] = new int[xDiv][yDiv];
         int LaplacianDiff;
         int MinLaplacianIndex;
-        double TotalLaplacianDiff, MinLaplacianDiff;
+        double TotalLaplacianDiff;
 
         //addResultText("\nTesting...");
         PGM pgm1 = new PGM();
@@ -104,7 +104,10 @@ public class Recognizer extends LaplacianFaces {
 
         MinLaplacianDiff = 2147483647; //2^32
         MinLaplacianIndex = -1;
-        for (i = 1; i <= NumFaces; i++) {
+        FileTrain ftMatch = null;
+
+        i = 1;
+        for (FileTrain ft : listaDeTreinamento) {
             TotalLaplacianDiff = 0;
             for (xBase = 0; xBase <= xDiv - 1; xBase++) {
                 for (yBase = 0; yBase <= yDiv - 1; yBase++) {
@@ -113,19 +116,37 @@ public class Recognizer extends LaplacianFaces {
             }
             if (MinLaplacianDiff > TotalLaplacianDiff) {
                 MinLaplacianDiff = TotalLaplacianDiff;
-                MinLaplacianIndex = i;
+                ftMatch = ft;
+                //MinLaplacianIndex = i;
             }
+
+            i++;
         }
 
+//        for (i = 1; i <= listaDeTreinamento.size(); i++) {
+//            TotalLaplacianDiff = 0;
+//            for (xBase = 0; xBase <= xDiv - 1; xBase++) {
+//                for (yBase = 0; yBase <= yDiv - 1; yBase++) {
+//                    TotalLaplacianDiff = TotalLaplacianDiff + java.lang.Math.abs(TestLaplacianFace[xBase][yBase] - LaplacianFaces[xBase][yBase][i]);
+//                }
+//            }
+//            if (MinLaplacianDiff > TotalLaplacianDiff) {
+//                MinLaplacianDiff = TotalLaplacianDiff;
+//                MinLaplacianIndex = i;
+//            }
+//        }
         pgm2.writeImage();
 
         if (MinLaplacianDiff < DifferenceThreshold) {
 
             System.out.println("Reconhecido");
-            System.out.println("Arquivo de Match:" + FaceFileNames[MinLaplacianIndex]);
+            //System.out.println("Arquivo de Match:" + FaceFileNames[MinLaplacianIndex]);
+            System.out.println("Arquivo de Match:" + ftMatch.getPgmImagePath());
+            ftMatch.setDiffLaplacian(MinLaplacianDiff);
             System.out.println("Arquivo informado:" + pgm);
             System.out.println("Diferença:" + MinLaplacianDiff);
-            return FaceFileNames[MinLaplacianIndex];
+            //return FaceFileNames[MinLaplacianIndex];
+            return ftMatch;
 
         } else {
             System.out.println("Não reconhecido");

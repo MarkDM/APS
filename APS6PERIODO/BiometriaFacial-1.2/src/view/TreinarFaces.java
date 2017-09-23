@@ -3,6 +3,7 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import main.FileTrain;
+import main.LaplacianFaces;
 import main.Recognizer;
 import main.Trainer;
 import utils.PreProcessing;
@@ -203,7 +205,7 @@ public class TreinarFaces extends TelaComCaptura {
                 String path = localPath + "\\src\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
 
                 // ut.mostraImagem(bi);
-                BufferedImage resized = ut.resize(bi, 150, 150);
+                BufferedImage resized = ut.resize(bi, 120, 120);
                 //Pré processa a imagem
                 PreProcessing p = new PreProcessing();
                 BufferedImage imgPreProcessed = p.enhance(resized);
@@ -213,11 +215,12 @@ public class TreinarFaces extends TelaComCaptura {
 
                 addImgToTable(imgPreProcessed);
 
-                if (salvarPgm(path, bi) == "") {
+                if (salvarPgm(path, imgPreProcessed) == "") {
                     continue;
                 }
 
                 fileTrain.setPgmImagePath(path);
+                fileTrain.setImage(imgPreProcessed);
 
                 listaTreinamento.add(fileTrain);
 
@@ -271,7 +274,7 @@ public class TreinarFaces extends TelaComCaptura {
         listaReconhecer.clear();
         //Limpa as faces recortadas e espera 200ms para obter novas
         getFacesRecortadas().clear();
-        getPessoasReconhecidas().clear();
+        // getPessoasReconhecidas().clear();
 
         try {
             Thread.sleep(200);
@@ -286,23 +289,26 @@ public class TreinarFaces extends TelaComCaptura {
             return;
         }
 
+        int numFoto = listaReconhecer.size();
+
         for (BufferedImage bi : facesRecortadas) {
-            String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + listaReconhecer.size() + ".pgm";
+
+            String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
 
             Utils ut = new Utils();
 
             // ut.mostraImagem(bi);
-            BufferedImage resized = ut.resize(bi, 150, 150);
+            BufferedImage resized = ut.resize(bi, 120, 120);
             //Pré processa a imagem
             PreProcessing p = new PreProcessing();
             BufferedImage imgPreProcessed = p.enhance(resized);
 
             try {
-                if (salvarPgm(pgmPath, bi) != null) {
+                if (salvarPgm(pgmPath, imgPreProcessed) != null) {
 
                     listaReconhecer.add(pgmPath);
                     Text2ImageConverter txtImg = new Text2ImageConverter();
-                    txtImg.writeImage("Reconhecer" + " " + listaReconhecer.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+                    txtImg.writeImage("Reconhecer" + " " + numFoto, imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
                     ut.Img2GrayScale(imgPreProcessed);
                     addImgToTable(imgPreProcessed);
                 } else {
@@ -315,41 +321,43 @@ public class TreinarFaces extends TelaComCaptura {
 
         }
 
-        List<String> pgmsMatched = new ArrayList<>();
+        List<FileTrain> idsReconhecidos = new ArrayList<>();
 
         for (String pgm : listaReconhecer) {
+            FileTrain ftMatched = reconhecedor.reconhecer(pgm, listaTreinamento);
 
-            String pgmMatched = reconhecedor.reconhecer(pgm);
+            if (ftMatched != null) {
 
-            if (pgmMatched != null) {
-                pgmsMatched.add(pgmMatched);
-            }
-
-        }
-
-        for (String pgm : pgmsMatched) {
-            for (FileTrain f : listaTreinamento) {
-
-                if (f.getPgmImagePath() == pgm && !getPessoasReconhecidas().contains(f.getIdentificador())) {
-                    add2PessoasReconhecidas(f.getIdentificador());
+                if (!idsReconhecidos.contains(ftMatched)) {
+                    idsReconhecidos.add(ftMatched);
                 }
+
             }
+
         }
 
-        if (getPessoasReconhecidas().isEmpty()) {
+        if (idsReconhecidos.isEmpty()) {
             msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        //System.out.println("Pessoas reconhecidas");
         String facesReconhecidas = "Pessoas reconhecidas\n";
 
-        for (String id : getPessoasReconhecidas()) {
+        for (FileTrain ft : idsReconhecidos) {
+            Double precisao = 100 * (LaplacianFaces.DifferenceThreshold - ft.getDiffLaplacian()) / LaplacianFaces.DifferenceThreshold;
+            //precisao = 
 
-            facesReconhecidas += id + "\n";
+            DecimalFormat df = new DecimalFormat("0.00");
+
+            String strPrecisao = df.format(precisao);
+
+            facesReconhecidas += ft.getIdentificador() + " - Precisão: " + strPrecisao + "%\n";
         }
 
         msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
+
+        //System.out.println("Pessoas reconhecidas");
+
     }//GEN-LAST:event_btnReconhecerActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed

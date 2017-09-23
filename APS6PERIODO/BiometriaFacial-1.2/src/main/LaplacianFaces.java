@@ -17,9 +17,10 @@ public abstract class LaplacianFaces {
     public static int Faces[][][];
     public static int LaplacianFaces[][][];
     public static String FaceFileNames[];
+    public static double MinLaplacianDiff;
 
-    public static double DifferenceThreshold = 14000.0;
-    public static int MaxFaceIndex = 2;
+    public static double DifferenceThreshold = 12100.0;
+    public static int MaxFaceIndex;
     public static int MaxFaces = 100;
 
 }

@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 public class Trainer extends LaplacianFaces {
 
     private String tResult = "";
+    private String localPath;
 
     /**
      *
@@ -21,6 +23,10 @@ public class Trainer extends LaplacianFaces {
      * @param pgmsTrain
      */
     public boolean treinar(List<FileTrain> pgmsTrain) {
+
+        localPath = new File("").getAbsolutePath();
+        String pathFiles = localPath + "\\src\\resources\\pgmTrainer";
+
         int xBase, yBase, xSub, ySub;
         int xLow, xHigh, yLow, yHigh;
         int GrayLevel;
@@ -32,10 +38,10 @@ public class Trainer extends LaplacianFaces {
         int SizeX, SizeY;
 
         //set system parameters
-        SizeX = 80;
-        SizeY = 80;
-        xDiv = 20;
-        yDiv = 20;
+        SizeX = 120;
+        SizeY = 120;
+        xDiv = 30;
+        yDiv = 30;
         BlockWidth = SizeX / xDiv;
         BlockHeight = SizeY / yDiv;
 
@@ -52,12 +58,14 @@ public class Trainer extends LaplacianFaces {
             NumFaces++;
 
             //FaceFileNames[NumFaces] = "src\\images\\train\\Marcos" + i + (char) j + ".pgm";
-            FaceFileNames[NumFaces] = ft.getPgmImagePath();
-            PGM_ImageFilter imgFilter = new PGM_ImageFilter();
-            imgFilter.set_inFilePath(FaceFileNames[NumFaces]);
-            imgFilter.set_outFilePath("temp" + NumFaces + ".pgm");
-            imgFilter.resize(SizeX, SizeY);
-            pgm1.setFilePath("temp" + NumFaces + ".pgm");
+            //FaceFileNames[NumFaces] = ft.getPgmImagePath();
+            //PGM_ImageFilter imgFilter = new PGM_ImageFilter();
+            // imgFilter.set_inFilePath(FaceFileNames[NumFaces]);
+            //imgFilter.set_inFilePath(ft.getPgmImagePath());
+            //imgFilter.set_outFilePath(pathFiles + "\\temp" + NumFaces + ".pgm");
+            //imgFilter.resize(SizeX, SizeY);
+            //pgm1.setFilePath(pathFiles + "\\temp" + NumFaces + ".pgm");
+            pgm1.setFilePath(ft.getPgmImagePath());
             pgm1.readImage();
 
             for (xBase = 0; xBase <= xDiv - 1; xBase++) {
@@ -102,31 +110,31 @@ public class Trainer extends LaplacianFaces {
                 }
             }
 
-            PGM pgm2 = new PGM();
-            pgm2.setFilePath("template" + NumFaces + ".pgm");
-            pgm2.setType("P5");
-            pgm2.setComment("");
-            pgm2.setDimension(SizeX, SizeY);
-            pgm2.setMaxGray(255);
-
-            for (xBase = 0; xBase <= xDiv - 1; xBase++) {
-                for (yBase = 0; yBase <= yDiv - 1; yBase++) {
-                    StartX = xBase * BlockWidth;
-                    StartY = yBase * BlockHeight;
-                    xLow = StartX;
-                    xHigh = StartX + BlockWidth - 1;
-                    yLow = StartY;
-                    yHigh = StartY + BlockHeight - 1;
-
-                    for (xSub = xLow; xSub <= xHigh; xSub++) {
-                        for (ySub = yLow; ySub <= yHigh; ySub++) {
-                            GrayLevel = FaceTemplate[xBase][yBase];
-                            pgm2.setPixel(xSub, ySub, GrayLevel);
-                        }
-                    }
-                }
-            }
-            pgm2.writeImage();
+//            PGM pgm2 = new PGM();
+//            pgm2.setFilePath(pathFiles + "\\template" + NumFaces + ".pgm");
+//            pgm2.setType("P5");
+//            pgm2.setComment("");
+//            pgm2.setDimension(SizeX, SizeY);
+//            pgm2.setMaxGray(255);
+//
+//            for (xBase = 0; xBase <= xDiv - 1; xBase++) {
+//                for (yBase = 0; yBase <= yDiv - 1; yBase++) {
+//                    StartX = xBase * BlockWidth;
+//                    StartY = yBase * BlockHeight;
+//                    xLow = StartX;
+//                    xHigh = StartX + BlockWidth - 1;
+//                    yLow = StartY;
+//                    yHigh = StartY + BlockHeight - 1;
+//
+//                    for (xSub = xLow; xSub <= xHigh; xSub++) {
+//                        for (ySub = yLow; ySub <= yHigh; ySub++) {
+//                            GrayLevel = FaceTemplate[xBase][yBase];
+//                            pgm2.setPixel(xSub, ySub, GrayLevel);
+//                        }
+//                    }
+//                }
+//            }
+//            pgm2.writeImage();
         }
 
         System.out.println("Treinamento concluido com sucesso");

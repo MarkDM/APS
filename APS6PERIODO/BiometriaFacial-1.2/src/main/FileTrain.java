@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,24 @@ public class FileTrain {
 
     private String identificador;
     private String pgmImagePath;
+    private BufferedImage image;
+    private double diffLaplacian;
+
+    public double getDiffLaplacian() {
+        return diffLaplacian;
+    }
+
+    public void setDiffLaplacian(double diffLaplacian) {
+        this.diffLaplacian = diffLaplacian;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
 
     public String getPgmImagePath() {
         return pgmImagePath;
