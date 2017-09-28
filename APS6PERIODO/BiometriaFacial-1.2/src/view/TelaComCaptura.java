@@ -5,10 +5,12 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.HEIGHT;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
@@ -37,7 +40,8 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
     private BufferedImage frameAtual;
     private boolean salvandoPGM = false;
     private String mensagem;
-    private List<BufferedImage> lstFacesRecortadas = new ArrayList<>();
+    //private List<BufferedImage> lstFacesRecortadas = new ArrayList<>();
+    private List<Mat> lstFacesRecortadas = new ArrayList<>();
     private List<String> pessoasReconhecidas = new ArrayList<>();
     private VideoCapture captura;
 
@@ -84,11 +88,21 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         this.pessoasReconhecidas.add(id);
     }
 
-    public List<BufferedImage> getFacesRecortadas() {
+//    public List<BufferedImage> getFacesRecortadas() {
+//
+//        List<BufferedImage> listaRetorno = new ArrayList<>();
+//
+//        for (BufferedImage bi : lstFacesRecortadas) {
+//            listaRetorno.add(bi);
+//        }
+//
+//        return listaRetorno;
+//    }
+    public List<Mat> getFacesRecortadas() {
 
-        List<BufferedImage> listaRetorno = new ArrayList<>();
+        List<Mat> listaRetorno = new ArrayList<>();
 
-        for (BufferedImage bi : lstFacesRecortadas) {
+        for (Mat bi : lstFacesRecortadas) {
             listaRetorno.add(bi);
         }
 
@@ -164,7 +178,8 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                             //System.out.println("Pessoa entrou da captura");
 
                             try {
-                                lstFacesRecortadas.add(ut.matToBufferedImage(new Mat(frameSemRetangulo, faceRecortada)));
+                                //lstFacesRecortadas.add(ut.matToBufferedImage(new Mat(frameSemRetangulo, faceRecortada)));
+                                lstFacesRecortadas.add(new Mat(frameSemRetangulo, faceRecortada));
                             } catch (Exception e) {
                             }
 
@@ -205,7 +220,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
      *
      * @param path
      * @param img
-     * @return BufferedImage 
+     * @return BufferedImage
      */
     public String salvarPgm(String path, BufferedImage img) {
         PGMConverter converter = new PGMConverter();
@@ -213,7 +228,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         setSalvandoPGM(true);
 
         try {
-           // BufferedImage resized = new Utils().resize(img, 120, 120);
+            // BufferedImage resized = new Utils().resize(img, 120, 120);
             //String path = localPath + "\\src\\resources\\pgmTrainer\\" + identificador + getListPgmTrain().size() + ".pgm";
             if (converter.write2pgm(img, path)) {
                 //getListPgmTrain().add(path);
@@ -233,6 +248,65 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 //        if (this.getFaceRecortadaAtual() == null) {
 //            return null;
 //        }
+    }
+
+    public String salvarPgm2(String path, Mat mat) {
+        FileOutputStream fout;
+
+        int pixels[][] = new int[mat.rows()][mat.cols()];
+
+        try {
+            fout = new FileOutputStream(path);
+
+            //write image header
+            //write PGM magic value 'P5'
+            String tstr;
+            tstr = "P5" + "\n";
+            fout.write(tstr.getBytes());
+
+            //write comment
+            // comment = comment + "\n";
+            //fout.write(comment.getBytes());
+            //write cols
+            tstr = Integer.toString(mat.cols());
+            fout.write(tstr.getBytes());
+            fout.write(32); //write blank space
+
+            //write rows
+            tstr = Integer.toString(mat.rows());
+            fout.write(tstr.getBytes());
+            fout.write(32); //write blank space
+
+            //write maxgray
+            tstr = Integer.toString(255);
+            tstr = tstr + "\n";
+            fout.write(tstr.getBytes());
+
+            for (int r = 0; r < mat.rows(); r++) {
+                for (int c = 0; c < mat.cols(); c++) {
+
+                    double[] pixelsRgb = mat.get(r, c);
+
+                    int red = (int) (pixelsRgb[0] * 0.299);
+                    int green = (int) (pixelsRgb[1] * 0.587);
+                    int blue = (int) (pixelsRgb[1] * 0.114);
+
+                    Color newColor = new Color(red + green + blue,
+                            red + green + blue, red + green + blue);
+
+                    //int pixel = (int) (pixelsRgb[0] + pixelsRgb[1] + pixelsRgb[1]);
+                    //pixel = pixel / 3;
+                    fout.write(newColor.getRGB());
+                }
+            }
+
+            fout.close();
+            return path;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return "";
     }
 
     public BufferedImage salvarPgmGetImage(String path, BufferedImage img) {

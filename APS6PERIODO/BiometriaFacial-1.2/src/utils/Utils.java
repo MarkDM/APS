@@ -100,7 +100,6 @@ public class Utils {
         return imagemColorida;
     }
 
-
 //    public BufferedImage resize(BufferedImage img, int newW, int newH) {
 //        try {
 //            Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);

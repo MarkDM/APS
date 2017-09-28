@@ -18,6 +18,7 @@ import main.FileTrain;
 import main.LaplacianFaces;
 import main.Recognizer;
 import main.Trainer;
+import org.opencv.core.Mat;
 import utils.PreProcessing;
 import utils.Text2ImageConverter;
 import utils.Utils;
@@ -180,6 +181,7 @@ public class TreinarFaces extends TelaComCaptura {
         columnModel.getColumn(0).setCellRenderer(renderer);
         DefaultTableModel modelo = (DefaultTableModel) gridImgs.getModel();
         gridImgs.setRowHeight(150);
+        new Utils().Img2GrayScale(bi);
         modelo.addRow(new Object[]{new ImageIcon(bi)});
         gridImgs.scrollRectToVisible(gridImgs.getCellRect(gridImgs.getRowCount() - 1, 0, true));
     }
@@ -200,25 +202,25 @@ public class TreinarFaces extends TelaComCaptura {
         //StopCapture();
         try {
 
-            for (BufferedImage bi : getFacesRecortadas()) {
+            for (Mat m : getFacesRecortadas()) {
                 //Adiciona na lista de treinamento
                 String path = localPath + "\\src\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
 
                 // ut.mostraImagem(bi);
-                BufferedImage resized = ut.resize(bi, 120, 120);
+                BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
                 //Pré processa a imagem
                 PreProcessing p = new PreProcessing();
                 BufferedImage imgPreProcessed = p.enhance(resized);
-                Text2ImageConverter txtImg = new Text2ImageConverter();
-                txtImg.writeImage(txtIdentificador.getText() + " " + listaTreinamento.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
-                ut.Img2GrayScale(imgPreProcessed);
 
-                addImgToTable(imgPreProcessed);
-
-                if (salvarPgm(path, imgPreProcessed) == "") {
+                //ut.Img2GrayScale(imgPreProcessed);
+                //salvarPgm2(path, m);
+                if (salvarPgm2(path, ut.bufferedImageToMat(imgPreProcessed)) == "") {
                     continue;
                 }
 
+                addImgToTable(imgPreProcessed);
+                Text2ImageConverter txtImg = new Text2ImageConverter();
+                txtImg.writeImage(txtIdentificador.getText() + " " + listaTreinamento.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
                 fileTrain.setPgmImagePath(path);
                 fileTrain.setImage(imgPreProcessed);
 
@@ -282,34 +284,33 @@ public class TreinarFaces extends TelaComCaptura {
 
         }
 
-        List<BufferedImage> facesRecortadas = getFacesRecortadas();
+        List<Mat> facesRecortadas = getFacesRecortadas();
 
         if (facesRecortadas.size() == 0) {
             System.out.println("Nehuma face detectada");
             return;
         }
 
-        int numFoto = listaReconhecer.size();
-
-        for (BufferedImage bi : facesRecortadas) {
+        for (Mat m : facesRecortadas) {
+            int numFoto = listaReconhecer.size();
 
             String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
 
             Utils ut = new Utils();
 
             // ut.mostraImagem(bi);
-            BufferedImage resized = ut.resize(bi, 120, 120);
+            BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
             //Pré processa a imagem
             PreProcessing p = new PreProcessing();
             BufferedImage imgPreProcessed = p.enhance(resized);
 
             try {
-                if (salvarPgm(pgmPath, imgPreProcessed) != null) {
+                if (salvarPgm2(pgmPath, ut.bufferedImageToMat(imgPreProcessed)) != "") {
 
                     listaReconhecer.add(pgmPath);
                     Text2ImageConverter txtImg = new Text2ImageConverter();
                     txtImg.writeImage("Reconhecer" + " " + numFoto, imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
-                    ut.Img2GrayScale(imgPreProcessed);
+                    //ut.Img2GrayScale(imgPreProcessed);
                     addImgToTable(imgPreProcessed);
                 } else {
                     System.out.println("Imagem não foi salva como PGM");
