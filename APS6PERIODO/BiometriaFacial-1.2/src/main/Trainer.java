@@ -25,23 +25,13 @@ public class Trainer extends LaplacianFaces {
     public boolean treinar(List<FileTrain> pgmsTrain) {
 
         localPath = new File("").getAbsolutePath();
-        String pathFiles = localPath + "\\src\\resources\\pgmTrainer";
-
-        int xBase, yBase, xSub, ySub;
-        int xLow, xHigh, yLow, yHigh;
-        int GrayLevel;
-        int CellSum, CellAvg;
-        int i, j;
-        int xDiv, yDiv;
-        int BlockWidth, BlockHeight;
-        int StartX, StartY;
-        int SizeX, SizeY;
+        // String pathFiles = localPath + "\\src\\resources\\pgmTrainer";
 
         //set system parameters
         SizeX = 120;
         SizeY = 120;
-        xDiv = 30;
-        yDiv = 30;
+        xDiv = 20;
+        yDiv = 20;
         BlockWidth = SizeX / xDiv;
         BlockHeight = SizeY / yDiv;
 
@@ -49,13 +39,13 @@ public class Trainer extends LaplacianFaces {
         Faces = new int[xDiv][yDiv][MaxFaces];
         LaplacianFaces = new int[xDiv][yDiv][MaxFaces];
         FaceFileNames = new String[MaxFaces];
-        NumFaces = 0;
+        NumFaces = pgmsTrain.size();
         MaxFaceIndex = pgmsTrain.size();
 
         for (FileTrain ft : pgmsTrain) {
 
             PGM pgm1 = new PGM();
-            NumFaces++;
+            //NumFaces++;
 
             //FaceFileNames[NumFaces] = "src\\images\\train\\Marcos" + i + (char) j + ".pgm";
             //FaceFileNames[NumFaces] = ft.getPgmImagePath();
@@ -81,7 +71,7 @@ public class Trainer extends LaplacianFaces {
                     for (xSub = xLow; xSub <= xHigh; xSub++) {
                         for (ySub = yLow; ySub <= yHigh; ySub++) {
                             GrayLevel = pgm1.getPixel(xSub, ySub);
-                            CellSum = CellSum + GrayLevel;
+                            CellSum += GrayLevel;
                         }
                     }
                     CellAvg = CellSum / (BlockWidth * BlockHeight);
@@ -93,7 +83,7 @@ public class Trainer extends LaplacianFaces {
                 for (yBase = 0; yBase <= yDiv - 1; yBase++) {
                     CellSum = 0;
                     for (i = 1; i <= NumFaces; i++) {
-                        CellSum = CellSum + Faces[xBase][yBase][i];
+                        CellSum += Faces[xBase][yBase][i];
                     }
                     CellAvg = CellSum / NumFaces;
                     FaceTemplate[xBase][yBase] = CellAvg;

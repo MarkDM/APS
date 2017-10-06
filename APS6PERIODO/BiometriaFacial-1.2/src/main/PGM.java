@@ -159,7 +159,7 @@ class PGM {
                 tstr = "";
                 //tstr += (char) c;
             }
-            
+
             tstr += (char) c;
 
             while (c != 32 && c != 10 && c != 13) {
@@ -208,7 +208,7 @@ class PGM {
 
             fin.close();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erro ao ler PGM: " + e);
         }
     }
 
@@ -251,7 +251,7 @@ class PGM {
 
             fout.close();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erro ao gravar pgm: " + e);
         }
     }
 

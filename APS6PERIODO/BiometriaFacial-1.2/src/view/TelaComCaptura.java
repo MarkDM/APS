@@ -297,13 +297,15 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     //int pixel = (int) (pixelsRgb[0] + pixelsRgb[1] + pixelsRgb[1]);
                     //pixel = pixel / 3;
                     fout.write(newColor.getRGB());
+                    
+                    // fout.write((int) mat.get(r, c)[0]);
                 }
             }
 
             fout.close();
             return path;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Erro ao salvar PGM: " + e);
         }
 
         return "";

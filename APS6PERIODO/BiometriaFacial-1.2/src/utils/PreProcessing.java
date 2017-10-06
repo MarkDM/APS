@@ -21,7 +21,7 @@ public class PreProcessing {
     public BufferedImage enhance(BufferedImage img) {
         Utils ut = new Utils();
 
-        // ut.Img2GrayScale(img);
+        ut.Img2GrayScale(img);
         Mat source = ut.bufferedImageToMat(img);
 
         Mat destination = new Mat(source.rows(), source.cols(), source.type());
@@ -30,10 +30,16 @@ public class PreProcessing {
         //Imgproc.equalizeHist(source, destination);
         //Melhora brilho
         source.convertTo(destination, -1, 2, 50);
+
+        //Suavização
+       // Imgproc.GaussianBlur(source, destination, new Size(11, 11), 0);
+
         //Melhora a definição
         Imgproc.GaussianBlur(source, destination, new Size(0, 0), 10);
         Core.addWeighted(source, 1.8, destination, -0.8, 0, destination);
-        return ut.convertMatToImage(destination);
+        //return ut.convertMatToImage(destination);
+        BufferedImage imgRetorno = ut.matToBufferedImage(destination);
+        return imgRetorno;
     }
 
 }
