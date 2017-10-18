@@ -16,16 +16,6 @@ import javax.swing.JOptionPane;
 public class Recognizer extends LaplacianFaces {
 
     public FileTrain reconhecer(String pgm, List<FileTrain> listaDeTreinamento) {
-//        int xBase, yBase, xSub, ySub;
-//        int xLow, xHigh, yLow, yHigh;
-//        int GrayLevel;
-//        int CellSum, CellAvg;
-//        int i, j;
-//        int xDiv, yDiv;
-//        int BlockWidth, BlockHeight;
-//        int StartX, StartY;
-//        int SizeX, SizeY;
-
         //set system parameters
         SizeX = 120;
         SizeY = 120;
@@ -65,38 +55,9 @@ public class Recognizer extends LaplacianFaces {
             }
         }
 
-//        PGM pgm2 = new PGM();
-//        pgm2.setFilePath("diff.pgm");
-//        pgm2.setType("P5");
-//        pgm2.setComment("");
-//        pgm2.setDimension(SizeX, SizeY);
-//        pgm2.setMaxGray(255);
-//
-//        for (xBase = 0; xBase <= xDiv - 1; xBase++) {
-//            for (yBase = 0; yBase <= yDiv - 1; yBase++) {
-//                StartX = xBase * BlockWidth;
-//                StartY = yBase * BlockHeight;
-//                xLow = StartX;
-//                xHigh = StartX + BlockWidth - 1;
-//                yLow = StartY;
-//                yHigh = StartY + BlockHeight - 1;
-//
-//                for (xSub = xLow; xSub <= xHigh; xSub++) {
-//                    for (ySub = yLow; ySub <= yHigh; ySub++) {
-//                        GrayLevel = TestFace[xBase][yBase];
-//                        pgm2.setPixel(xSub, ySub, GrayLevel);
-//                    }
-//                }
-//            }
-//        }
         for (xBase = 0; xBase <= xDiv - 1; xBase++) {
             for (yBase = 0; yBase <= yDiv - 1; yBase++) {
-
-//                try {
                 TestLaplacianFace[xBase][yBase] = TestFace[xBase][yBase] - FaceTemplate[xBase][yBase];
-//                } catch (Exception e) {
-//                    System.out.println(e.getMessage() + "\nxBase: " + xBase + "\nyBase:" + yBase);
-//                }
             }
         }
 
@@ -114,7 +75,6 @@ public class Recognizer extends LaplacianFaces {
             }
 
             //ft.setDiffLaplacian(TotalLaplacianDiff);
-
             if (MinLaplacianDiff > TotalLaplacianDiff) {
                 MinLaplacianDiff = TotalLaplacianDiff;
                 ftMatch = ft;
@@ -124,19 +84,6 @@ public class Recognizer extends LaplacianFaces {
             i++;
         }
 
-//        for (i = 1; i <= listaDeTreinamento.size(); i++) {
-//            TotalLaplacianDiff = 0;
-//            for (xBase = 0; xBase <= xDiv - 1; xBase++) {
-//                for (yBase = 0; yBase <= yDiv - 1; yBase++) {
-//                    TotalLaplacianDiff = TotalLaplacianDiff + java.lang.Math.abs(TestLaplacianFace[xBase][yBase] - LaplacianFaces[xBase][yBase][i]);
-//                }
-//            }
-//            if (MinLaplacianDiff > TotalLaplacianDiff) {
-//                MinLaplacianDiff = TotalLaplacianDiff;
-//                MinLaplacianIndex = i;
-//            }
-//        }
-        // pgm2.writeImage();
         if (MinLaplacianDiff < DifferenceThreshold) {
 
             System.out.println("Reconhecido");

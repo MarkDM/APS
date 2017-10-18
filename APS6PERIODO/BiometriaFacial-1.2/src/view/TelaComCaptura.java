@@ -168,10 +168,10 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     for (int i = 0; i < faces.length; i++) {
                         Imgproc.rectangle(frame, faces[i].tl(), faces[i].br(), cor, thickness);
 
-                        int larguraFace = (int) (faces[i].width * 1f);
-                        int alturaFace = (int) (faces[i].height * 1f);
+                        int larguraFace = (int) (faces[i].width * 0.8f);
+                        int alturaFace = (int) (faces[i].height * 0.8f);
 
-                        faceRecortada = new Rect(faces[i].x, faces[i].y, larguraFace, alturaFace);
+                        faceRecortada = new Rect(faces[i].x + 20, faces[i].y + 20, larguraFace, alturaFace);
                         // faceRecortada = new Rect(faces[i].x, faces[i].y, 150, 160);
                         if (faceRecortada != null) {
                             // if (lstFacesRecortadas.size() < faces.length) {
@@ -297,7 +297,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     //int pixel = (int) (pixelsRgb[0] + pixelsRgb[1] + pixelsRgb[1]);
                     //pixel = pixel / 3;
                     fout.write(newColor.getRGB());
-                    
+
                     // fout.write((int) mat.get(r, c)[0]);
                 }
             }
