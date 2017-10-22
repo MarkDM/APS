@@ -5,6 +5,7 @@
  */
 package main;
 
+import Model.FileTrain;
 import java.io.File;
 import java.util.List;
 

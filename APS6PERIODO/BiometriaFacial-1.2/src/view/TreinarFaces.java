@@ -3,6 +3,7 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import main.FileTrain;
+import Model.FileTrain;
 import main.LaplacianFaces;
 import main.Recognizer;
 import main.Trainer;
@@ -56,6 +58,7 @@ public class TreinarFaces extends TelaComCaptura {
         btnNovo = new javax.swing.JButton();
         txtEncontrados = new javax.swing.JTextField();
         cBoxAutoRecog = new javax.swing.JCheckBox();
+        btnLimparImgs = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,6 +103,7 @@ public class TreinarFaces extends TelaComCaptura {
         });
 
         btnTreinar.setText("Treinar");
+        btnTreinar.setEnabled(false);
         btnTreinar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTreinarActionPerformed(evt);
@@ -107,6 +111,7 @@ public class TreinarFaces extends TelaComCaptura {
         });
 
         btnReconhecer.setText("Reconhecer");
+        btnReconhecer.setEnabled(false);
         btnReconhecer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReconhecerActionPerformed(evt);
@@ -126,6 +131,7 @@ public class TreinarFaces extends TelaComCaptura {
         txtEncontrados.setForeground(new java.awt.Color(0, 0, 0));
 
         cBoxAutoRecog.setText("Auto");
+        cBoxAutoRecog.setEnabled(false);
         cBoxAutoRecog.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 cBoxAutoRecogStateChanged(evt);
@@ -134,6 +140,13 @@ public class TreinarFaces extends TelaComCaptura {
         cBoxAutoRecog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cBoxAutoRecogActionPerformed(evt);
+            }
+        });
+
+        btnLimparImgs.setText("Limpar imagens");
+        btnLimparImgs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparImgsActionPerformed(evt);
             }
         });
 
@@ -165,7 +178,8 @@ public class TreinarFaces extends TelaComCaptura {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNovo)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimparImgs))
                             .addComponent(txtIdentificador))))
                 .addContainerGap())
         );
@@ -187,7 +201,8 @@ public class TreinarFaces extends TelaComCaptura {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(txtEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparImgs))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -196,7 +211,11 @@ public class TreinarFaces extends TelaComCaptura {
 
     public void iniciarCaptura() {
 
-        mostraVideo(videoCapture);
+        try {
+            mostraVideo(videoCapture);
+        } catch (Exception e) {
+            Utils.msg("", e.getMessage(), JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
@@ -213,8 +232,11 @@ public class TreinarFaces extends TelaComCaptura {
 
 
     private void btnSalvarPGMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPGMActionPerformed
+
+        btnTreinar.setEnabled(true);
+
         if (txtIdentificador.getText().equals("")) {
-            msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
+            Utils.msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -230,7 +252,7 @@ public class TreinarFaces extends TelaComCaptura {
 
             for (Mat m : getFacesRecortadas()) {
                 //Adiciona na lista de treinamento
-                String path = localPath + "\\src\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
+                String path = localPath + "\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
 
                 // ut.mostraImagem(bi);
                 BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
@@ -266,8 +288,11 @@ public class TreinarFaces extends TelaComCaptura {
 
     private void btnTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTreinarActionPerformed
 
+        btnReconhecer.setEnabled(true);
+        cBoxAutoRecog.setEnabled(true);
+
         if (txtIdentificador.getText().equals("")) {
-            msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
+            Utils.msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
 
             return;
         }
@@ -277,7 +302,7 @@ public class TreinarFaces extends TelaComCaptura {
             Boolean trainSuccess = false;
 
             if (listaTreinamento.isEmpty()) {
-                msg("Lista de treinamento esta vazia", "Lista vazia", JOptionPane.WARNING_MESSAGE);
+                Utils.msg("Lista de treinamento esta vazia", "Lista vazia", JOptionPane.WARNING_MESSAGE);
                 return;
 
             }
@@ -285,11 +310,11 @@ public class TreinarFaces extends TelaComCaptura {
             trainSuccess = treinador.treinar(listaTreinamento);
 
             if (trainSuccess) {
-                msg("Treinamento concluído com sucesso", "Treinamento concluido", JOptionPane.INFORMATION_MESSAGE);
+                Utils.msg("Treinamento concluído com sucesso", "Treinamento concluido", JOptionPane.INFORMATION_MESSAGE);
 
                 setSalvandoPGM(false);
             } else {
-                msg("Treinamento falhou", "Erro", JOptionPane.ERROR_MESSAGE);
+                Utils.msg("Treinamento falhou", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception ex) {
@@ -323,7 +348,7 @@ public class TreinarFaces extends TelaComCaptura {
 
         for (Mat m : facesRecortadas) {
             int numFoto = 0;
-            String pgmPath = localPath + "\\src\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
+            String pgmPath = localPath + "\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
             Utils ut = new Utils();
             // ut.mostraImagem(bi);
             BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
@@ -365,7 +390,7 @@ public class TreinarFaces extends TelaComCaptura {
         }
 
         if (idsReconhecidos.isEmpty()) {
-            //msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
+            //Utils.msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtEncontrados.setText("Não foi reconhecida nenhuma face");
             return;
         }
@@ -379,7 +404,7 @@ public class TreinarFaces extends TelaComCaptura {
             facesReconhecidas += ft.getIdentificador() + " - Precisão: " + strPrecisao + "%\n";
         }
 
-        //msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
+        //Utils.msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
         txtEncontrados.setText(facesReconhecidas);
 
         //System.out.println("Pessoas reconhecidas");
@@ -420,6 +445,27 @@ public class TreinarFaces extends TelaComCaptura {
         }
     }//GEN-LAST:event_cBoxAutoRecogActionPerformed
 
+    private void btnLimparImgsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparImgsActionPerformed
+
+        //new JFrame();
+        File dir = new File(localPath + "\\resources\\pgmTrainer");
+
+        deleteTree(dir);
+
+        Utils.msg("Imagens de treinamento e reconhecimento foram excluidas", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnLimparImgsActionPerformed
+
+    public static void deleteTree(File inFile) {
+        if (inFile.isFile()) {
+            inFile.delete();
+        } else {
+            File files[] = inFile.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                deleteTree(files[i]);
+            }
+        }
+    }
+
     public static void main(String args[]) {
 
         /* Set the Nimbus look and feel */
@@ -451,18 +497,18 @@ public class TreinarFaces extends TelaComCaptura {
         //</editor-fold>
 
         TreinarFaces tela = new TreinarFaces();
-        tela.launch();
-        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setVisible(true);
+        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tela.launch();
         tela.iniciarCaptura();
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new RunnabletxtEncontrados() {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //
 //                TreinarFaces tela = new TreinarFaces();
-//                tela.launch();
 //                tela.setVisible(true);
+//                tela.launch();
 //                tela.iniciarCaptura();
 //            }
 //        });
@@ -470,6 +516,7 @@ public class TreinarFaces extends TelaComCaptura {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLimparImgs;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnReconhecer;
     private javax.swing.JButton btnSalvarPGM;

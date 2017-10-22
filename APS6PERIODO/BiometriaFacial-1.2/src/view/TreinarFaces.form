@@ -71,7 +71,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnLimparImgs" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtIdentificador" max="32767" attributes="0"/>
                       </Group>
@@ -102,6 +103,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEncontrados" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnLimparImgs" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -149,6 +151,7 @@
     <Component class="javax.swing.JButton" name="btnTreinar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Treinar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTreinarActionPerformed"/>
@@ -157,6 +160,7 @@
     <Component class="javax.swing.JButton" name="btnReconhecer">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reconhecer"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReconhecerActionPerformed"/>
@@ -188,10 +192,19 @@
     <Component class="javax.swing.JCheckBox" name="cBoxAutoRecog">
       <Properties>
         <Property name="text" type="java.lang.String" value="Auto"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="cBoxAutoRecogStateChanged"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cBoxAutoRecogActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLimparImgs">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpar imagens"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparImgsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

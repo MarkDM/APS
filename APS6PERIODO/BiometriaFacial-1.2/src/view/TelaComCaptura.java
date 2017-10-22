@@ -48,8 +48,16 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
     String localPath;
 
     public void launch() {
+        
         localPath = new File("").getAbsolutePath();
-        System.load(localPath + "\\src\\nativeLibrary\\opencv_java300.dll");
+        
+        try {
+            System.load(localPath + "\\resources\\nativeLibrary\\opencv_java300.dll");
+        } catch (Exception e) {
+            Utils.msg(e.getMessage(), "Erro ao carregar dll", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
     }
 
     public BufferedImage getFrameAtual() {
@@ -125,7 +133,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         Mat frame = new Mat();
         Mat frameSemRetangulo = new Mat();
         captura = new VideoCapture(0);
-        String cascadeFile = localPath + "\\src\\resources\\cascades\\haarcascade_frontalface_alt.xml";
+        String cascadeFile = localPath + "\\resources\\cascades\\haarcascade_frontalface_alt.xml";
         //String cascadePath = cascadeFile;
         CascadeClassifier classificador = new CascadeClassifier(cascadeFile);
         MatOfRect facesDetectadas = new MatOfRect();
@@ -337,7 +345,4 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
 
     }
 
-    public void msg(String msg, String title, int messageType) {
-        JOptionPane.showMessageDialog(rootPane, msg, title, messageType);
-    }
 }

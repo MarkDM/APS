@@ -29,6 +29,10 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import static org.opencv.imgcodecs.Imgcodecs.imread;
+import java.security.*;
+import java.math.*;
+import javax.swing.JOptionPane;
+import view.TelaComCaptura;
 
 /**
  *
@@ -156,6 +160,25 @@ public class Utils {
             }
         }
 
+    }
+
+    public String getMd5(String plainText) {
+
+        MessageDigest m;
+        try {
+            m = MessageDigest.getInstance("MD5");
+            m.update(plainText.getBytes(), 0, plainText.length());
+            return new BigInteger(1, m.digest()).toString(16);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return "";
+
+    }
+
+    public static void msg(String msg, String title, int messageType) {
+        JOptionPane.showMessageDialog(null, msg, title, messageType);
     }
 
 }
