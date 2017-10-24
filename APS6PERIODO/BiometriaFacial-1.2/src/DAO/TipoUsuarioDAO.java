@@ -38,4 +38,18 @@ public class TipoUsuarioDAO extends SQLiteJDBC {
 
     }
 
+    public TipoUsuario getById(int id) throws SQLException {
+        ResultSet rs = execQuery("SELECT * FROM TIPO_USUARIO WHERE TUS_ID = " + id);
+
+        TipoUsuario t = new TipoUsuario();
+
+        while (rs.next()) {
+            t.setDescricao(rs.getString("TUS_DESCRICAO"));
+            t.setId(rs.getInt("TUS_ID"));
+            t.setNivelAcesso(rs.getInt("TUS_NIVEL_ACESSO"));
+        }
+
+        return t;
+    }
+
 }

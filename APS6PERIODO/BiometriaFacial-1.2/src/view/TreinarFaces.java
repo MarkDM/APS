@@ -212,7 +212,7 @@ public class TreinarFaces extends TelaComCaptura {
     public void iniciarCaptura() {
 
         try {
-            mostraVideo(videoCapture);
+            mostraVideo(videoCapture,new Thread());
         } catch (Exception e) {
             Utils.msg("", e.getMessage(), JOptionPane.ERROR_MESSAGE);
         }

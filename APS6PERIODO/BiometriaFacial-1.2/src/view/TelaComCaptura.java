@@ -48,16 +48,15 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
     String localPath;
 
     public void launch() {
-        
+
         localPath = new File("").getAbsolutePath();
-        
+
         try {
             System.load(localPath + "\\resources\\nativeLibrary\\opencv_java300.dll");
         } catch (Exception e) {
             Utils.msg(e.getMessage(), "Erro ao carregar dll", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
     }
 
     public BufferedImage getFrameAtual() {
@@ -125,7 +124,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         this.frameAtual = frameAtual;
     }
 
-    public void mostraVideo(JPanel containerVideo) {
+    public void mostraVideo(JPanel containerVideo, Thread t) {
 
         Utils ut = new Utils();
         Graphics g = containerVideo.getGraphics();
@@ -147,7 +146,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         int alturaPanel = containerVideo.getHeight();
         int thickness = 3;
 
-        while (true) {
+        while (!t.isInterrupted()) {
 
 //            try {
 //                Thread.sleep(100);
@@ -216,9 +215,12 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     }
 
                     frameComRetangulos = null;
+                    
                 }
             }
         }
+        captura.release();
+        System.out.println("Captura finalizada");
     }
 
     /**

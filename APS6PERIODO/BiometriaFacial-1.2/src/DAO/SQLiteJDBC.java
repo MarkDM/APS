@@ -97,13 +97,12 @@ public class SQLiteJDBC {
         return s;
     }
 
-    public int execUpdateSQL(String sql) throws SQLException {
+    public void execUpdateSQL(String sql) throws SQLException {
         openConnection();
         stmt = c.createStatement();
-        int result = stmt.executeUpdate(sql);
+        stmt.executeUpdate(sql);
         stmt.close();
         closeConnection();
-        return result;
     }
 
 }

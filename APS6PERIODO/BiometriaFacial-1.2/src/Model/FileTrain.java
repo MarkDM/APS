@@ -20,6 +20,16 @@ public class FileTrain {
     private BufferedImage image;
     private double diffLaplacian;
 
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public double getDiffLaplacian() {
         return diffLaplacian;
     }
