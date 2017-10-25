@@ -68,7 +68,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         JTableRenderer renderer1 = new JTableRenderer();
         TableColumnModel columnModel = gridImgsTreinamento.getColumnModel();
         columnModel.getColumn(0).setCellRenderer(renderer1);
-        columnModel.addColumn(new TableColumn());
+        //columnModel.addColumn(new TableColumn());
         modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
         gridImgsTreinamento.setRowHeight(130);
     }
@@ -510,11 +510,11 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
     }
 
-    public void addImgToTable(ImagemTreinamento img) {
-        new Utils().Img2GrayScale(img.getImgBitMap());
+    public void addImgToTable(BufferedImage img) {
+        new Utils().Img2GrayScale(img);
         //modelo.addRow(new Object[]{new ImageIcon(img.getImgBitMap())});
         modelo.addRow(
-                new Object[]{new ImageIcon(img.getImgBitMap()),img}
+                new Object[]{new ImageIcon(img)}
         );
         gridImgsTreinamento.scrollRectToVisible(gridImgsTreinamento.getCellRect(gridImgsTreinamento.getRowCount() - 1, 0, true));
     }
@@ -657,7 +657,7 @@ public class CadastroUsuarios extends TelaComCaptura {
                     img.setImgBitMap(imgPreProcessed);
                     try {
                         imgsTrDAO.inserirImagem(img);
-                        addImgToTable(img);
+                        addImgToTable(imgPreProcessed);
                     } catch (SQLException ex) {
                         Utils.msg("Erro ao gravar caminho da imagem no banco: " + imgsTrDAO.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
                     }
@@ -726,7 +726,7 @@ public class CadastroUsuarios extends TelaComCaptura {
             Utils ut = new Utils();
             Mat mat = ut.carregarImgMat(pgm.getCaminho(), CvType.CV_8UC1);
             BufferedImage img = ut.matToBufferedImage(mat);
-            addImgToTable(pgm);
+            addImgToTable(img);
         }
         );
     }
