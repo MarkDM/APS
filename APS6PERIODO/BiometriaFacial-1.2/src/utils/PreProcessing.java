@@ -29,7 +29,7 @@ public class PreProcessing {
         //Melhora constraste
         //Imgproc.equalizeHist(source, destination);
         //Melhora brilho
-        source.convertTo(destination, -1, 2, 50);
+        source.convertTo(destination, -1, 2, 60);
 
         //Suavização
        // Imgproc.GaussianBlur(source, destination, new Size(11, 11), 0);

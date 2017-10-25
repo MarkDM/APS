@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author marcu
@@ -14,7 +16,16 @@ public class ImagemTreinamento {
     private String caminho;
     private Usuario usuario;
     private String tipo;
+    private BufferedImage imgBitMap;
 
+    public BufferedImage getImgBitMap() {
+        return imgBitMap;
+    }
+
+    public void setImgBitMap(BufferedImage img) {
+        this.imgBitMap = img;
+    }
+    
     public int getId() {
         return id;
     }

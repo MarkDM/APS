@@ -36,7 +36,7 @@ public class ImagensTreinamentoDAO extends SQLiteJDBC {
             ImagemTreinamento i = new ImagemTreinamento();
             i.setCaminho(rs.getString("ITR_CAMINHO"));
             i.setId(rs.getInt("ITR_ID"));
-            i.setTipo(rs.getString("ITR_TIPO"));
+            i.setTipo(rs.getString("ITR_TIPO_IMAGEM"));
             i.setUsuario(new UsuarioDAO().getUsuarioById(rs.getInt("USR_ID")));
             
             l.add(i);

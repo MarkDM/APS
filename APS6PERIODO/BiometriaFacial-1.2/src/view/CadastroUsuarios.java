@@ -5,21 +5,34 @@
  */
 package view;
 
+import DAO.ImagensTreinamentoDAO;
 import DAO.TipoUsuarioDAO;
 import DAO.UsuarioDAO;
+import Model.ImagemTreinamento;
 import Model.Item;
 import Model.TipoUsuario;
 import Model.Usuario;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import utils.PreProcessing;
+import utils.Text2ImageConverter;
 import utils.Utils;
 
 /**
@@ -32,6 +45,7 @@ public class CadastroUsuarios extends TelaComCaptura {
     private int qtdUsuariosCadastros = 0;
     private Thread tVideo;
     private Boolean tVideoRodando = false;
+    private DefaultTableModel modelo;
 
     private enum ModoFormulario {
         INSERCAO, ALTERACAO, LEITURA
@@ -50,6 +64,13 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
 
         btnPausarCaptura.setEnabled(false);
+
+        JTableRenderer renderer1 = new JTableRenderer();
+        TableColumnModel columnModel = gridImgsTreinamento.getColumnModel();
+        columnModel.getColumn(0).setCellRenderer(renderer1);
+        columnModel.addColumn(new TableColumn());
+        modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
+        gridImgsTreinamento.setRowHeight(130);
     }
 
     JComboBox<Item<TipoUsuario>> comboBox = new JComboBox<>();
@@ -69,8 +90,8 @@ public class CadastroUsuarios extends TelaComCaptura {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         btnLimparCampos = new javax.swing.JButton();
+        cBoxAlterarSenha = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         videoCapturePane = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -109,25 +130,14 @@ public class CadastroUsuarios extends TelaComCaptura {
 
         jLabel5.setText("Tipo Usuário *");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 290, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 217, Short.MAX_VALUE)
-        );
-
         btnLimparCampos.setText("Limpar Campos");
         btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparCamposActionPerformed(evt);
             }
         });
+
+        cBoxAlterarSenha.setText("Alterar Senha");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,20 +146,21 @@ public class CadastroUsuarios extends TelaComCaptura {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                        .addComponent(txtLogin)
-                        .addComponent(txtSenha))
-                    .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
+                    .addComponent(btnLimparCampos)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                            .addComponent(txtLogin)
+                            .addComponent(txtSenha))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cBoxAlterarSenha))
+                    .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(btnLimparCampos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                    .addComponent(jLabel5))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,23 +172,22 @@ public class CadastroUsuarios extends TelaComCaptura {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel5))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cBoxAlterarSenha))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(44, 44, 44)
                 .addComponent(btnLimparCampos)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastro", jPanel1);
@@ -211,9 +221,20 @@ public class CadastroUsuarios extends TelaComCaptura {
                 return canEdit [columnIndex];
             }
         });
+        gridImgsTreinamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gridImgsTreinamentoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(gridImgsTreinamento);
 
         btnSalvarImgTreinamento.setText("Salvar");
+        btnSalvarImgTreinamento.setEnabled(false);
+        btnSalvarImgTreinamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarImgTreinamentoActionPerformed(evt);
+            }
+        });
 
         btnDeleteImgTreinamento.setText("Excluir");
 
@@ -245,11 +266,11 @@ public class CadastroUsuarios extends TelaComCaptura {
                         .addComponent(btnPausarCaptura)
                         .addGap(65, 65, 65)
                         .addComponent(btnSalvarImgTreinamento)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDeleteImgTreinamento)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,7 +365,7 @@ public class CadastroUsuarios extends TelaComCaptura {
                 .addComponent(btnAnterior)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProximo)
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,10 +388,10 @@ public class CadastroUsuarios extends TelaComCaptura {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,11 +416,9 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
 
         Usuario u = new Usuario();
-        u.setId(Integer.parseInt(txtId.getText()));
         u.setLogin(txtLogin.getText());
         u.setNome(txtNome.getText());
         u.setSenha(Arrays.toString(txtSenha.getPassword()));
-
         Item item = (Item) comboBox.getSelectedItem();
         TipoUsuario tipoUsuario = (TipoUsuario) item.getValue();
         //int idTipoUsuario = tipoUsuario.getId();
@@ -414,7 +433,8 @@ public class CadastroUsuarios extends TelaComCaptura {
                 usrDao.inserirUsuario(u);
                 txtId.setText(String.valueOf(new UsuarioDAO().getLastId()));
             } else if (modo == modo.ALTERACAO) {
-                usrDao.alterarUsuario(u);
+                u.setId(Integer.parseInt(txtId.getText()));
+                usrDao.alterarUsuario(u, cBoxAlterarSenha.isSelected());
             }
 
             Utils.msg("Registro gravado com sucesso", "sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -490,6 +510,15 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
     }
 
+    public void addImgToTable(ImagemTreinamento img) {
+        new Utils().Img2GrayScale(img.getImgBitMap());
+        //modelo.addRow(new Object[]{new ImageIcon(img.getImgBitMap())});
+        modelo.addRow(
+                new Object[]{new ImageIcon(img.getImgBitMap()),img}
+        );
+        gridImgsTreinamento.scrollRectToVisible(gridImgsTreinamento.getCellRect(gridImgsTreinamento.getRowCount() - 1, 0, true));
+    }
+
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
 
@@ -507,8 +536,9 @@ public class CadastroUsuarios extends TelaComCaptura {
             txtId.setText(String.valueOf(u.getId()));
             txtLogin.setText(u.getLogin());
             txtNome.setText(u.getNome());
-
+            txtSenha.setText(u.getSenha());
             TipoUsuario t = u.getTipoUsuario();
+            carregarImagensUsuario(u.getId());
 
             //comboBox.setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
             comboBox.getModel().setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
@@ -539,6 +569,8 @@ public class CadastroUsuarios extends TelaComCaptura {
             txtId.setText(String.valueOf(u.getId()));
             txtLogin.setText(u.getLogin());
             txtNome.setText(u.getNome());
+            txtSenha.setText(u.getSenha());
+            carregarImagensUsuario(u.getId());
 
             TipoUsuario t = u.getTipoUsuario();
 
@@ -571,6 +603,8 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void btnIniciarCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarCapturaActionPerformed
+        btnSalvarImgTreinamento.setEnabled(true);
+
         tVideo = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -584,12 +618,68 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_btnIniciarCapturaActionPerformed
 
     private void btnPausarCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarCapturaActionPerformed
+
+        btnSalvarImgTreinamento.setEnabled(false);
         tVideo.interrupt();
         tVideo = null;
         //videoCapturePane.repaint();
         btnIniciarCaptura.setEnabled(true);
         btnPausarCaptura.setEnabled(false);
     }//GEN-LAST:event_btnPausarCapturaActionPerformed
+
+    private void btnSalvarImgTreinamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarImgTreinamentoActionPerformed
+
+        if (txtId.getText().equals("")) {
+            Utils.msg("Deve se primeiro gravar o usuário", "Erro", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Utils ut = new Utils();
+        ImagensTreinamentoDAO imgsTrDAO = new ImagensTreinamentoDAO();
+        //List<ImagemTreinamento> imgsTreinamento = new ArrayList<>();
+
+        try {
+
+            getFacesRecortadas().forEach((m) -> {
+                //Adiciona na lista de treinamento
+                String path = localPath + "\\resources\\pgmTrainer\\" + txtId.getText() + "_" + System.currentTimeMillis() + ".pgm";
+                BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
+                //Pré processa a imagem
+                PreProcessing p = new PreProcessing();
+                BufferedImage imgPreProcessed = p.enhance(resized);
+                if (!(salvarPgm2(path, ut.bufferedImageToMat(imgPreProcessed)).equals(""))) {
+                    ImagemTreinamento img = new ImagemTreinamento();
+
+                    //Text2ImageConverter txtImg = new Text2ImageConverter();
+                    //txtImg.writeImage(txtLogin.getText(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+                    img.setCaminho(path);
+                    img.setUsuario(new UsuarioDAO().getUsuarioById(Integer.parseInt(txtId.getText())));
+                    img.setImgBitMap(imgPreProcessed);
+                    try {
+                        imgsTrDAO.inserirImagem(img);
+                        addImgToTable(img);
+                    } catch (SQLException ex) {
+                        Utils.msg("Erro ao gravar caminho da imagem no banco: " + imgsTrDAO.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    Utils.msg("Erro ao gravar imagem em disco", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            });
+
+            setSalvandoPGM(false);
+
+        } catch (Exception e) {
+            System.out.println(getMensagem() + " // " + e.toString());
+            setSalvandoPGM(false);
+        }
+
+    }//GEN-LAST:event_btnSalvarImgTreinamentoActionPerformed
+
+    private void gridImgsTreinamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridImgsTreinamentoMouseClicked
+
+        Object img = gridImgsTreinamento.getModel().getValueAt(gridImgsTreinamento.getSelectedRow(), 0);
+        //Object img =  gridImgsTreinamento.getV
+    }//GEN-LAST:event_gridImgsTreinamentoMouseClicked
 
     private void preencherCmbTipoUsuario() throws SQLException {
         List<TipoUsuario> lstTipoUsuario = new TipoUsuarioDAO().obterTiposUsuario();
@@ -624,6 +714,26 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
 
         return true;
+    }
+
+    public void carregarImagensUsuario(int id) throws SQLException {
+
+        List<ImagemTreinamento> imagens = new ImagensTreinamentoDAO().getImagensByUsuario(id);
+
+        limparImagensTreinamento();
+
+        imagens.forEach((pgm) -> {
+            Utils ut = new Utils();
+            Mat mat = ut.carregarImgMat(pgm.getCaminho(), CvType.CV_8UC1);
+            BufferedImage img = ut.matToBufferedImage(mat);
+            addImgToTable(pgm);
+        }
+        );
+    }
+
+    public void limparImagensTreinamento() {
+        DefaultTableModel modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
+        modelo.setNumRows(0);
     }
 
     public static void main(String args[]) {
@@ -689,6 +799,7 @@ public class CadastroUsuarios extends TelaComCaptura {
     private javax.swing.JButton btnPausarCaptura;
     private javax.swing.JButton btnProximo;
     private javax.swing.JButton btnSalvarImgTreinamento;
+    private javax.swing.JCheckBox cBoxAlterarSenha;
     private javax.swing.JTable gridImgsTreinamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -697,7 +808,6 @@ public class CadastroUsuarios extends TelaComCaptura {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
