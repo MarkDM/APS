@@ -55,11 +55,11 @@ public class UsuarioDAO extends SQLiteJDBC {
     }
 
     public void deletarUsuario(int idUsuario) throws SQLException {
-        String sql = "DELETE FROM USUARIO WHERE USR_ID = " + idUsuario;
+
         try {
+            String sql = "DELETE FROM USUARIO WHERE USR_ID = " + idUsuario;
             execUpdateSQL(sql);
             sql = "DELETE FROM IMAGENS_TREINAMENTO WHERE USR_ID = " + idUsuario;
-
             execUpdateSQL(sql);
             super.closeConnection();
 

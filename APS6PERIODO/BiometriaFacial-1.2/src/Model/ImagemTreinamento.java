@@ -12,11 +12,21 @@ import java.awt.image.BufferedImage;
  * @author marcu
  */
 public class ImagemTreinamento {
+
     private int id;
     private String caminho;
     private Usuario usuario;
     private String tipo;
     private BufferedImage imgBitMap;
+    private double diffLaplacian;
+
+    public double getDiffLaplacian() {
+        return diffLaplacian;
+    }
+
+    public void setDiffLaplacian(double diffLaplacian) {
+        this.diffLaplacian = diffLaplacian;
+    }
 
     public BufferedImage getImgBitMap() {
         return imgBitMap;
@@ -25,7 +35,7 @@ public class ImagemTreinamento {
     public void setImgBitMap(BufferedImage img) {
         this.imgBitMap = img;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -57,8 +67,5 @@ public class ImagemTreinamento {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    
-    
-    
+
 }

@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import Model.FileTrain;
+import Model.ImagemTreinamento;
 import main.LaplacianFaces;
 import main.Recognizer;
 import main.Trainer;
@@ -33,8 +34,8 @@ public class TreinarFaces extends TelaComCaptura {
 
     private Trainer treinador = new Trainer();
     private Recognizer reconhecedor = new Recognizer();
-    FileTrain fileTrain;
-    private List<FileTrain> listaTreinamento = new ArrayList<>();
+    ImagemTreinamento fileTrain;
+    private List<ImagemTreinamento> listaTreinamento = new ArrayList<>();
     private List<String> listaReconhecer = new ArrayList<>();
 
     public TreinarFaces() {
@@ -232,94 +233,63 @@ public class TreinarFaces extends TelaComCaptura {
 
 
     private void btnSalvarPGMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPGMActionPerformed
-
-        btnTreinar.setEnabled(true);
-
-        if (txtIdentificador.getText().equals("")) {
-            Utils.msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        //trainer.setIdentificador(txtIdentificador.getText());
-        txtIdentificador.setEnabled(false);
-        fileTrain = new FileTrain();
-        fileTrain.setIdentificador(txtIdentificador.getText());
-        Utils ut = new Utils();
-
-        setSalvandoPGM(true);
-        //StopCapture();
-        try {
-
-            for (Mat m : getFacesRecortadas()) {
-                //Adiciona na lista de treinamento
-                String path = localPath + "\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
-
-                // ut.mostraImagem(bi);
-                BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
-                //Pré processa a imagem
-                PreProcessing p = new PreProcessing();
-                BufferedImage imgPreProcessed = p.enhance(resized);
-
-                //ut.Img2GrayScale(imgPreProcessed);
-                //salvarPgm2(path, m);
-                if (salvarPgm2(path, ut.bufferedImageToMat(imgPreProcessed)) == "") {
-                    continue;
-                }
-
-                addImgToTable(imgPreProcessed);
-                Text2ImageConverter txtImg = new Text2ImageConverter();
-                txtImg.writeImage(txtIdentificador.getText() + " " + listaTreinamento.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
-                fileTrain.setPgmImagePath(path);
-                fileTrain.setImage(imgPreProcessed);
-
-                listaTreinamento.add(fileTrain);
-
-            }
-            setSalvandoPGM(false);
-            //OpenCapture();
-
-        } catch (Exception e) {
-            System.out.println(getMensagem() + " // " + e.toString());
-            setSalvandoPGM(false);
-        }
+//
+//        btnTreinar.setEnabled(true);
+//
+//        if (txtIdentificador.getText().equals("")) {
+//            Utils.msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//
+//        //trainer.setIdentificador(txtIdentificador.getText());
+//        txtIdentificador.setEnabled(false);
+//        fileTrain = new ImagemTreinamento();
+//        fileTrain.setIdentificador(txtIdentificador.getText());
+//        Utils ut = new Utils();
+//
+//        setSalvandoPGM(true);
+//        //StopCapture();
+//        try {
+//
+//            for (Mat m : getFacesRecortadas()) {
+//                //Adiciona na lista de treinamento
+//                String path = localPath + "\\resources\\pgmTrainer\\" + txtIdentificador.getText() + listaTreinamento.size() + ".pgm";
+//
+//                // ut.mostraImagem(bi);
+//                BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
+//                //Pré processa a imagem
+//                PreProcessing p = new PreProcessing();
+//                BufferedImage imgPreProcessed = p.enhance(resized);
+//
+//                //ut.Img2GrayScale(imgPreProcessed);
+//                //salvarPgm2(path, m);
+//                if (salvarPgm2(path, ut.bufferedImageToMat(imgPreProcessed)) == "") {
+//                    continue;
+//                }
+//
+//                addImgToTable(imgPreProcessed);
+//                Text2ImageConverter txtImg = new Text2ImageConverter();
+//                txtImg.writeImage(txtIdentificador.getText() + " " + listaTreinamento.size(), imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+//                fileTrain.setPgmImagePath(path);
+//                fileTrain.setImage(imgPreProcessed);
+//
+//                listaTreinamento.add(fileTrain);
+//
+//            }
+//            setSalvandoPGM(false);
+//            //OpenCapture();
+//
+//        } catch (Exception e) {
+//            System.out.println(getMensagem() + " // " + e.toString());
+//            setSalvandoPGM(false);
+//        }
 
 
     }//GEN-LAST:event_btnSalvarPGMActionPerformed
 
     private void btnTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTreinarActionPerformed
 
-        btnReconhecer.setEnabled(true);
-        cBoxAutoRecog.setEnabled(true);
-
-        if (txtIdentificador.getText().equals("")) {
-            Utils.msg("É necessário preencher o campo identificador", "Preencher identificador", JOptionPane.WARNING_MESSAGE);
-
-            return;
-        }
-
-        try {
-
-            Boolean trainSuccess = false;
-
-            if (listaTreinamento.isEmpty()) {
-                Utils.msg("Lista de treinamento esta vazia", "Lista vazia", JOptionPane.WARNING_MESSAGE);
-                return;
-
-            }
-
-            trainSuccess = treinador.treinar(listaTreinamento);
-
-            if (trainSuccess) {
-                Utils.msg("Treinamento concluído com sucesso", "Treinamento concluido", JOptionPane.INFORMATION_MESSAGE);
-
-                setSalvandoPGM(false);
-            } else {
-                Utils.msg("Treinamento falhou", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
+//    s
     }//GEN-LAST:event_btnTreinarActionPerformed
 
     private void btnReconhecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReconhecerActionPerformed
@@ -327,87 +297,87 @@ public class TreinarFaces extends TelaComCaptura {
     }//GEN-LAST:event_btnReconhecerActionPerformed
 
     private void reconhecer() {
-        //Limpa a lista de reconhecimento para montar uma nova
-        listaReconhecer.clear();
-        //Limpa as faces recortadas e espera 200ms para obter novas
-        getFacesRecortadas().clear();
-        // getPessoasReconhecidas().clear();
-
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-
-        }
-
-        List<Mat> facesRecortadas = getFacesRecortadas();
-
-        if (facesRecortadas.size() == 0) {
-            //System.out.println("Nehuma face detectada");
-            return;
-        }
-
-        for (Mat m : facesRecortadas) {
-            int numFoto = 0;
-            String pgmPath = localPath + "\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
-            Utils ut = new Utils();
-            // ut.mostraImagem(bi);
-            BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
-            //Pré processa a imagem
-            PreProcessing p = new PreProcessing();
-            BufferedImage imgPreProcessed = p.enhance(resized);
-
-            try {
-                if (salvarPgm2(pgmPath, ut.bufferedImageToMat(imgPreProcessed)) != "") {
-                    listaReconhecer.add(pgmPath);
-                    numFoto++;
-                    Text2ImageConverter txtImg = new Text2ImageConverter();
-                    txtImg.writeImage("Reconhecer" + " " + numFoto, imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
-                    //ut.Img2GrayScale(imgPreProcessed);
-                    addImgToTable(imgPreProcessed);
-                } else {
-                    System.out.println("Imagem não foi salva como PGM");
-                    continue;
-                }
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-
-        }
-
-        List<FileTrain> idsReconhecidos = new ArrayList<>();
-
-        for (String pgm : listaReconhecer) {
-            FileTrain ftMatched = reconhecedor.reconhecer(pgm, listaTreinamento);
-
-            if (ftMatched != null) {
-
-                if (!idsReconhecidos.contains(ftMatched)) {
-                    idsReconhecidos.add(ftMatched);
-                }
-
-            }
-
-        }
-
-        if (idsReconhecidos.isEmpty()) {
-            //Utils.msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
-            txtEncontrados.setText("Não foi reconhecida nenhuma face");
-            return;
-        }
-
-        String facesReconhecidas = "Pessoas reconhecidas\n";
-
-        for (FileTrain ft : idsReconhecidos) {
-            Double precisao = 100 * (LaplacianFaces.DifferenceThreshold - ft.getDiffLaplacian()) / LaplacianFaces.DifferenceThreshold;
-            DecimalFormat df = new DecimalFormat("0.00");
-            String strPrecisao = df.format(precisao);
-            facesReconhecidas += ft.getIdentificador() + " - Precisão: " + strPrecisao + "%\n";
-        }
-
-        //Utils.msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
-        txtEncontrados.setText(facesReconhecidas);
-
-        //System.out.println("Pessoas reconhecidas");
+//        //Limpa a lista de reconhecimento para montar uma nova
+//        listaReconhecer.clear();
+//        //Limpa as faces recortadas e espera 200ms para obter novas
+//        getFacesRecortadas().clear();
+//        // getPessoasReconhecidas().clear();
+//
+//        try {
+//            Thread.sleep(200);
+//        } catch (InterruptedException ex) {
+//
+//        }
+//
+//        List<Mat> facesRecortadas = getFacesRecortadas();
+//
+//        if (facesRecortadas.size() == 0) {
+//            //System.out.println("Nehuma face detectada");
+//            return;
+//        }
+//
+//        for (Mat m : facesRecortadas) {
+//            int numFoto = 0;
+//            String pgmPath = localPath + "\\resources\\pgmTrainer\\Reconhecer" + numFoto + ".pgm";
+//            Utils ut = new Utils();
+//            // ut.mostraImagem(bi);
+//            BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
+//            //Pré processa a imagem
+//            PreProcessing p = new PreProcessing();
+//            BufferedImage imgPreProcessed = p.enhance(resized);
+//
+//            try {
+//                if (salvarPgm2(pgmPath, ut.bufferedImageToMat(imgPreProcessed)) != "") {
+//                    listaReconhecer.add(pgmPath);
+//                    numFoto++;
+//                    Text2ImageConverter txtImg = new Text2ImageConverter();
+//                    txtImg.writeImage("Reconhecer" + " " + numFoto, imgPreProcessed, 5, imgPreProcessed.getHeight() - 5);
+//                    //ut.Img2GrayScale(imgPreProcessed);
+//                    addImgToTable(imgPreProcessed);
+//                } else {
+//                    System.out.println("Imagem não foi salva como PGM");
+//                    continue;
+//                }
+//            } catch (Exception e) {
+//                System.out.println(e.toString());
+//            }
+//
+//        }
+//
+//        List<FileTrain> idsReconhecidos = new ArrayList<>();
+//
+//        for (String pgm : listaReconhecer) {
+//            FileTrain ftMatched = reconhecedor.reconhecer(pgm, listaTreinamento);
+//
+//            if (ftMatched != null) {
+//
+//                if (!idsReconhecidos.contains(ftMatched)) {
+//                    idsReconhecidos.add(ftMatched);
+//                }
+//
+//            }
+//
+//        }
+//
+//        if (idsReconhecidos.isEmpty()) {
+//            //Utils.msg("Não foi reconhecida nenhuma face", "Aviso", JOptionPane.WARNING_MESSAGE);
+//            txtEncontrados.setText("Não foi reconhecida nenhuma face");
+//            return;
+//        }
+//
+//        String facesReconhecidas = "Pessoas reconhecidas\n";
+//
+//        for (FileTrain ft : idsReconhecidos) {
+//            Double precisao = 100 * (LaplacianFaces.DifferenceThreshold - ft.getDiffLaplacian()) / LaplacianFaces.DifferenceThreshold;
+//            DecimalFormat df = new DecimalFormat("0.00");
+//            String strPrecisao = df.format(precisao);
+//            facesReconhecidas += ft.getIdentificador() + " - Precisão: " + strPrecisao + "%\n";
+//        }
+//
+//        //Utils.msg(facesReconhecidas, "Faces Reconhecidas", JOptionPane.INFORMATION_MESSAGE);
+//        txtEncontrados.setText(facesReconhecidas);
+//
+//        //System.out.println("Pessoas reconhecidas");
     }
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed

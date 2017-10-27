@@ -6,6 +6,7 @@
 package main;
 
 import Model.FileTrain;
+import Model.ImagemTreinamento;
 import java.io.File;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Trainer extends LaplacianFaces {
      * @param pgmst
      * @param pgmsTrain
      */
-    public boolean treinar(List<FileTrain> pgmsTrain) {
+    public boolean treinar(List<ImagemTreinamento> pgmsTrain) {
 
         localPath = new File("").getAbsolutePath();
         // String pathFiles = localPath + "\\src\\resources\\pgmTrainer";
@@ -44,11 +45,11 @@ public class Trainer extends LaplacianFaces {
         NumFaces = 0;
         MaxFaceIndex = pgmsTrain.size();
 
-        for (FileTrain ft : pgmsTrain) {
+        for (ImagemTreinamento ft : pgmsTrain) {
 
             PGM pgm1 = new PGM();
             NumFaces++;
-            pgm1.setFilePath(ft.getPgmImagePath());
+            pgm1.setFilePath(ft.getCaminho());
             pgm1.readImage();
 
             for (xBase = 0; xBase <= xDiv - 1; xBase++) {

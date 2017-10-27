@@ -6,9 +6,8 @@
 package main;
 
 import Model.FileTrain;
-import java.util.ArrayList;
+import Model.ImagemTreinamento;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Recognizer extends LaplacianFaces {
 
-    public FileTrain reconhecer(String pgm, List<FileTrain> listaDeTreinamento) {
+    public ImagemTreinamento reconhecer(String pgm, List<ImagemTreinamento> listaDeTreinamento) {
         //set system parameters
         SizeX = 120;
         SizeY = 120;
@@ -64,10 +63,10 @@ public class Recognizer extends LaplacianFaces {
 
         MinLaplacianDiff = 2147483647; //2^32
         MinLaplacianIndex = -1;
-        FileTrain ftMatch = null;
+        ImagemTreinamento ftMatch = null;
 
         i = 1;
-        for (FileTrain ft : listaDeTreinamento) {
+        for (ImagemTreinamento ft : listaDeTreinamento) {
             TotalLaplacianDiff = 0;
             for (xBase = 0; xBase <= xDiv - 1; xBase++) {
                 for (yBase = 0; yBase <= yDiv - 1; yBase++) {
@@ -89,7 +88,7 @@ public class Recognizer extends LaplacianFaces {
 
             System.out.println("Reconhecido");
             //System.out.println("Arquivo de Match:" + FaceFileNames[MinLaplacianIndex]);
-            System.out.println("Arquivo de Match:" + ftMatch.getPgmImagePath());
+            System.out.println("Arquivo de Match:" + ftMatch.getCaminho());
             ftMatch.setDiffLaplacian(MinLaplacianDiff);
             System.out.println("Arquivo informado:" + pgm);
             System.out.println("Diferença:" + MinLaplacianDiff);

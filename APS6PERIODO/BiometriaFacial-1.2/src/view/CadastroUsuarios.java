@@ -415,6 +415,13 @@ public class CadastroUsuarios extends TelaComCaptura {
             return;
         }
 
+        if (modo == modo.INSERCAO) {
+            if (new UsuarioDAO().getUsuarioByLogin(txtLogin.getText()) != null) {
+                Utils.msg("Login já existe, favor escolher outro", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
         Usuario u = new Usuario();
         u.setLogin(txtLogin.getText());
         u.setNome(txtNome.getText());

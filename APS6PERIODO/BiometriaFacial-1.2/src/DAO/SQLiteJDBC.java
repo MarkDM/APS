@@ -80,6 +80,14 @@ public class SQLiteJDBC {
                 + "FOREIGN KEY (USR_ID) REFERENCES USUARIO(USR_ID))";
         stmt.execute(sqlImagensTreinamento);
 
+        String sqlPropriedade = "CREATE TABLE PROPRIEDADE (\n"
+                + "       PRP_ID INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + "       PRP_DESCRICAO TEXT NOT NULL,\n"
+                + "       PRP_PROPRIETARIO TEXT NOT NULL,\n"
+                + "       PRP_AGROTOXICOS TEXT NOT NULL)";
+        
+        stmt.execute(sqlPropriedade);
+
         stmt.close();
     }
 
