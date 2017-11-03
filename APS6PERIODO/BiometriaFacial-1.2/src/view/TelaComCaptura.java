@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import main.ClassificadorFacial;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
@@ -131,10 +132,34 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
         //Matriz que contem os dados da imagem
         Mat frame = new Mat();
         Mat frameSemRetangulo = new Mat();
+
+        if (captura != null) {
+            if (captura.isOpened()) {
+                captura.release();
+            }
+        }
+
         captura = new VideoCapture(0);
-        String cascadeFile = localPath + "\\resources\\cascades\\haarcascade_frontalface_alt.xml";
+        ClassificadorFacial.classificador = new CascadeClassifier("resources\\cascades\\haarcascade_frontalface_alt.xml");
+        // String cascadeFile = localPath + "\\resources\\cascades\\haarcascade_frontalface_alt.xml";
         //String cascadePath = cascadeFile;
-        CascadeClassifier classificador = new CascadeClassifier(cascadeFile);
+        //CascadeClassifier classificador = new CascadeClassifier();
+        //classificador.load(cascadeFile);
+
+//        if (!classificador.load(cascadeFile)) {
+//            System.out.println("Erro ao carregar cascade file");
+//
+//            if (!new File(cascadeFile).canRead()) {
+//                new File(cascadeFile).setReadable(true);
+//                System.out.println("Arquivo travado");
+//            }
+//
+//            return;
+//        } else {
+//            if (new File(cascadeFile).canRead()) {
+//                System.out.println("Arquivo liberado");
+//            }
+//        }
         MatOfRect facesDetectadas = new MatOfRect();
         double scaleFactor = 1.1;
         int minNeighbors = 2;
@@ -163,7 +188,7 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     Imgproc.cvtColor(imagemColorida, imagemCinza, Imgproc.COLOR_BGR2GRAY);
 
                     //Detecta faces
-                    classificador.detectMultiScale(imagemCinza, facesDetectadas, scaleFactor, minNeighbors, flags, minSize, maxSize);
+                    ClassificadorFacial.classificador.detectMultiScale(imagemCinza, facesDetectadas, scaleFactor, minNeighbors, flags, minSize, maxSize);
                     Rect[] faces = facesDetectadas.toArray();
                     frame.copyTo(frameSemRetangulo);
                     Rect faceRecortada = null;
@@ -215,11 +240,13 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
                     }
 
                     frameComRetangulos = null;
-                    
+
                 }
             }
         }
+
         captura.release();
+        //new File(cascadeFile).
         System.out.println("Captura finalizada");
     }
 

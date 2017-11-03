@@ -16,10 +16,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import main.ClassificadorFacial;
 import main.LaplacianFaces;
 import main.Recognizer;
 import main.Trainer;
 import org.opencv.core.Mat;
+import org.opencv.objdetect.CascadeClassifier;
 import utils.PreProcessing;
 import utils.Text2ImageConverter;
 import utils.Utils;
@@ -30,10 +32,21 @@ public class Login extends TelaComCaptura {
     private Recognizer reconhecedor = new Recognizer();
     List<ImagemTreinamento> listaTreinamento;
     Thread t;
+    Thread tReconhecer;
+    private static Usuario usuarioAutenticado;
+
+    public Usuario getUsuarioAutenticado() {
+        return Login.usuarioAutenticado;
+    }
+
+    public void setUsuarioAutenticado(Usuario usuarioAutenticado) {
+        Login.usuarioAutenticado = usuarioAutenticado;
+    }
 
     public Login() {
         initComponents();
         //lookAndFeel();
+
         launch();
 
         t = new Thread(new Runnable() {
@@ -52,17 +65,25 @@ public class Login extends TelaComCaptura {
     private void initComponents() {
 
         videoPanel = new javax.swing.JPanel();
-        txtLogin = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnAutenticar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        lblResultRecog = new javax.swing.JLabel();
         btnAcessar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
+        btnAutenticar = new javax.swing.JButton();
+        lblResultadoRegog = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setMaximumSize(new java.awt.Dimension(347, 486));
+        setMinimumSize(new java.awt.Dimension(347, 486));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         videoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -70,23 +91,12 @@ public class Login extends TelaComCaptura {
         videoPanel.setLayout(videoPanelLayout);
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 326, Short.MAX_VALUE)
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 225, Short.MAX_VALUE)
         );
-
-        jLabel1.setText("Login");
-
-        jLabel2.setText("Senha");
-
-        btnAutenticar.setText("Autenticar");
-        btnAutenticar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAutenticarActionPerformed(evt);
-            }
-        });
 
         btnAcessar.setText("Acessar");
         btnAcessar.setEnabled(false);
@@ -96,36 +106,44 @@ public class Login extends TelaComCaptura {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblResultRecog)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
-                        .addComponent(btnAcessar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(btnAutenticar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        jLabel1.setText("Login");
+
+        jLabel2.setText("Senha");
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
+            }
+        });
+
+        btnAutenticar.setText("Autenticar");
+        btnAutenticar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutenticarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(btnAutenticar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                        .addComponent(txtLogin)))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,30 +151,59 @@ public class Login extends TelaComCaptura {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAutenticar)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        lblResultadoRegog.setText("Pronto");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(btnAutenticar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblResultRecog)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
-                        .addComponent(btnAcessar)
-                        .addContainerGap())))
+                        .addComponent(lblResultadoRegog)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAcessar))
+                    .addComponent(jLabel3)
+                    .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAcessar)
+                    .addComponent(lblResultadoRegog))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarActionPerformed
-        Utils.msg("Acessou", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(1);
+        new CadastroPropriedade(getUsuarioAutenticado()).setVisible(true);
+        t.interrupt();
+        t = null;
+        this.dispose();
+        //System.exit(0);
     }//GEN-LAST:event_btnAcessarActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+
+    }//GEN-LAST:event_formKeyTyped
 
     private void btnAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutenticarActionPerformed
         if (validarDados()) {
@@ -164,8 +211,13 @@ public class Login extends TelaComCaptura {
         } else {
             Utils.msg("É necessário preencher login e senha", "Erro", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_btnAutenticarActionPerformed
+
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+        if (evt.getKeyChar() == '\n') {
+            aunteticar();
+        }
+    }//GEN-LAST:event_txtSenhaKeyTyped
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -214,53 +266,54 @@ public class Login extends TelaComCaptura {
         return true;
     }
 
-    private void lookAndFeel() {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-
     private void aunteticar() {
+
+        if (tReconhecer != null) {
+            tReconhecer.interrupt();
+        }
+
         UsuarioDAO usrDAO = new UsuarioDAO();
         Usuario user = usrDAO.getUsuarioByLogin(txtLogin.getText());
 
         if (user != null) {
             if (user.getSenha().equals(new Utils().getMd5(Arrays.toString(txtSenha.getPassword())))) {
-                //Reconhecer face
-
                 //Administrador
                 if (user.getTipoUsuario().getId() == 4) {
-                    setLblResultText("Bem vindo " + user.getNome() + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
+                    setUsuarioAutenticado(user);
+                    int firstNameLength = (user.getNome().indexOf(" ") == -1) ? user.getNome().length() : user.getNome().indexOf(" ");
+                    setLblResultText("Bem vindo " + user.getNome().subSequence(0, firstNameLength) + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
                     btnAcessar.setEnabled(true);
                 } else {
 
-                    treinar(user.getId());
+                    if (!treinar(user.getId())) {
+                        return;
+                    }
 
-                    new Thread(new Runnable() {
+                    tReconhecer = new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            Boolean reconhecido = false;
 
-                            while (!reconhecer(user)) {
+                            while (!tReconhecer.isInterrupted()) {
+
+                                if (reconhecer(user)) {
+                                    reconhecido = true;
+                                    break;
+                                } else {
+                                    reconhecido = false;
+                                }
                                 btnAcessar.setEnabled(false);
                             }
 
-                            btnAcessar.setEnabled(true);
-                            setLblResultText("Bem vindo " + user.getNome() + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
+                            if (reconhecido) {
+                                setUsuarioAutenticado(user);
+                                btnAcessar.setEnabled(true);
+                                setLblResultText("Bem vindo " + user.getNome() + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
+                            }
+
                         }
-                    }).start();
+                    });
+                    tReconhecer.start();
 
                 }
 
@@ -273,22 +326,28 @@ public class Login extends TelaComCaptura {
         }
     }
 
-    public void treinar(int idUsuario) {
+    public Boolean treinar(int idUsuario) {
         try {
             listaTreinamento = new ImagensTreinamentoDAO().getImagensByUsuario(idUsuario);
-            new Trainer().treinar(listaTreinamento);
+            if (listaTreinamento.isEmpty()) {
+                Utils.msg("Não foram cadastradas imagens de treinamento para o usuário", "Erro", JOptionPane.ERROR_MESSAGE);
+                t.interrupt();
+                return false;
+            }
 
+            new Trainer().treinar(listaTreinamento);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return false;
     }
 
     private void setLblResultText(String text, Color c) {
-        lblResultRecog.setBorder(new EmptyBorder(5, 5, 5, 5));
-        lblResultRecog.setText(text);
-        lblResultRecog.setOpaque(true);
-        lblResultRecog.setBackground(c);
+        lblResultadoRegog.setBorder(new EmptyBorder(5, 5, 5, 5));
+        lblResultadoRegog.setText(text);
+        lblResultadoRegog.setOpaque(true);
+        lblResultadoRegog.setBackground(c);
     }
 
     private Boolean reconhecer(Usuario user) {
@@ -395,7 +454,8 @@ public class Login extends TelaComCaptura {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel lblResultRecog;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblResultadoRegog;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JPanel videoPanel;

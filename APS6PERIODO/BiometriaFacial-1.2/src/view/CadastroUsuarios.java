@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +24,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.MaskFormatter;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import utils.PreProcessing;
@@ -44,7 +47,6 @@ public class CadastroUsuarios extends TelaComCaptura {
     private int usuarioOffset = 0;
     private int qtdUsuariosCadastros = 0;
     private Thread tVideo;
-    private Boolean tVideoRodando = false;
     private DefaultTableModel modelo;
 
     private enum ModoFormulario {
@@ -55,6 +57,12 @@ public class CadastroUsuarios extends TelaComCaptura {
 
     public CadastroUsuarios() {
         initComponents();
+        try {
+            preencherCmbTipoUsuario();
+        } catch (SQLException ex) {
+            Utils.msg("Erro ao preencher tipos de usuario", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         qtdUsuariosCadastros = new UsuarioDAO().getCount();
 
@@ -71,6 +79,10 @@ public class CadastroUsuarios extends TelaComCaptura {
         //columnModel.addColumn(new TableColumn());
         modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
         gridImgsTreinamento.setRowHeight(130);
+    }
+
+    public Boolean isDigit(Character c) {
+        return Character.isDigit(c);
     }
 
     JComboBox<Item<TipoUsuario>> comboBox = new JComboBox<>();
@@ -119,6 +131,12 @@ public class CadastroUsuarios extends TelaComCaptura {
         });
 
         txtId.setEditable(false);
+
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Identificador");
 
@@ -649,7 +667,7 @@ public class CadastroUsuarios extends TelaComCaptura {
 
             getFacesRecortadas().forEach((m) -> {
                 //Adiciona na lista de treinamento
-                String path = localPath + "\\resources\\pgmTrainer\\" + txtId.getText() + "_" + System.currentTimeMillis() + ".pgm";
+                String path = "resources\\pgmTrainer\\" + txtId.getText() + "_" + System.currentTimeMillis() + ".pgm";
                 BufferedImage resized = ut.resize(ut.matToBufferedImage(m), 120, 120);
                 //Pré processa a imagem
                 PreProcessing p = new PreProcessing();
@@ -687,6 +705,28 @@ public class CadastroUsuarios extends TelaComCaptura {
         Object img = gridImgsTreinamento.getModel().getValueAt(gridImgsTreinamento.getSelectedRow(), 0);
         //Object img =  gridImgsTreinamento.getV
     }//GEN-LAST:event_gridImgsTreinamentoMouseClicked
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+
+//        char[] arrTxt = txtNome.getText().toCharArray();
+//
+//        for (int i = 0; i < arrTxt.length; i++) {
+//            if (!isDigit(arrTxt[i])) {
+//                arrTxt[i] = '\u0000';
+//            }
+//        }
+//        
+//        String textFinal = "";
+//        
+//        for (int i = 0; i < arrTxt.length; i++) {
+//            if (arrTxt[i] != '\u0000') {
+//                textFinal += arrTxt[i];
+//            }
+//        }
+//        
+//        txtNome.setText(textFinal);
+
+    }//GEN-LAST:event_txtNomeKeyTyped
 
     private void preencherCmbTipoUsuario() throws SQLException {
         List<TipoUsuario> lstTipoUsuario = new TipoUsuarioDAO().obterTiposUsuario();
@@ -744,11 +784,6 @@ public class CadastroUsuarios extends TelaComCaptura {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -780,17 +815,8 @@ public class CadastroUsuarios extends TelaComCaptura {
             public void run() {
                 CadastroUsuarios tela = new CadastroUsuarios();
                 tela.setVisible(true);
-                try {
-                    tela.preencherCmbTipoUsuario();
-                    tela.launch();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(CadastroUsuarios.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
             }
         }).start();
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

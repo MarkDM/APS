@@ -97,9 +97,10 @@ public class UsuarioDAO extends SQLiteJDBC {
         try {
             ResultSet rs = execQuery("SELECT * FROM USUARIO WHERE USR_LOGIN = '" + login + "'");
 
-            Usuario u = new Usuario();
+            Usuario u = null;
 
             while (rs.next()) {
+                u = new Usuario();
                 u.setId(rs.getInt("USR_ID"));
                 u.setLogin(rs.getString("USR_LOGIN"));
                 u.setNome(rs.getString("USR_NOME"));
