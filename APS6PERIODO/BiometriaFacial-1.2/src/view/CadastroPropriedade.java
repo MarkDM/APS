@@ -507,7 +507,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 txtAgrotoxicos.setEnabled(false);
                 btnPNovo.setEnabled(false);
                 btnPAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnPExcluir.setEnabled(false);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -517,7 +517,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 txtAgrotoxicos.setEnabled(false);
                 btnPNovo.setEnabled(false);
                 btnPAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnPExcluir.setEnabled(false);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -526,7 +526,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 txtAgrotoxicos.setEnabled(true);
                 btnPNovo.setEnabled(true);
                 btnPAlterar.setEnabled(true);
-                btnExcluir.setEnabled(true);
+                btnPExcluir.setEnabled(true);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -534,6 +534,8 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 txtProprietario.setEnabled(true);
                 txtAgrotoxicos.setEnabled(true);
                 btnPNovo.setEnabled(true);
+                btnPAlterar.setEnabled(true);
+                btnPExcluir.setEnabled(true);
                 menuCadUsuarios.setEnabled(true);
                 menuCadUsuarios.setText("Cadastro de Usuários");
                 break;

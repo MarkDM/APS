@@ -46,6 +46,7 @@ public class Login extends TelaComCaptura {
     public Login() {
         initComponents();
         //lookAndFeel();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         launch();
 
@@ -276,7 +277,7 @@ public class Login extends TelaComCaptura {
         Usuario user = usrDAO.getUsuarioByLogin(txtLogin.getText());
 
         if (user != null) {
-            if (user.getSenha().equals(new Utils().getMd5(Arrays.toString(txtSenha.getPassword())))) {
+            if (user.getSenha().equals(new Utils().getMd5(String.valueOf(txtSenha.getPassword())))) {
                 //Administrador
                 if (user.getTipoUsuario().getId() == 4) {
                     setUsuarioAutenticado(user);
@@ -318,11 +319,11 @@ public class Login extends TelaComCaptura {
                 }
 
             } else {
-                Utils.msg("Senha digitada inválida", "Erro", JOptionPane.WARNING_MESSAGE);
+                Utils.msgErro("Senha digitada inválida", "Erro");
                 return;
             }
         } else {
-            Utils.msg("Usuário informado não existe", "Erro", JOptionPane.WARNING_MESSAGE);
+            Utils.msgErro("Usuário informado não existe", "Erro");
         }
     }
 
@@ -330,7 +331,7 @@ public class Login extends TelaComCaptura {
         try {
             listaTreinamento = new ImagensTreinamentoDAO().getImagensByUsuario(idUsuario);
             if (listaTreinamento.isEmpty()) {
-                Utils.msg("Não foram cadastradas imagens de treinamento para o usuário", "Erro", JOptionPane.ERROR_MESSAGE);
+                Utils.msgErro("Não foram cadastradas imagens de treinamento para o usuário", "Erro");
                 t.interrupt();
                 return false;
             }
@@ -338,7 +339,7 @@ public class Login extends TelaComCaptura {
             new Trainer().treinar(listaTreinamento);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Utils.msgErro("Erro ao treinar com imagens do usuario:" + ex.getMessage(), "Erro");
         }
         return false;
     }
@@ -399,10 +400,12 @@ public class Login extends TelaComCaptura {
                 if (salvarPgm2(pgmPath, ut.bufferedImageToMat(imgPreProcessed)) != "") {
                     listaReconhecer.add(pgmPath);
                 } else {
+                    Utils.msgErro("Erro ao salvar imagem de reconhecimento", "Erro");
                     System.out.println("Imagem não foi salva como PGM");
                     continue;
                 }
             } catch (Exception e) {
+                Utils.msgErro("Erro ao obter usuarios reconhecidos: " + e.getMessage(), "Erro");
                 System.out.println(e.toString());
             }
 

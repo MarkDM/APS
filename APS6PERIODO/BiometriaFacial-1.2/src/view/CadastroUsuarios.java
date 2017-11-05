@@ -58,6 +58,9 @@ public class CadastroUsuarios extends TelaComCaptura {
     public CadastroUsuarios() {
         initComponents();
         try {
+            loadByOffset();
+            modo = modo.LEITURA;
+            testarModo();
             preencherCmbTipoUsuario();
         } catch (SQLException ex) {
             Utils.msg("Erro ao preencher tipos de usuario", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -109,7 +112,6 @@ public class CadastroUsuarios extends TelaComCaptura {
         jScrollPane2 = new javax.swing.JScrollPane();
         gridImgsTreinamento = new javax.swing.JTable();
         btnSalvarImgTreinamento = new javax.swing.JButton();
-        btnDeleteImgTreinamento = new javax.swing.JButton();
         btnPausarCaptura = new javax.swing.JButton();
         btnIniciarCaptura = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -254,8 +256,6 @@ public class CadastroUsuarios extends TelaComCaptura {
             }
         });
 
-        btnDeleteImgTreinamento.setText("Excluir");
-
         btnPausarCaptura.setText("Pausar");
         btnPausarCaptura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,10 +285,8 @@ public class CadastroUsuarios extends TelaComCaptura {
                         .addGap(65, 65, 65)
                         .addComponent(btnSalvarImgTreinamento)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteImgTreinamento)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +298,6 @@ public class CadastroUsuarios extends TelaComCaptura {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarImgTreinamento)
-                    .addComponent(btnDeleteImgTreinamento)
                     .addComponent(btnPausarCaptura)
                     .addComponent(btnIniciarCaptura))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -443,7 +440,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         Usuario u = new Usuario();
         u.setLogin(txtLogin.getText());
         u.setNome(txtNome.getText());
-        u.setSenha(Arrays.toString(txtSenha.getPassword()));
+        u.setSenha(String.valueOf(txtSenha.getPassword()));
         Item item = (Item) comboBox.getSelectedItem();
         TipoUsuario tipoUsuario = (TipoUsuario) item.getValue();
         //int idTipoUsuario = tipoUsuario.getId();
@@ -517,6 +514,9 @@ public class CadastroUsuarios extends TelaComCaptura {
 
     private void testarModo() {
         if (modo == modo.INSERCAO || modo == modo.ALTERACAO) {
+            txtLogin.setEditable(true);
+            txtNome.setEditable(true);
+            txtSenha.setEditable(true);
             btnCancelar.setEnabled(true);
             btnGravar.setEnabled(true);
             btnNovo.setEnabled(false);
@@ -525,6 +525,9 @@ public class CadastroUsuarios extends TelaComCaptura {
             btnAnterior.setEnabled(false);
             btnProximo.setEnabled(false);
         } else if (modo == modo.LEITURA) {
+            txtLogin.setEditable(false);
+            txtNome.setEditable(false);
+            txtSenha.setEditable(false);
             btnCancelar.setEnabled(true);
             btnGravar.setEnabled(false);
             btnNovo.setEnabled(true);
@@ -557,17 +560,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
 
         try {
-            Usuario u = new UsuarioDAO().getByOffset(usuarioOffset);
-            txtId.setText(String.valueOf(u.getId()));
-            txtLogin.setText(u.getLogin());
-            txtNome.setText(u.getNome());
-            txtSenha.setText(u.getSenha());
-            TipoUsuario t = u.getTipoUsuario();
-            carregarImagensUsuario(u.getId());
-
-            //comboBox.setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
-            comboBox.getModel().setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
-            //comboBox.setSelectedItem();
+            loadByOffset();
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuarios.class
@@ -590,16 +583,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         }
 
         try {
-            Usuario u = new UsuarioDAO().getByOffset(usuarioOffset);
-            txtId.setText(String.valueOf(u.getId()));
-            txtLogin.setText(u.getLogin());
-            txtNome.setText(u.getNome());
-            txtSenha.setText(u.getSenha());
-            carregarImagensUsuario(u.getId());
-
-            TipoUsuario t = u.getTipoUsuario();
-
-            comboBox.getModel().setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
+            loadByOffset();
 
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuarios.class
@@ -626,6 +610,20 @@ public class CadastroUsuarios extends TelaComCaptura {
 
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void loadByOffset() throws SQLException {
+        Usuario u = new UsuarioDAO().getByOffset(usuarioOffset);
+        txtId.setText(String.valueOf(u.getId()));
+        txtLogin.setText(u.getLogin());
+        txtNome.setText(u.getNome());
+        txtSenha.setText(u.getSenha());
+        TipoUsuario t = u.getTipoUsuario();
+        carregarImagensUsuario(u.getId());
+
+        //comboBox.setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
+        comboBox.getModel().setSelectedItem(new Item<TipoUsuario>(t, t.toString()));
+        //comboBox.setSelectedItem();
+    }
 
     private void btnIniciarCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarCapturaActionPerformed
         btnSalvarImgTreinamento.setEnabled(true);
@@ -707,25 +705,6 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_gridImgsTreinamentoMouseClicked
 
     private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
-
-//        char[] arrTxt = txtNome.getText().toCharArray();
-//
-//        for (int i = 0; i < arrTxt.length; i++) {
-//            if (!isDigit(arrTxt[i])) {
-//                arrTxt[i] = '\u0000';
-//            }
-//        }
-//        
-//        String textFinal = "";
-//        
-//        for (int i = 0; i < arrTxt.length; i++) {
-//            if (arrTxt[i] != '\u0000') {
-//                textFinal += arrTxt[i];
-//            }
-//        }
-//        
-//        txtNome.setText(textFinal);
-
     }//GEN-LAST:event_txtNomeKeyTyped
 
     private void preencherCmbTipoUsuario() throws SQLException {
@@ -769,13 +748,13 @@ public class CadastroUsuarios extends TelaComCaptura {
 
         limparImagensTreinamento();
 
-        imagens.forEach((pgm) -> {
+        for (ImagemTreinamento pgm : imagens) {
             Utils ut = new Utils();
             Mat mat = ut.carregarImgMat(pgm.getCaminho(), CvType.CV_8UC1);
             BufferedImage img = ut.matToBufferedImage(mat);
             addImgToTable(img);
         }
-        );
+
     }
 
     public void limparImagensTreinamento() {
@@ -823,7 +802,6 @@ public class CadastroUsuarios extends TelaComCaptura {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnDeleteImgTreinamento;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnGravar;
     private javax.swing.JButton btnIniciarCaptura;

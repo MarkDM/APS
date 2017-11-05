@@ -1,5 +1,6 @@
 package DAO;
 
+import java.io.File;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,13 @@ public class SQLiteJDBC {
     }
 
     public boolean criarBanco() {
+
+        //Banco ja esta criado
+        if (new File("APS6.db").exists()) {
+            System.out.println("Banco ja criado");
+            return true;
+        }
+
         try {
             openConnection();
             criarTabelas();
@@ -85,7 +93,7 @@ public class SQLiteJDBC {
                 + "       PRP_DESCRICAO TEXT NOT NULL,\n"
                 + "       PRP_PROPRIETARIO TEXT NOT NULL,\n"
                 + "       PRP_AGROTOXICOS TEXT NOT NULL)";
-        
+
         stmt.execute(sqlPropriedade);
 
         stmt.close();
@@ -93,8 +101,11 @@ public class SQLiteJDBC {
 
     private void inserirDadosIniciais() throws SQLException {
         stmt = c.createStatement();
-        String sql = "INSERT INTO TIPO_USUARIO (TUS_DESCRICAO,TUS_NIVEL_ACESSO) VALUES ('Usuário comum',1),('Diretor de divisão',2),('Ministro do meio Ambiente',3),('Administrador',3)";
-        stmt.executeUpdate(sql);
+        String sqlTipoUsuario = "INSERT INTO TIPO_USUARIO (TUS_DESCRICAO,TUS_NIVEL_ACESSO) VALUES ('Usuário comum',1),('Diretor de divisão',2),('Ministro do meio Ambiente',3),('Administrador',4)";
+        stmt.executeUpdate(sqlTipoUsuario);
+        String sqlAdmin = "INSERT INTO USUARIO (USR_NOME,USR_LOGIN,USR_SENHA,USR_TIPO_USUARIO_ID) VALUES ('Mr.President','adm','c4ca4238a0b923820dcc509a6f75849b',4)";
+        stmt.executeUpdate(sqlAdmin);
+
         stmt.close();
     }
 

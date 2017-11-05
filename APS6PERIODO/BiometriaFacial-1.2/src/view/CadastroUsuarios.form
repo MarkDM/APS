@@ -204,11 +204,8 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnDeleteImgTreinamento" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -223,7 +220,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSalvarImgTreinamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeleteImgTreinamento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnPausarCaptura" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnIniciarCaptura" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -284,11 +280,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarImgTreinamentoActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnDeleteImgTreinamento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnPausarCaptura">
               <Properties>

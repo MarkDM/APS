@@ -100,8 +100,20 @@ public class Utils {
     }
 
     public Mat carregarImgMat(String path, int type) {
-        Mat imagemColorida = imread(path, type);
-        return imagemColorida;
+
+        if (!new File(path).exists()) {
+            System.out.println("carregarImgMat(): Arquivo informado não existe");
+            return null;
+        }
+
+        try {
+            Mat imagemColorida = imread(path, type);
+            return imagemColorida;
+        } catch (Exception e) {
+            System.out.println("Erro ao carregar imagem: " + e.getMessage());
+            return null;
+        }
+
     }
 
 //    public BufferedImage resize(BufferedImage img, int newW, int newH) {
@@ -179,6 +191,10 @@ public class Utils {
 
     public static void msg(String msg, String title, int messageType) {
         JOptionPane.showMessageDialog(null, msg, title, messageType);
+    }
+
+    public static void msgErro(String msg, String title) {
+        msg(msg, title, JOptionPane.ERROR_MESSAGE);
     }
 
 }
