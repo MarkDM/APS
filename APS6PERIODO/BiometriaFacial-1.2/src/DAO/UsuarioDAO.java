@@ -122,9 +122,10 @@ public class UsuarioDAO extends SQLiteJDBC {
     public Usuario getByOffset(int offset) throws SQLException {
         ResultSet rs = execQuery("SELECT * FROM USUARIO LIMIT 1 OFFSET " + offset);
 
-        Usuario u = new Usuario();
+        Usuario u = null;
 
         while (rs.next()) {
+            u = new Usuario();
             u.setId(rs.getInt("USR_ID"));
             u.setLogin(rs.getString("USR_LOGIN"));
             u.setNome(rs.getString("USR_NOME"));

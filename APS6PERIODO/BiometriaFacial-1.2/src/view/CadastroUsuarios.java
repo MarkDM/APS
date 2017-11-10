@@ -43,24 +43,25 @@ import utils.Utils;
  * @author marcu
  */
 public class CadastroUsuarios extends TelaComCaptura {
-
+    
     private int usuarioOffset = 0;
     private int qtdUsuariosCadastros = 0;
     private Thread tVideo;
     private DefaultTableModel modelo;
-
+    
     private enum ModoFormulario {
         INSERCAO, ALTERACAO, LEITURA
     };
-
+    
     private ModoFormulario modo;
-
+    
     public CadastroUsuarios() {
-
+        
         try {
             initComponents();
             modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
             loadByOffset();
+            updateOffset();
             modo = modo.LEITURA;
             testarModo();
             preencherCmbTipoUsuario();
@@ -68,16 +69,9 @@ public class CadastroUsuarios extends TelaComCaptura {
             Utils.msg("Erro ao preencher tipos de usuario", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-        qtdUsuariosCadastros = new UsuarioDAO().getCount();
-
-        if (qtdUsuariosCadastros > 1) {
-            //btnAnterior.setEnabled(true);
-            btnProximo.setEnabled(true);
-        }
-
+        
         btnPausarCaptura.setEnabled(false);
-
+        
         JTableRenderer renderer1 = new JTableRenderer();
         TableColumnModel columnModel = gridImgsTreinamento.getColumnModel();
         columnModel.getColumn(0).setCellRenderer(renderer1);
@@ -85,13 +79,13 @@ public class CadastroUsuarios extends TelaComCaptura {
 
         gridImgsTreinamento.setRowHeight(130);
     }
-
+    
     public Boolean isDigit(Character c) {
         return Character.isDigit(c);
     }
-
+    
     JComboBox<Item<TipoUsuario>> comboBox = new JComboBox<>();
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -426,19 +420,19 @@ public class CadastroUsuarios extends TelaComCaptura {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-
+        
         if (!validarDados()) {
             Utils.msg("Existem campos obrigatórios não preenchidos", "Erro", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         if (modo == modo.INSERCAO) {
             if (new UsuarioDAO().getUsuarioByLogin(txtLogin.getText()) != null) {
                 Utils.msg("Login já existe, favor escolher outro", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
-
+        
         Usuario u = new Usuario();
         u.setLogin(txtLogin.getText());
         u.setNome(txtNome.getText());
@@ -448,11 +442,11 @@ public class CadastroUsuarios extends TelaComCaptura {
         //int idTipoUsuario = tipoUsuario.getId();
 
         u.setTipoUsuario(tipoUsuario);
-
+        
         UsuarioDAO usrDao = new UsuarioDAO();
-
+        
         try {
-
+            
             if (modo == modo.INSERCAO) {
                 usrDao.inserirUsuario(u);
                 txtId.setText(String.valueOf(new UsuarioDAO().getLastId()));
@@ -460,16 +454,16 @@ public class CadastroUsuarios extends TelaComCaptura {
                 u.setId(Integer.parseInt(txtId.getText()));
                 usrDao.alterarUsuario(u, cBoxAlterarSenha.isSelected());
             }
-
+            
             Utils.msg("Registro gravado com sucesso", "sucesso", JOptionPane.INFORMATION_MESSAGE);
             modo = modo.LEITURA;
             testarModo();
             updateOffset();
-
+            
         } catch (SQLException ex) {
             Utils.msg("Erro ao gravar registro: " + usrDao.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
+        
 
     }//GEN-LAST:event_btnGravarActionPerformed
 
@@ -478,14 +472,14 @@ public class CadastroUsuarios extends TelaComCaptura {
             return;
         }
         UsuarioDAO usrDAO = new UsuarioDAO();
-
+        
         try {
-
+            
             usrDAO.deletarUsuario(Integer.parseInt(txtId.getText()));
             Utils.msg("Registro excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
             updateOffset();
-
+            
         } catch (SQLException ex) {
             Utils.msg("Erro ao excluir registro: " + usrDAO.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -494,30 +488,30 @@ public class CadastroUsuarios extends TelaComCaptura {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         modo = modo.INSERCAO;
-
+        
         testarModo();
-
+        
         limparCampos();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
+        
         modo = modo.LEITURA;
-
+        
         testarModo();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    
     private void limparCampos() {
         txtId.setText("");
         txtLogin.setText("");
         txtNome.setText("");
         txtSenha.setText("");
     }
-
+    
     public void loadByOfsset() {
-
+        
     }
-
+    
     private void testarModo() {
         if (modo == modo.INSERCAO || modo == modo.ALTERACAO) {
             txtLogin.setEditable(true);
@@ -528,8 +522,8 @@ public class CadastroUsuarios extends TelaComCaptura {
             btnNovo.setEnabled(false);
             btnExcluir.setEnabled(false);
             btnAlterar.setEnabled(false);
-            btnAnterior.setEnabled(false);
-            btnProximo.setEnabled(false);
+            //btnAnterior.setEnabled(false);
+            //btnProximo.setEnabled(false);
         } else if (modo == modo.LEITURA) {
             txtLogin.setEditable(false);
             txtNome.setEditable(false);
@@ -539,11 +533,11 @@ public class CadastroUsuarios extends TelaComCaptura {
             btnNovo.setEnabled(true);
             btnExcluir.setEnabled(true);
             btnAlterar.setEnabled(true);
-            btnAnterior.setEnabled(true);
-            btnProximo.setEnabled(true);
+            // btnAnterior.setEnabled(true);
+            // btnProximo.setEnabled(true);
         }
     }
-
+    
     public void addImgToTable(BufferedImage img) {
         new Utils().Img2GrayScale(img);
         //modelo.addRow(new Object[]{new ImageIcon(img.getImgBitMap())});
@@ -552,22 +546,22 @@ public class CadastroUsuarios extends TelaComCaptura {
         );
         gridImgsTreinamento.scrollRectToVisible(gridImgsTreinamento.getCellRect(gridImgsTreinamento.getRowCount() - 1, 0, true));
     }
-
+    
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-
+        
         if (usuarioOffset == 1) {
             btnAnterior.setEnabled(false);
         }
         btnProximo.setEnabled(true);
-
+        
         if (usuarioOffset >= 0) {
             usuarioOffset--;
         }
-
+        
         try {
             loadByOffset();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -575,27 +569,27 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
-
+        
         if (usuarioOffset == qtdUsuariosCadastros - 2) {
             btnProximo.setEnabled(false);
         }
-
+        
         btnAnterior.setEnabled(true);
-
+        
         if (usuarioOffset < qtdUsuariosCadastros - 1) {
             usuarioOffset++;
         } else {
             return;
         }
-
+        
         try {
             loadByOffset();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-
+        
 
     }//GEN-LAST:event_btnProximoActionPerformed
 
@@ -603,7 +597,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         if (txtId.getText().equals("")) {
             return;
         }
-
+        
         modo = modo.ALTERACAO;
         testarModo();
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -613,12 +607,17 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-
+        
 
     }//GEN-LAST:event_jTabbedPane1StateChanged
-
+    
     private void loadByOffset() throws SQLException {
         Usuario u = new UsuarioDAO().getByOffset(usuarioOffset);
+        
+        if (u == null) {
+            return;
+        }
+        
         txtId.setText(String.valueOf(u.getId()));
         txtLogin.setText(u.getLogin());
         txtNome.setText(u.getNome());
@@ -633,21 +632,21 @@ public class CadastroUsuarios extends TelaComCaptura {
 
     private void btnIniciarCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarCapturaActionPerformed
         btnSalvarImgTreinamento.setEnabled(true);
-
+        
         tVideo = new Thread(new Runnable() {
             @Override
             public void run() {
                 mostraVideo(videoCapturePane, tVideo);
             }
         });
-
+        
         tVideo.start();
         btnIniciarCaptura.setEnabled(false);
         btnPausarCaptura.setEnabled(true);
     }//GEN-LAST:event_btnIniciarCapturaActionPerformed
 
     private void btnPausarCapturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPausarCapturaActionPerformed
-
+        
         btnSalvarImgTreinamento.setEnabled(false);
         tVideo.interrupt();
         tVideo = null;
@@ -657,18 +656,18 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_btnPausarCapturaActionPerformed
 
     private void btnSalvarImgTreinamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarImgTreinamentoActionPerformed
-
+        
         if (txtId.getText().equals("")) {
             Utils.msg("Deve se primeiro gravar o usuário", "Erro", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         Utils ut = new Utils();
         ImagensTreinamentoDAO imgsTrDAO = new ImagensTreinamentoDAO();
         //List<ImagemTreinamento> imgsTreinamento = new ArrayList<>();
 
         try {
-
+            
             getFacesRecortadas().forEach((m) -> {
                 //Adiciona na lista de treinamento
                 String path = "resources\\pgmTrainer\\" + txtId.getText() + "_" + System.currentTimeMillis() + ".pgm";
@@ -694,9 +693,9 @@ public class CadastroUsuarios extends TelaComCaptura {
                     Utils.msg("Erro ao gravar imagem em disco", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             });
-
+            
             setSalvandoPGM(false);
-
+            
         } catch (Exception e) {
             System.out.println(getMensagem() + " // " + e.toString());
             setSalvandoPGM(false);
@@ -705,95 +704,102 @@ public class CadastroUsuarios extends TelaComCaptura {
     }//GEN-LAST:event_btnSalvarImgTreinamentoActionPerformed
 
     private void gridImgsTreinamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gridImgsTreinamentoMouseClicked
-
+        
         Object img = gridImgsTreinamento.getModel().getValueAt(gridImgsTreinamento.getSelectedRow(), 0);
         //Object img =  gridImgsTreinamento.getV
     }//GEN-LAST:event_gridImgsTreinamentoMouseClicked
 
     private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
     }//GEN-LAST:event_txtNomeKeyTyped
-
+    
     private void preencherCmbTipoUsuario() throws SQLException {
         List<TipoUsuario> lstTipoUsuario = new TipoUsuarioDAO().obterTiposUsuario();
-
+        
         comboBox.setLocation(10, 266);
         comboBox.setSize(349, 20);
-
+        
         for (TipoUsuario tu : lstTipoUsuario) {
             comboBox.addItem(
                     new Item<TipoUsuario>(tu, tu.toString())
             );
         }
-
+        
         this.jPanel1.add(comboBox);
     }
-
+    
     private void updateOffset() {
         qtdUsuariosCadastros = new UsuarioDAO().getCount();
+        if (qtdUsuariosCadastros > 1) {
+            btnProximo.setEnabled(true);
+        }
+        
+        if (usuarioOffset > 0) {
+            btnAnterior.setEnabled(true);
+        }
     }
-
+    
     private Boolean validarDados() {
         if (txtLogin.getText().equals("")) {
             return false;
         }
-
+        
         if (txtNome.getText().equals("")) {
             return false;
         }
-
+        
         if (txtSenha.getPassword().equals("")) {
             return false;
         }
-
+        
         return true;
     }
-
+    
     public void carregarImagensUsuario(int id) throws SQLException {
-
+        
         List<ImagemTreinamento> imagens = new ImagensTreinamentoDAO().getImagensByUsuario(id);
-
+        
         limparImagensTreinamento();
-
+        
         for (ImagemTreinamento pgm : imagens) {
             Utils ut = new Utils();
             Mat mat = ut.carregarImgMat(pgm.getCaminho(), CvType.CV_8UC1);
-
+            
             if (mat == null) {
                 return;
             }
-
+            
             BufferedImage img = ut.matToBufferedImage(mat);
             addImgToTable(img);
         }
-
+        
     }
-
+    
     public void limparImagensTreinamento() {
         DefaultTableModel modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
         modelo.setNumRows(0);
     }
-
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CadastroUsuarios.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
