@@ -15,6 +15,10 @@ public class CadastroPropriedade extends javax.swing.JFrame {
     private int qtdPropriedadesCad;
     private Usuario usuarioLogado;
 
+    private CadastroPropriedade() {
+        initComponents();
+    }
+
     private enum ModoFormulario {
         INSERCAO, ALTERACAO, LEITURA
     };
@@ -24,8 +28,9 @@ public class CadastroPropriedade extends javax.swing.JFrame {
     public CadastroPropriedade(Usuario usuarioAutenticado) {
         setUsuarioLogado(usuarioAutenticado);
         initComponents();
-        testaPermissaoUsuario();
+
         try {
+            loadByOffset(new PropriedadeDAO());
             updateOffset();
         } catch (SQLException ex) {
             Logger.getLogger(CadastroPropriedade.class.getName()).log(Level.SEVERE, null, ex);
@@ -314,7 +319,12 @@ public class CadastroPropriedade extends javax.swing.JFrame {
 
     private void menuCadUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCadUsuariosMouseClicked
         if (menuCadUsuarios.isEnabled()) {
-            new CadastroUsuarios().setVisible(true);
+            try {
+                new CadastroUsuarios().setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
 
     }//GEN-LAST:event_menuCadUsuariosMouseClicked
@@ -390,12 +400,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         PropriedadeDAO pDao = new PropriedadeDAO();
 
         try {
-            Propriedade p = pDao.getByOffset(propriedadeOffset);
-            txtId.setText(String.valueOf(p.getId()));
-            txtProprietario.setText(p.getProprietario());
-            txtDescricao.setText(p.getDescricao());
-            txtAgrotoxicos.setText(p.getAgrotoxicos());
-            testaPermissaoUsuario();
+            loadByOffset(pDao);
         } catch (SQLException ex) {
             Utils.msg(pDao.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -413,16 +418,10 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         } else {
             return;
         }
-
         PropriedadeDAO pDao = new PropriedadeDAO();
 
         try {
-            Propriedade p = pDao.getByOffset(propriedadeOffset);
-            txtId.setText(String.valueOf(p.getId()));
-            txtProprietario.setText(p.getProprietario());
-            txtDescricao.setText(p.getDescricao());
-            txtAgrotoxicos.setText(p.getAgrotoxicos());
-            testaPermissaoUsuario();
+            loadByOffset(pDao);
         } catch (SQLException ex) {
             Utils.msg(pDao.getMensagemErro(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -434,6 +433,16 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         limparCampos();
         testarModo();
     }//GEN-LAST:event_btnPNovoActionPerformed
+
+    public void loadByOffset(PropriedadeDAO pDao) throws SQLException {
+
+        Propriedade p = pDao.getByOffset(propriedadeOffset);
+        txtId.setText(String.valueOf(p.getId()));
+        txtProprietario.setText(p.getProprietario());
+        txtDescricao.setText(p.getDescricao());
+        txtAgrotoxicos.setText(p.getAgrotoxicos());
+        testaPermissaoUsuario();
+    }
 
     private void btnPCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPCancelarActionPerformed
 
@@ -542,32 +551,32 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         }
     }
 
-//    public static void main(String args[]) {
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Windows".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CadastroPropriedade().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CadastroPropriedade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CadastroPropriedade().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

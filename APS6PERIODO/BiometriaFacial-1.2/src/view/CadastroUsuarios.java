@@ -56,8 +56,10 @@ public class CadastroUsuarios extends TelaComCaptura {
     private ModoFormulario modo;
 
     public CadastroUsuarios() {
-        initComponents();
+
         try {
+            initComponents();
+            modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
             loadByOffset();
             modo = modo.LEITURA;
             testarModo();
@@ -80,7 +82,7 @@ public class CadastroUsuarios extends TelaComCaptura {
         TableColumnModel columnModel = gridImgsTreinamento.getColumnModel();
         columnModel.getColumn(0).setCellRenderer(renderer1);
         //columnModel.addColumn(new TableColumn());
-        modelo = (DefaultTableModel) gridImgsTreinamento.getModel();
+
         gridImgsTreinamento.setRowHeight(130);
     }
 
@@ -512,6 +514,10 @@ public class CadastroUsuarios extends TelaComCaptura {
         txtSenha.setText("");
     }
 
+    public void loadByOfsset() {
+
+    }
+
     private void testarModo() {
         if (modo == modo.INSERCAO || modo == modo.ALTERACAO) {
             txtLogin.setEditable(true);
@@ -751,6 +757,11 @@ public class CadastroUsuarios extends TelaComCaptura {
         for (ImagemTreinamento pgm : imagens) {
             Utils ut = new Utils();
             Mat mat = ut.carregarImgMat(pgm.getCaminho(), CvType.CV_8UC1);
+
+            if (mat == null) {
+                return;
+            }
+
             BufferedImage img = ut.matToBufferedImage(mat);
             addImgToTable(img);
         }
