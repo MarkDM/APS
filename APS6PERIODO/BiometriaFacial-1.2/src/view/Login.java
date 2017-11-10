@@ -61,7 +61,6 @@ public class Login extends TelaComCaptura {
 
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -279,10 +278,11 @@ public class Login extends TelaComCaptura {
 
         if (user != null) {
             if (user.getSenha().equals(new Utils().getMd5(String.valueOf(txtSenha.getPassword())))) {
+                int firstNameLength = (user.getNome().indexOf(" ") == -1) ? user.getNome().length() : user.getNome().indexOf(" ");
                 //Administrador
                 if (user.getTipoUsuario().getId() == 4) {
                     setUsuarioAutenticado(user);
-                    int firstNameLength = (user.getNome().indexOf(" ") == -1) ? user.getNome().length() : user.getNome().indexOf(" ");
+
                     setLblResultText("Bem vindo " + user.getNome().subSequence(0, firstNameLength) + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
                     btnAcessar.setEnabled(true);
                 } else {
@@ -310,7 +310,7 @@ public class Login extends TelaComCaptura {
                             if (reconhecido) {
                                 setUsuarioAutenticado(user);
                                 btnAcessar.setEnabled(true);
-                                setLblResultText("Bem vindo " + user.getNome() + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
+                                setLblResultText("Bem vindo " + user.getNome().subSequence(0, firstNameLength) + " - " + user.getTipoUsuario().getDescricao(), Color.GREEN);
                             }
 
                         }

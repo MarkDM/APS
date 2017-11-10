@@ -30,8 +30,9 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         initComponents();
 
         try {
-            loadByOffset(new PropriedadeDAO());
             updateOffset();
+            loadByOffset(new PropriedadeDAO());
+
         } catch (SQLException ex) {
             Logger.getLogger(CadastroPropriedade.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -437,6 +438,10 @@ public class CadastroPropriedade extends javax.swing.JFrame {
     public void loadByOffset(PropriedadeDAO pDao) throws SQLException {
 
         Propriedade p = pDao.getByOffset(propriedadeOffset);
+        if (p == null) {
+            return;
+        }
+
         txtId.setText(String.valueOf(p.getId()));
         txtProprietario.setText(p.getProprietario());
         txtDescricao.setText(p.getDescricao());
