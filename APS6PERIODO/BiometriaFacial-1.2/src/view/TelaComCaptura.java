@@ -139,7 +139,12 @@ public abstract class TelaComCaptura extends javax.swing.JFrame {
             }
         }
 
-        captura = new VideoCapture(0);
+        try {
+            captura = new VideoCapture(0);
+        } catch (Exception e) {
+            Utils.msgErro("Erro ao iniciar webcam", "Erro");
+        }
+
         ClassificadorFacial.classificador = new CascadeClassifier("resources\\cascades\\haarcascade_frontalface_alt.xml");
         // String cascadeFile = localPath + "\\resources\\cascades\\haarcascade_frontalface_alt.xml";
         //String cascadePath = cascadeFile;

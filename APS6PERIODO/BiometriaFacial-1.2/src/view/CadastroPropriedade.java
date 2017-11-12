@@ -17,6 +17,15 @@ public class CadastroPropriedade extends javax.swing.JFrame {
 
     private CadastroPropriedade() {
         initComponents();
+        modo = modo.LEITURA;
+        testarModo();
+
+        try {
+            updateOffset();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroPropriedade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private enum ModoFormulario {
@@ -28,6 +37,8 @@ public class CadastroPropriedade extends javax.swing.JFrame {
     public CadastroPropriedade(Usuario usuarioAutenticado) {
         setUsuarioLogado(usuarioAutenticado);
         initComponents();
+        modo = modo.LEITURA;
+        testarModo();
 
         try {
             updateOffset();
@@ -52,14 +63,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel4 = new javax.swing.JPanel();
-        btnGravar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnAnterior = new javax.swing.JButton();
-        btnProximo = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+               jPanel5 = new javax.swing.JPanel();
         btnPGravar = new javax.swing.JButton();
         btnPExcluir = new javax.swing.JButton();
         btnPAnterior = new javax.swing.JButton();
@@ -76,7 +80,6 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAgrotoxicos = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        paneImagem = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadUsuarios = new javax.swing.JMenu();
         menuLogin = new javax.swing.JMenu();
@@ -86,43 +89,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(102, 102, 102));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(btnNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGravar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterar)
-                .addGap(9, 9, 9)
-                .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAnterior)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnProximo)
-                .addGap(21, 21, 21))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGravar)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnAnterior)
-                    .addComponent(btnProximo)
-                    .addComponent(btnNovo)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnAlterar))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
+       
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Propriedade");
 
@@ -197,7 +164,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 .addComponent(btnPExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPAnterior)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPProximo)
@@ -231,19 +198,6 @@ public class CadastroPropriedade extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAgrotoxicos);
 
         jLabel4.setText("Agrotóxicos utilizados");
-
-        paneImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout paneImagemLayout = new javax.swing.GroupLayout(paneImagem);
-        paneImagem.setLayout(paneImagemLayout);
-        paneImagemLayout.setHorizontalGroup(
-            paneImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        paneImagemLayout.setVerticalGroup(
-            paneImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 248, Short.MAX_VALUE)
-        );
 
         menuCadUsuarios.setText("Cadastro de Usuarios");
         menuCadUsuarios.setAutoscrolls(true);
@@ -285,8 +239,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                                 .addComponent(txtProprietario)
                                 .addComponent(jLabel3)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(paneImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 203, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -300,18 +253,15 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1))
-                    .addComponent(paneImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -474,6 +424,9 @@ public class CadastroPropriedade extends javax.swing.JFrame {
             btnPAlterar.setEnabled(false);
             btnPAnterior.setEnabled(false);
             btnPProximo.setEnabled(false);
+            txtAgrotoxicos.setEditable(true);
+            txtDescricao.setEditable(true);
+            txtProprietario.setEditable(true);
         } else if (modo == modo.LEITURA) {
             btnPCancelar.setEnabled(true);
             btnPGravar.setEnabled(false);
@@ -482,6 +435,9 @@ public class CadastroPropriedade extends javax.swing.JFrame {
             btnPAlterar.setEnabled(true);
             btnPAnterior.setEnabled(true);
             btnPProximo.setEnabled(true);
+            txtAgrotoxicos.setEditable(false);
+            txtDescricao.setEditable(false);
+            txtProprietario.setEditable(false);
         }
     }
 
@@ -522,6 +478,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 btnPNovo.setEnabled(false);
                 btnPAlterar.setEnabled(false);
                 btnPExcluir.setEnabled(false);
+                btnPCancelar.setEnabled(false);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -532,6 +489,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 btnPNovo.setEnabled(false);
                 btnPAlterar.setEnabled(false);
                 btnPExcluir.setEnabled(false);
+                btnPCancelar.setEnabled(false);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -541,6 +499,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 btnPNovo.setEnabled(true);
                 btnPAlterar.setEnabled(true);
                 btnPExcluir.setEnabled(true);
+                btnPCancelar.setEnabled(true);
                 menuCadUsuarios.setEnabled(false);
                 menuCadUsuarios.setText("Cadastro de Usuários (Apenas nível 4)");
                 break;
@@ -550,6 +509,7 @@ public class CadastroPropriedade extends javax.swing.JFrame {
                 btnPNovo.setEnabled(true);
                 btnPAlterar.setEnabled(true);
                 btnPExcluir.setEnabled(true);
+                btnPCancelar.setEnabled(true);
                 menuCadUsuarios.setEnabled(true);
                 menuCadUsuarios.setText("Cadastro de Usuários");
                 break;
@@ -609,7 +569,6 @@ public class CadastroPropriedade extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuCadUsuarios;
     private javax.swing.JMenu menuLogin;
-    private javax.swing.JPanel paneImagem;
     private javax.swing.JTextArea txtAgrotoxicos;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtId;

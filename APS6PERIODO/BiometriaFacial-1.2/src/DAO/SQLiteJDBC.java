@@ -105,6 +105,9 @@ public class SQLiteJDBC {
         stmt.executeUpdate(sqlTipoUsuario);
         String sqlAdmin = "INSERT INTO USUARIO (USR_NOME,USR_LOGIN,USR_SENHA,USR_TIPO_USUARIO_ID) VALUES ('Mr.President','adm','c4ca4238a0b923820dcc509a6f75849b',4)";
         stmt.executeUpdate(sqlAdmin);
+        String sqlPropriedade = "INSERT INTO PROPRIEDADE (PRP_DESCRICAO,PRP_PROPRIETARIO,PRP_AGROTOXICOS)\n"
+                + "VALUES ('Fazenda Santa Clara','Marcos Douglas','AAA111')";
+        stmt.executeUpdate(sqlPropriedade);
 
         stmt.close();
     }
